@@ -13,7 +13,7 @@ const AuthNavigator = () => {
       <AuthStackNavigator.Screen name="Start" component={StartScreen} />
       <AuthStackNavigator.Screen name="SignUp" component={SignUpScreen} />
       <AuthStackNavigator.Screen name="SignIn" component={SignInScreen} />
-      <AuthStackNavigator.Screen
+      <AuthStackNavigator.Screen //TO-DO
         name="ForgotPassword"
         component={ForgotPasswordScreen}
       />

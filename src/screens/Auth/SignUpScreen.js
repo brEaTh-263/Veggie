@@ -12,10 +12,13 @@ import Header from "../../components/General/Header";
 import { useForm, Controller } from "react-hook-form";
 import BackButton from "../../components/General/BackButton";
 import Eye from "../../components/Auth/Eye";
+import * as authActions from "../../store/actions/Auth";
+import { useDispatch } from "react-redux";
 
 const SignUpScreen = ({ navigation }) => {
   const { control, handleSubmit, errors, setError } = useForm();
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,7 +27,11 @@ const SignUpScreen = ({ navigation }) => {
       return setError("repassword", {});
     }
     try {
-      //PENDING!!
+      setIsLoading(true);
+      await dispatch(
+        authActions.signUpDefault(data.username, data.email, data.password)
+      );
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       return setError("email", {

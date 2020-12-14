@@ -24,7 +24,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
   const onSubmit = async (data) => {
     try {
-      // PENDING!!
+      // PENDING!! TO BE DONE AFTER EJECTING
+      // DESIRED COMPONENT DOESN'T WORK WITH EXPO
     } catch (error) {
       setIsLoading(false);
       console.log(error);

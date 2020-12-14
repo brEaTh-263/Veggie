@@ -14,16 +14,23 @@ import { useForm, Controller } from "react-hook-form";
 import Header from "../../components/General/Header";
 import BackButton from "../../components/General/BackButton";
 import Eye from "../../components/Auth/Eye";
+import * as authActions from "../../store/actions/Auth";
+import { useDispatch } from "react-redux";
 
 const SignInScreen = ({ navigation }) => {
   const { control, handleSubmit, errors } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const onSubmit = useCallback(
     async (data) => {
       try {
-        //PENDING!!
+        setIsLoading(true);
+        await dispatch(authActions.signInDefault(data.email, data.password));
+
+        setIsLoading(false);
+        setVisible(false);
       } catch (error) {
         setIsLoading(false);
         return Alert.alert("Invalid", "Email or password is incorrect", [
