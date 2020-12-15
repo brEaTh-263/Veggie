@@ -6,14 +6,14 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import AuthReducer from "./src/store/reducers/Auth";
-// import ProfileReducer from "./src/store/reducers/Profile";
+import ProfileReducer from "./src/store/reducers/Profile";
 // import ProductsReducer from "./src/store/reducers/Products";
 // import CartReducer from "./src/store/reducers/Cart";
 import AppNavigator from "./src/navigator/AppNavigator";
 
 const rootReducer = combineReducers({
   Auth: AuthReducer,
-  // 	Profile: ProfileReducer,
+  Profile: ProfileReducer,
   // 	Products: ProductsReducer,
   // 	Cart: CartReducer,
 });
