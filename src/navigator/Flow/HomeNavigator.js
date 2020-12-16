@@ -1,21 +1,22 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../screens/Flow/Home/HomeScreen";
-// import VegetablesProductsScreen from "../screens/Home/Products/VegetablesScreen";
-// import VegetablesCategoryScreen from "../screens/Home/Categories/VegetablesScreen";
-// import MeatCategoryScreen from "../screens/Home/Categories/Non-VegScreen";
-// import GrainsCategoryScreen from "../screens/Home/Categories/GrainsScreen";
-// import FruitsCategoryScreen from "../screens/Home/Categories/FruitsScreen";
-// import FruitsProductsScreen from "../screens/Home/Products/FruitsScreen";
-// import MeatProductsScreen from "../screens/Home/Products/Non-VegScreen";
-// import GrainsProductsScreen from "../screens/Home/Products/GrainsScreen";
+import VegetablesCategoryScreen from "../../screens/Flow/Home/Categories/VegetablesScreen";
+import FruitsCategoryScreen from "../../screens/Flow/Home/Categories/FruitsScreen";
+import NonVegCategoryScreen from "../../screens/Flow/Home/Categories/Non-VegScreen";
+import GrainsCategoryScreen from "../../screens/Flow/Home/Categories/GrainsScreen";
+import VegetablesProductsScreen from "../../screens/Flow/Home/Products/VegetablesScreen";
+import FruitsProductsScreen from "../../screens/Flow/Home/Products/FruitsScreen";
+import GrainsProductsScreen from "../../screens/Flow/Home/Products/GrainsScreen";
+import NonVegProductsScreen from "../../screens/Flow/Home/Products/Non-VegScreen";
+
 const HomeStackNavigator = createStackNavigator();
 
 const HomeNavigator = () => {
   return (
     <HomeStackNavigator.Navigator screenOptions={{ headerShown: false }}>
       <HomeStackNavigator.Screen name="Home" component={HomeScreen} />
-      {/* <HomeStackNavigator.Screen
+      <HomeStackNavigator.Screen
         name="VegetablesCategory"
         component={VegetablesCategoryScreen}
       />
@@ -25,7 +26,7 @@ const HomeNavigator = () => {
       />
       <HomeStackNavigator.Screen
         name="Non-VegCategory"
-        component={MeatCategoryScreen}
+        component={NonVegCategoryScreen}
       />
       <HomeStackNavigator.Screen
         name="GrainsCategory"
@@ -45,8 +46,8 @@ const HomeNavigator = () => {
       />
       <HomeStackNavigator.Screen
         name="Non-VegProducts"
-        component={MeatProductsScreen}
-      /> */}
+        component={NonVegProductsScreen}
+      />
     </HomeStackNavigator.Navigator>
   );
 };

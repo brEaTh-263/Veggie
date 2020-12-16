@@ -13,16 +13,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { ActivityIndicator, Button } from "react-native-paper";
 import AddressHeader from "../../../components/General/AddressHeader";
 import Colors from "../../../constants/Colors";
-
-// import Categories from "../../components/Home/Categories";
-// import * as productActions from "../../store/actions/Products";
-
+import Categories from "../../../components/Home/Categories";
+import * as productActions from "../../../store/actions/Products";
 import Carousel from "../../../components/Home/Carousel";
 import ChooseLiveOrOtherLocation from "../../../components/General/ChooseLocationType";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const HomeScreen = ({ navigation, route }) => {
+const HomeScreen = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.Auth.token);
   const address = useSelector(
@@ -36,12 +34,9 @@ const HomeScreen = ({ navigation, route }) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-
-        if (!token) {
-          throw new Error();
-        }
         await dispatch(profileActions.getProfileData(token));
-        //   await dispatch(productActions.getAllProducts(token));
+        await dispatch(productActions.getAllProducts(token));
+
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
@@ -63,6 +58,7 @@ const HomeScreen = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
+    //POP UP LOCATION TYPE DIALOG IF NO ADDRESS IS SELECTED
     if (address.length === 0) {
       setIsVisible(true);
     } else {
@@ -99,7 +95,7 @@ const HomeScreen = ({ navigation, route }) => {
 
         <Carousel />
 
-        {/* <Categories /> */}
+        <Categories />
       </View>
     </ScrollView>
   );
