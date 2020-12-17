@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   categoriesContainer: {
     flexWrap: "wrap",
     width: "100%",
-    height: 200,
+    height: 100,
     flexDirection: "row",
   },
   title: {

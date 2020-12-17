@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Card, Avatar, Button, Divider } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import InputSpinner from "react-native-input-spinner";
-// import * as cartActions from '../../store/actions/Cart';
+import * as cartActions from "../../store/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { Fontisto, FontAwesome } from "@expo/vector-icons";
 import * as profileActions from "../../store/actions/Profile";
@@ -24,7 +24,7 @@ const ProductItem = ({
   //   }),
   // );
   // console.log(bookmarkIds);
-  const token = useSelector((state) => state.Profile.token);
+  const token = useSelector((state) => state.Auth.token);
   // const [isBookmarked, setIsBookmarked] = useState(
   //   bookmarkIds.length > 0 ? true : false,
   // );
@@ -107,7 +107,7 @@ const ProductItem = ({
               style={{ alignSelf: "flex-end", marginRight: 15 }}
               color={Colors.tertiary}
               onPress={() => {
-                // dispatch(cartActions.addProduct(_id, token));
+                dispatch(cartActions.addProduct(_id, token));
                 setQty(1);
               }}
             >
@@ -128,10 +128,10 @@ const ProductItem = ({
               value={qty}
               onChange={(num) => {
                 if (num > qty) {
-                  // dispatch(cartActions.addProduct(_id, token));
+                  dispatch(cartActions.addProduct(_id, token));
                   setQty(num);
                 } else if (num < qty) {
-                  // dispatch(cartActions.removeProduct(_id, token));
+                  dispatch(cartActions.removeProduct(_id, token));
                   setQty(num);
                 }
               }}
@@ -139,15 +139,10 @@ const ProductItem = ({
                 marginTop: 10,
                 alignSelf: "flex-end",
                 width: 100,
-                // justifyContent: "flex-start",
               }}
               inputStyle={{
                 width: 30,
                 height: 35,
-                // borderWidth: 1,
-                // top: 10,
-                // alignItems: 'center',
-                // justifyContent: 'center',
               }}
               colorLeft={Colors.tertiary}
               colorRight={Colors.tertiary}

@@ -6,7 +6,7 @@ import ProfileNavigator from "./Flow/ProfileNavigator";
 import SearchNavigator from "./Flow/SearchNavigator";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
-// import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 const tabOptions = {
@@ -20,29 +20,30 @@ const tabOptions = {
 const FlowTabNavigator = createBottomTabNavigator();
 
 const FlowNavigator = () => {
-  //   const items = useSelector((state) => state.Cart.cartProducts.length);
+  const items = useSelector((state) => state.Cart.cartProducts.length);
   return (
     <FlowTabNavigator.Navigator tabBarOptions={tabOptions}>
       <FlowTabNavigator.Screen
         name="Home"
         component={HomeNavigator}
         options={({ route }) => {
-          //   let tabBarVisible;
-          //   const routeName = getFocusedRouteNameFromRoute(route);
+          let tabBarVisible;
+          const routeName = getFocusedRouteNameFromRoute(route);
 
-          //   if (
-          //     routeName === "VegetablesProducts" ||
-          //     routeName === "GrainsProducts" ||
-          //     routeName === "MeatProducts" ||
-          //     routeName === "FruitsProducts"
-          //   ) {
-          //     tabBarVisible = false;
-          //   } else {
-          //     tabBarVisible = true;
-          //   }
+          if (
+            routeName === "VegetablesProducts" ||
+            routeName === "GrainsProducts" ||
+            routeName === "MeatProducts" ||
+            routeName === "FruitsProducts" ||
+            routeName === "AllProducts"
+          ) {
+            tabBarVisible = false;
+          } else {
+            tabBarVisible = true;
+          }
 
           return {
-            // tabBarVisible,
+            tabBarVisible,
             tabBarIcon: ({ color }) => (
               <AntDesign name="home" size={24} color={color} />
             ),
@@ -65,33 +66,14 @@ const FlowNavigator = () => {
           tabBarIcon: ({ color }) => (
             <Entypo name="shopping-bag" size={24} color={color} />
           ),
-          //   tabBarBadge: items > 0 ? items : null,
+          tabBarBadge: items > 0 ? items : null,
         }}
       />
       <FlowTabNavigator.Screen
         name="Profile"
         component={ProfileNavigator}
         options={({ route }) => {
-          //   let tabBarVisible;
-          //   const routeName = getFocusedRouteNameFromRoute(route);
-
-          //   if (
-          //     routeName === "SearchLocations" ||
-          //     routeName === "EditProfile" ||
-          //     routeName === "PhoneNumber" ||
-          //     routeName === "OTP" ||
-          //     routeName === "AddAddress" ||
-          //     routeName === "Address" ||
-          //     routeName === "ChangePassword" ||
-          //     routeName === "NewPassword"
-          //   ) {
-          //     tabBarVisible = false;
-          //   } else {
-          //     tabBarVisible = true;
-          //   }
-
           return {
-            // tabBarVisible,
             tabBarIcon: ({ color }) => (
               <AntDesign name="user" size={24} color={color} />
             ),

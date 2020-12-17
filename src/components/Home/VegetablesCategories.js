@@ -4,20 +4,11 @@ import { View, Text, StyleSheet } from "react-native";
 import SingleCategory from "./SingleCategory";
 import Colors from "../../constants/Colors";
 
-const Categories = ({ showAll, setShowAll }) => {
+const Categories = () => {
   return (
-    <View style={{ marginVertical: 10, marginHorizontal: 15, height: 390 }}>
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 5 }}>
-        Shop by Category
-      </Text>
-      <View
-        style={{
-          flexWrap: "wrap",
-          width: "100%",
-          height: "50%",
-          flexDirection: "row",
-        }}
-      >
+    <View style={styles.container}>
+      <Text style={styles.title}>Shop by Category</Text>
+      <View style={styles.categoriesContainerStyle}>
         <SingleCategory
           mainCategory="Vegetables"
           subCategory="Leaves"
@@ -49,38 +40,40 @@ const Categories = ({ showAll, setShowAll }) => {
           source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/cowpea.jpg"
         />
 
-        {showAll ? (
-          <>
-            <SingleCategory
-              mainCategory="Vegetables"
-              subCategory="Fruits"
-              source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/eggplant.jpg"
-            />
-            <SingleCategory
-              mainCategory="Vegetables"
-              subCategory="Flowers"
-              source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/broccoli.jpg"
-            />
-            <SingleCategory
-              mainCategory="Vegetables"
-              subCategory="Bulb and Tuber"
-              source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/garlic.jpg"
-            />
-          </>
-        ) : null}
+        <SingleCategory
+          mainCategory="Vegetables"
+          subCategory="Fruits"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/eggplant.jpg"
+        />
+        <SingleCategory
+          mainCategory="Vegetables"
+          subCategory="Flowers"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/broccoli.jpg"
+        />
+        <SingleCategory
+          mainCategory="Vegetables"
+          subCategory="Bulb and Tuber"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/garlic.jpg"
+        />
       </View>
-      <Button
-        style={{ position: "relative", top: showAll ? 130 : 20 }}
-        icon={showAll ? "chevron-up" : "chevron-down"}
-        color={Colors.tertiary}
-        onPress={() => {
-          setShowAll((prevState) => !prevState);
-        }}
-      >
-        {showAll ? "Show less" : "Show more"}
-      </Button>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 10,
+    marginHorizontal: 15,
+    height: 370,
+    // borderWidth: 1,
+  },
+  title: { fontSize: 20, fontWeight: "bold", marginBottom: 5 },
+  categoriesContainerStyle: {
+    flexWrap: "wrap",
+    width: "100%",
+    height: 100,
+    flexDirection: "row",
+  },
+});
 
 export default Categories;

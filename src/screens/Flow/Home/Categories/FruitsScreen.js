@@ -1,48 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
-  FlatList,
+  ScrollView,
 } from "react-native";
 import BackButton from "../../../../components/General/BackButton";
 import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
 
-import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-native-paper";
-import { ScrollView } from "react-native";
+import FruitsCategories from "../../../../components/Home/FruitsCategories";
 
 const FruitsCategoryScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const [isLoading, setisLoading] = useState(false);
-  const token = useSelector((state) => state.Profile.token);
-  const products = useSelector((state) =>
-    state.Products.products.filter((product) => product.Category === "Fruits")
-  );
-
-  if (isLoading) {
-    return (
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1,
-          backgroundColor: Colors.bkg,
-        }}
-      >
-        <ActivityIndicator size="large" color={Colors.tertiary} />
-        <Text style={{ fontSize: 20, marginVertical: 15 }}>Loading...</Text>
-      </View>
-    );
-  }
   return (
     <ScrollView style={styles.container} centerContent={true}>
-      <View
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 15 }}
-      >
+      <View style={styles.headerContainer}>
         <TouchableOpacity
           style={{ marginHorizontal: 15 }}
           onPress={() => navigation.goBack()}
@@ -51,8 +25,14 @@ const FruitsCategoryScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Header text="Fruits" textSize={30} />
       </View>
-      <Button onPress={() => navigation.navigate("FruitsProducts")}>
-        Browse All
+      <FruitsCategories />
+      <Button
+        mode="contained"
+        style={{ marginHorizontal: 15 }}
+        color={Colors.tertiary}
+        onPress={() => navigation.navigate("AllProducts", { title: "Fruits" })}
+      >
+        View All
       </Button>
     </ScrollView>
   );
@@ -62,6 +42,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bkg,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 35,
   },
 });
 

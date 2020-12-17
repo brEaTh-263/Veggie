@@ -8,14 +8,14 @@ import ReduxThunk from "redux-thunk";
 import AuthReducer from "./src/store/reducers/Auth";
 import ProfileReducer from "./src/store/reducers/Profile";
 import ProductsReducer from "./src/store/reducers/Products";
-// import CartReducer from "./src/store/reducers/Cart";
+import CartReducer from "./src/store/reducers/Cart";
 import AppNavigator from "./src/navigator/AppNavigator";
 
 const rootReducer = combineReducers({
   Auth: AuthReducer,
   Profile: ProfileReducer,
   Products: ProductsReducer,
-  // 	Cart: CartReducer,
+  Cart: CartReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

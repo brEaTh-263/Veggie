@@ -9,6 +9,7 @@ import VegetablesProductsScreen from "../../screens/Flow/Home/Products/Vegetable
 import FruitsProductsScreen from "../../screens/Flow/Home/Products/FruitsScreen";
 import GrainsProductsScreen from "../../screens/Flow/Home/Products/GrainsScreen";
 import NonVegProductsScreen from "../../screens/Flow/Home/Products/Non-VegScreen";
+import AllProductsScreen from "../../screens/Flow/Home/AllProductsScreen";
 
 const HomeStackNavigator = createStackNavigator();
 
@@ -16,6 +17,10 @@ const HomeNavigator = () => {
   return (
     <HomeStackNavigator.Navigator screenOptions={{ headerShown: false }}>
       <HomeStackNavigator.Screen name="Home" component={HomeScreen} />
+      <HomeStackNavigator.Screen
+        name="AllProducts"
+        component={AllProductsScreen}
+      />
       <HomeStackNavigator.Screen
         name="VegetablesCategory"
         component={VegetablesCategoryScreen}

@@ -1,79 +1,73 @@
 import React, { useRef, useEffect, useState } from "react";
-import { FlatList, Image, View, Text } from "react-native";
+import { FlatList, Image, View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import Header from "../../../components/General/Header";
-// import ProductItem from "../../components/Products/ProductItem";
+import ProductItem from "../../../components/General/ProductItem";
 import Colors from "../../../constants/Colors";
 import { Button } from "react-native-paper";
-// import CheckOut from "../../components/Cart/CheckOut";
-// import ChooseLiveOrOtherLocation from "../../components/Location/ChooseLiveOrOtherLocation";
+import CheckOut from "../../../components/Cart/CheckOut";
+import ChooseLocationType from "../../../components/General/ChooseLocationType";
 
 const CartScreen = ({ navigation }) => {
-  //   const products = useSelector((state) => state.Cart.cartProducts);
-  //   const allProducts = useSelector((state) => state.Products.products);
-  //   const profileData = useSelector((state) => state.Profile);
-  //   const amount = useSelector((state) => state.Cart.totalAmount);
+  const products = useSelector((state) => state.Cart.cartProducts);
+  const allProducts = useSelector((state) => state.Products.products);
+  const profileData = useSelector((state) => state.Profile);
+  const amount = useSelector((state) => state.Cart.totalAmount);
   const [isVisible, setIsVisible] = useState(false);
 
-  //   const cartProducts = products.map((prod) => {
-  //     const productIndex = allProducts.findIndex(
-  //       (product) => product._id === prod.productId
-  //     );
-  //     allProducts[productIndex].quantity = prod.quantity;
-  //     return allProducts[productIndex];
-  //   });
-  //   console.log(cartProducts);
+  const cartProducts = products.map((prod) => {
+    //GETTING ALL DETAILS OF A PRODUCT THROUGH ITS ID
+    const productIndex = allProducts.findIndex(
+      (product) => product._id === prod.productId
+    );
+    allProducts[productIndex].quantity = prod.quantity;
+    return allProducts[productIndex];
+  });
+  console.log(cartProducts);
 
-  //   const vegetableProducts = cartProducts.filter(
-  //     (product) => product.Category === "Vegetables"
-  //   );
-  //   const fruitProducts = cartProducts.filter(
-  //     (product) => product.Category === "Fruits"
-  //   );
-  //   const nonVegProducts = cartProducts.filter(
-  //     (product) => product.Category === "Non-Veg"
-  //   );
-  //   const grainProducts = cartProducts.filter(
-  //     (product) => product.Category === "Grains"
-  //   );
+  const vegetableProducts = cartProducts.filter(
+    (product) => product.Category === "Vegetables"
+  );
+  const fruitProducts = cartProducts.filter(
+    (product) => product.Category === "Fruits"
+  );
+  const nonVegProducts = cartProducts.filter(
+    (product) => product.Category === "Non-Veg"
+  );
+  const grainProducts = cartProducts.filter(
+    (product) => product.Category === "Grains"
+  );
 
-  //   useEffect(() => {
-  //     if (profileData.selectedLocation.address.length === 0) {
-  //       setIsVisible(true);
-  //     }
-  //   }, [setIsVisible]);
+  useEffect(() => {
+    if (profileData.selectedLocation.address.length === 0) {
+      setIsVisible(true);
+    }
+  }, [setIsVisible]);
 
-  //   if (amount === 0 && cartProducts.length == 0) {
-  //     return (
-  //       <View
-  //         style={{
-  //           flex: 1,
-  //           backgroundColor: Colors.bkg,
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //         }}
-  //       >
-  //         <Image
-  //           source={require("../../../assets/emptyCart.png")}
-  //           style={{ height: "30%", width: "70%" }}
-  //         />
-  //         <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>
-  //           Add something to continue... Some quote related to farmer ,for ex
-  //           check swiggy
-  //         </Text>
-  //         <Button onPress={() => navigation.navigate("Home")}>Browse all</Button>
-  //       </View>
-  //     );
-  //   }
+  if (amount === 0 && cartProducts.length == 0) {
+    return (
+      <View style={styles.emptyContainerStyle}>
+        <Image
+          source={require("../../../../assets/emptyCart.png")}
+          style={{ height: "30%", width: "70%" }}
+        />
+        <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>
+          Add something to continue... Some quote related to farmer ,for ex
+          check swiggy
+        </Text>
+        <Button onPress={() => navigation.navigate("Home")}>Browse all</Button>
+      </View>
+    );
+  }
 
   return (
     <View style={{ backgroundColor: Colors.bkg, flex: 1 }}>
       <Header
         text="Cart"
-        style={{ marginHorizontal: 10, marginTop: 15 }}
+        style={{ marginHorizontal: 10, marginTop: 35 }}
         textSize={30}
       />
-      {/* <ChooseLiveOrOtherLocation
+      <ChooseLocationType
         isVisible={isVisible}
         setIsVisible={setIsVisible}
         inCart={true}
@@ -263,15 +257,20 @@ const CartScreen = ({ navigation }) => {
             />
           );
         }}
-      /> */}
+      />
 
-      {/* <CheckOut
-        amount={amount}
-        navigation={navigation}
-        setIsVisible={setIsVisible}
-      /> */}
+      <CheckOut amount={amount} setIsVisible={setIsVisible} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  emptyContainerStyle: {
+    flex: 1,
+    backgroundColor: Colors.bkg,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default CartScreen;

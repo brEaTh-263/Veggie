@@ -1,26 +1,22 @@
 import React, { useEffect } from "react";
-import { TouchableOpacity, FlatList, View, StyleSheet } from "react-native";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import ProductItem from "../../../components/General/ProductItem";
 import { useSelector } from "react-redux";
+import Colors from "../../../constants/Colors";
 import { Searchbar } from "react-native-paper";
-import BackButton from "../../../../components/General/BackButton";
-import Header from "../../../../components/General/Header";
-import ProductItem from "../../../../components/General/ProductItem";
-import Colors from "../../../../constants/Colors";
-import useSearchGrocery from "../../../../hooks/useSearchGrocery";
-import ViewCart from "../../../../components/Cart/ViewCart";
+import Header from "../../../components/General/Header";
+import BackButton from "../../../components/General/BackButton";
+import useSearchGrocery from "../../../hooks/useSearchGrocery";
+import ViewCart from "../../../components/Cart/ViewCart";
 
-const FruitsProductsScreen = ({ route, navigation }) => {
-  let { title } = route.params;
+const AllProductsScreen = ({ route, navigation }) => {
+  const { title } = route.params;
   const products = useSelector((state) =>
-    state.Products.products.filter(
-      (product) =>
-        product.Category === "Fruits" && product.subCategory === title
-    )
+    state.Products.products.filter((prod) => prod.Category === title)
   );
-
+  const cartProducts = useSelector((state) => state.Cart.cartProducts);
   const [getSearchedGrocery, items, setItems] = useSearchGrocery(title);
 
-  const cartProducts = useSelector((state) => state.Cart.cartProducts);
   useEffect(() => {
     setItems(products);
   }, []);
@@ -28,7 +24,7 @@ const FruitsProductsScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={products}
+        data={items}
         keyExtractor={(item) => item._id}
         ListHeaderComponent={
           <>
@@ -73,8 +69,8 @@ const FruitsProductsScreen = ({ route, navigation }) => {
               imageUrl={item.imageUrl}
               price={item.price}
               quantity={i}
-              category="Fruits"
               _id={item._id}
+              category={title}
             />
           );
         }}
@@ -91,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FruitsProductsScreen;
+export default AllProductsScreen;

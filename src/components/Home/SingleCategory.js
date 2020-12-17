@@ -39,7 +39,7 @@ const SingleCategory = ({ mainCategory, source, parent, subCategory }) => {
 const styles = StyleSheet.create({
   container: {
     width: "30%",
-    height: "50%",
+    height: "100%",
     borderRadius: 10,
     overflow: "hidden",
     elevation: 5,
