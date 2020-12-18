@@ -7,16 +7,13 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-// import Payments from "../../components/Profile/Payments";
-// import PersonalInfo from "../../components/Profile/PersonalInfo";
-// import Settings from "../../components/Profile/Settings";
-// import YourOrders from "../../components/Profile/YourOrders";
 import Colors from "../../../constants/Colors";
 import { useSelector, useDispatch } from "react-redux";
-// import * as profileActions from "../../store/actions/Profile";
-// import DP from "../../components/Profile/DP";
+import * as profileActions from "../../../store/actions/Profile";
+import DP from "../../../components/Profile/DP";
 import ProductItem from "../../../components/General/ProductItem";
 import { Entypo } from "@expo/vector-icons";
+import CardButton from "../../../components/Profile/CardButton";
 
 const ProfileScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
@@ -25,35 +22,32 @@ const ProfileScreen = ({ navigation }) => {
   const cartProducts = useSelector((state) => state.Cart.cartProducts); //used to check if items added in cart are bookmarked as well..then the quantity is showed here
   const allProducts = useSelector((state) => state.Products.products); //used to filter all the bookmarks from all products
   const dispatch = useDispatch();
-  // console.log(profileData);
-  //   const fetchData = useCallback(async () => {
-  //     try {
-  //       setIsLoading(true);
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      await dispatch(profileActions.getProfileData(profileData.token));
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      return Alert.alert(
+        "Something Went Wrong!",
+        "Please check your internet connection",
+        [
+          {
+            text: "Try Again",
+            onPress: dispatch(profileActions.getProfileData(token)),
+          },
+        ]
+      );
+    }
+  }, [isLoading, dispatch]);
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", fetchData);
 
-  //       await dispatch(profileActions.getProfileData(profileData.token));
-  //       setIsLoading(false);
-  //     } catch (err) {
-  //       setIsLoading(false);
-  //       return Alert.alert(
-  //         "Something Went Wrong!",
-  //         "Please check your internet connection",
-  //         [
-  //           {
-  //             text: "Try Again",
-  //             onPress: dispatch(profileActions.getProfileData(token)),
-  //           },
-  //         ]
-  //       );
-  //     }
-  //   }, [isLoading, dispatch]);
-  //   useEffect(() => {
-  //     // fetchData();
-  //     const willFocus = navigation.addListener("focus", fetchData);
-
-  //     return () => {
-  //       willFocus();
-  //     };
-  //   }, [fetchData]);
+    return () => {
+      willFocus();
+    };
+  }, [fetchData]);
 
   const bookmarks = profileData.bookmarks.map((prod) => {
     const productIndex = allProducts.findIndex(
@@ -77,7 +71,7 @@ const ProfileScreen = ({ navigation }) => {
         keyExtractor={(Item) => Item._id}
         ListHeaderComponent={
           <>
-            {/* <DP
+            <DP
               username={profileData.username}
               image={image}
               setImage={setImage}
@@ -89,46 +83,21 @@ const ProfileScreen = ({ navigation }) => {
                 Account Details
               </Text>
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                height: 250,
-                backgroundColor: Colors.bkg,
-                // borderWidth: 1,
-                flexWrap: "wrap",
-                justifyContent: "space-around",
-                alignItems: "center",
-                // elevation: 5,
-              }}
-            >
-              <PersonalInfo navigation={navigation} />
-
-              <Payments navigation={navigation} />
-              <Settings navigation={navigation} />
-              <YourOrders navigation={navigation} />
-            </View> */}
+            <View style={styles.cardsContainer}>
+              <CardButton title="Personal Info" icon="user" />
+              <CardButton
+                title="Payments"
+                icon="credit-card-settings-outline"
+              />
+              <CardButton title="My Orders" icon="pencil-outline" />
+              <CardButton title="Settings" icon="settings" />
+            </View>
 
             <View style={{ marginTop: 10, marginVertical: 10 }}>
-              <Text
-                style={{
-                  fontSize: 18,
-                  color: "black",
-                  marginLeft: 10,
-                  // borderWidth: 1,
-                }}
-              >
-                Your bookmarks
-              </Text>
+              <Text style={styles.bookmarkTitle}>Your bookmarks</Text>
             </View>
             {profileData.bookmarks.length === 0 && (
-              <View
-                style={{
-                  height: 100,
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+              <View style={styles.bookmarkIconContainer}>
                 <Entypo name="bookmarks" size={30} color="#888" />
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   Bookmarks will appear here...
@@ -164,22 +133,39 @@ const ProfileScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  bookmarkTitle: {
+    fontSize: 18,
+    color: "black",
+    marginLeft: 10,
+  },
   container: {
     flex: 1,
-    // justifyContent: "center",
     backgroundColor: Colors.bkg,
   },
   infoContainer: {
     marginTop: 80,
     alignItems: "center",
     justifyContent: "center",
-    // borderWidth: 1,
   },
   name: {
     fontSize: 30,
     marginTop: 20,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  cardsContainer: {
+    flexDirection: "row",
+    height: 280,
+    backgroundColor: Colors.bkg,
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  bookmarkIconContainer: {
+    height: 100,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

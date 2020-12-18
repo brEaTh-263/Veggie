@@ -1,7 +1,7 @@
 import { url } from "../../constants/url";
 export const SIGN_UP_DEFAULT = "SIGN_UP_DEFAULT";
 export const DID_TRY_AUTO_AL = "DID_TRY_AUTO_AL";
-
+export const LOG_OUT = "LOG_OUT";
 export const setDidTryAutoLogin = () => {
   return async (dispatch) => {
     // console.log('Tried');
@@ -94,5 +94,11 @@ export const signInDefault = (email, password) => {
       console.log(err);
       throw new Error(err.Error);
     }
+  };
+};
+
+export const log_out = () => {
+  return (dispatch) => {
+    dispatch({ type: LOG_OUT });
   };
 };

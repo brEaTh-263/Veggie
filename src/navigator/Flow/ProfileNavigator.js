@@ -1,27 +1,18 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../screens/Flow/Profile/ProfileScreen";
-// import SettingsScreen from "../screens/Profile/Settings/SettingsScreen";
-// import ChangePasswordScreen from "../screens/Profile/Settings/ChangePasswordScreen";
-// import PersonalInfoScreen from "../screens/Profile/PersonalInfoScreen";
-// import EditProfileScreen from "../screens/Profile/PersonalInfo/EditProfileScreen";
-// import PhoneNumberScreen from "../screens/Profile/PersonalInfo/PhoneNumberScreen";
-// import OTPScreen from "../screens/Profile/OTPScreen";
-// import AddAddressScreen from "../screens/Profile/PersonalInfo/AddAddressScreen";
-// import SearchLocationsScreen from "../screens/Profile/PersonalInfo/SearchLocationsScreen";
-// import AddressScreen from "../screens/Profile/PersonalInfo/AddressScreen";
-// import NewPasswordScreen from "../screens/Profile/Settings/NewPasswordScreen";
+import SettingsScreen from "../../screens/Flow/Profile/Settings/SettingsScreen";
 const ProfileStackNavigator = createStackNavigator();
 
 const ProfileNavigator = () => {
   return (
     <ProfileStackNavigator.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStackNavigator.Screen name="Profile" component={ProfileScreen} />
-      {/* <ProfileStackNavigator.Screen
+      <ProfileStackNavigator.Screen
         name="Settings"
         component={SettingsScreen}
       />
-      <ProfileStackNavigator.Screen
+      {/* <ProfileStackNavigator.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
       />

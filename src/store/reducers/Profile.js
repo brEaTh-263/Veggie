@@ -1,3 +1,4 @@
+import { LOG_OUT } from "../actions/Auth";
 import {
   EDIT_BOOKMARK,
   PROFILE_DATA,
@@ -55,6 +56,10 @@ export default (state = initialState, action) => {
         ...state,
         bookmarks: action.profileData.bookmarks,
       };
+    }
+
+    case LOG_OUT: {
+      return initialState;
     }
     default: {
       return state;

@@ -1,3 +1,4 @@
+import { LOG_OUT } from "../actions/Auth";
 import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/Cart";
 import { PROFILE_DATA } from "../actions/Profile";
 
@@ -30,6 +31,9 @@ export default (state = initialState, action) => {
         cartProducts: action.profileData.cartProducts,
         totalAmount: action.profileData.totalAmount,
       };
+    }
+    case LOG_OUT: {
+      return initialState;
     }
 
     default: {

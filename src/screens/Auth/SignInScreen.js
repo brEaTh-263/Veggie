@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
@@ -28,9 +29,6 @@ const SignInScreen = ({ navigation }) => {
       try {
         setIsLoading(true);
         await dispatch(authActions.signInDefault(data.email, data.password));
-
-        setIsLoading(false);
-        setVisible(false);
       } catch (error) {
         setIsLoading(false);
         return Alert.alert("Invalid", "Email or password is incorrect", [
@@ -40,7 +38,7 @@ const SignInScreen = ({ navigation }) => {
         ]);
       }
     },
-    [setIsLoading]
+    [setIsLoading, setVisible, isLoading]
   );
 
   return (

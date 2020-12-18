@@ -1,4 +1,4 @@
-import { DID_TRY_AUTO_AL, SIGN_UP_DEFAULT } from "../actions/Auth";
+import { DID_TRY_AUTO_AL, LOG_OUT, SIGN_UP_DEFAULT } from "../actions/Auth";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const initialState = {
@@ -24,6 +24,11 @@ export default (state = initialState, action) => {
         ...state,
         didTryAutoLogin: true,
       };
+    }
+    case LOG_OUT: {
+      AsyncStorage.removeItem("tokenId");
+
+      return initialState;
     }
 
     default: {

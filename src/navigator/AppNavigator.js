@@ -11,6 +11,7 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       {isAuth && <FlowNavigator />}
+      {/* {didTryAutoLogin && <AuthNavigator />} */}
       {didTryAutoLogin && !isAuth && <AuthNavigator />}
       {!didTryAutoLogin && !isAuth && <InitialScreen />}
     </NavigationContainer>

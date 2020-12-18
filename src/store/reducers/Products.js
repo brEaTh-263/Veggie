@@ -1,3 +1,4 @@
+import { LOG_OUT } from "../actions/Auth";
 import { GET_ALL_PRODUCTS } from "../actions/Products";
 
 const initialState = {
@@ -12,6 +13,9 @@ export default (state = initialState, action) => {
       };
     }
 
+    case LOG_OUT: {
+      return initialState;
+    }
     default: {
       return state;
     }
