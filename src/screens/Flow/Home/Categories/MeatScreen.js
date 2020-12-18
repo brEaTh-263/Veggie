@@ -5,7 +5,7 @@ import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
 import { Button } from "react-native-paper";
 
-const NonVegCategoryScreen = ({ navigation }) => {
+const MeatCategoryScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container} centerContent={true}>
       <View style={styles.headerContainer}>
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NonVegCategoryScreen;
+export default MeatCategoryScreen;

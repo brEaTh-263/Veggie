@@ -18,13 +18,13 @@ const Categories = () => {
           source="https://images263.s3-us-west-1.amazonaws.com/Categories/Fruits.jpg"
         />
         <SingleCategory
-          parent={true}
-          mainCategory="Non-Veg"
+          // parent={true} //NOT WILLING TO NAVIGATE TO CATEGORY SCREEN INSTEAL PRODUCTS
+          subCategory="Meat" //ALL PRODUCTS TAKES SUBCATEGORY SO PASSING A PROP
           source="https://images263.s3-us-west-1.amazonaws.com/Categories/Non-Veg.jpg"
         />
         <SingleCategory
-          parent={true}
-          mainCategory="Grains"
+          // parent={true} //NOT WILLING TO NAVIGATE TO CATEGORY SCREEN INSTEAL PRODUCTS
+          subCategory="Grains" //ALL PRODUCTS TAKES SUBCATEGORY SO PASSING A PROP
           source="https://images263.s3-us-west-1.amazonaws.com/Categories/Grains.jpg"
         />
       </View>

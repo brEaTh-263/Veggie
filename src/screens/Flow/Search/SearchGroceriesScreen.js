@@ -1,39 +1,17 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import Header from "../../../components/General/Header";
 import { useSelector } from "react-redux";
 import ProductItem from "../../../components/General/ProductItem";
 import Colors from "../../../constants/Colors";
+import useSearchGrocery from "../../../hooks/useSearchGrocery";
 
 const SearchGroceriesScreen = () => {
-  const [items, setItems] = useState([]);
   const products = useSelector((state) => state.Products.products);
   const cartProducts = useSelector((state) => state.Cart.cartProducts);
-  const getSearchedGrocery = useCallback(async (query) => {
-    let text = query.replace(/\W/g, ""); //searching only for all alphanumeric characters only
-    const searched = products.filter((product) => {
-      let name = product.name.toLowerCase();
-      let price = product.price.toString();
-      let category = product.Category.toLowerCase();
-      let indianName;
-      if (product.indianName) {
-        //FOR DEVELOPMENT MODE ONLY,IN PRODUCTION INDIAN NAME FOR PRODUCT MUST EXIST
-        indianName = product.indianName.toLowerCase();
-      } else {
-        indianName = product.name.toLowerCase();
-      }
-      if (
-        name.includes(text.toLowerCase()) ||
-        price.includes(text) ||
-        category.includes(text.toLowerCase()) ||
-        indianName.includes(text.toLowerCase())
-      ) {
-        return true;
-      } else false;
-    });
-    setItems(searched);
-  }, []);
+
+  const [getSearchedGrocery, items, setItems] = useSearchGrocery("");
 
   return (
     <View style={styles.container}>

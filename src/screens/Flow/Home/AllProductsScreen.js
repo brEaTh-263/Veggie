@@ -12,7 +12,9 @@ import ViewCart from "../../../components/Cart/ViewCart";
 const AllProductsScreen = ({ route, navigation }) => {
   const { title } = route.params;
   const products = useSelector((state) =>
-    state.Products.products.filter((prod) => prod.Category === title)
+    state.Products.products.filter(
+      (prod) => prod.Category === title || prod.subCategory === title
+    )
   );
   const cartProducts = useSelector((state) => state.Cart.cartProducts);
   const [getSearchedGrocery, items, setItems] = useSearchGrocery(title);

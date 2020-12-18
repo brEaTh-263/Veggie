@@ -3,12 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../screens/Flow/Home/HomeScreen";
 import VegetablesCategoryScreen from "../../screens/Flow/Home/Categories/VegetablesScreen";
 import FruitsCategoryScreen from "../../screens/Flow/Home/Categories/FruitsScreen";
-import NonVegCategoryScreen from "../../screens/Flow/Home/Categories/Non-VegScreen";
+import MeatCategoryScreen from "../../screens/Flow/Home/Categories/MeatScreen";
 import GrainsCategoryScreen from "../../screens/Flow/Home/Categories/GrainsScreen";
-import VegetablesProductsScreen from "../../screens/Flow/Home/Products/VegetablesScreen";
-import FruitsProductsScreen from "../../screens/Flow/Home/Products/FruitsScreen";
-import GrainsProductsScreen from "../../screens/Flow/Home/Products/GrainsScreen";
-import NonVegProductsScreen from "../../screens/Flow/Home/Products/Non-VegScreen";
 import AllProductsScreen from "../../screens/Flow/Home/AllProductsScreen";
 
 const HomeStackNavigator = createStackNavigator();
@@ -30,28 +26,12 @@ const HomeNavigator = () => {
         component={FruitsCategoryScreen}
       />
       <HomeStackNavigator.Screen
-        name="Non-VegCategory"
-        component={NonVegCategoryScreen}
+        name="MeatCategory"
+        component={MeatCategoryScreen}
       />
       <HomeStackNavigator.Screen
         name="GrainsCategory"
         component={GrainsCategoryScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="VegetablesProducts"
-        component={VegetablesProductsScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="FruitsProducts"
-        component={FruitsProductsScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="GrainsProducts"
-        component={GrainsProductsScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="Non-VegProducts"
-        component={NonVegProductsScreen}
       />
     </HomeStackNavigator.Navigator>
   );

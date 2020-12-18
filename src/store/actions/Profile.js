@@ -1,4 +1,5 @@
 export const PROFILE_DATA = "PROFILE_DATA";
+export const EDIT_BOOKMARK = "EDIT_BOOKMARK";
 export const SELECTED_ADDRESS = "SELECTED_ADDRESS";
 import { url } from "../../constants/url";
 
@@ -49,5 +50,59 @@ export const getSelectedAddress = (address, coords) => {
         coords: coords,
       },
     });
+  };
+};
+
+export const addBookmark = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/user/add-bookmark`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      dispatch({
+        type: EDIT_BOOKMARK,
+        profileData: {
+          bookmarks: responseJson.details.bookmarks,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const removeBookmark = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/user/remove-bookmark`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      dispatch({
+        type: EDIT_BOOKMARK,
+        profileData: {
+          bookmarks: responseJson.details.bookmarks,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

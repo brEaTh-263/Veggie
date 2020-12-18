@@ -3,11 +3,18 @@ import { View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
 export default (title) => {
-  const products = useSelector((state) =>
-    state.Products.products.filter(
-      (prod) => prod.Category === title || prod.subCategory === title
-    )
-  );
+  let products = [];
+  if (title.length === 0) {
+    // FOR SEARCHGROCERIES SCREEN WHERE ALL PRODUCTS MUST EXISTS
+    products = useSelector((state) => state.Products.products);
+  } else {
+    products = useSelector((state) =>
+      state.Products.products.filter(
+        (prod) => prod.Category === title || prod.subCategory === title
+      )
+    );
+  }
+
   const [items, setItems] = useState([]);
 
   const getSearchedGrocery = useCallback(async (query) => {

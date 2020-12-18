@@ -106,8 +106,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: SCREEN_WIDTH,
     backgroundColor: Colors.bkg,
-    // top: -20,
-    // borderWidth: 1,
   },
 });
 

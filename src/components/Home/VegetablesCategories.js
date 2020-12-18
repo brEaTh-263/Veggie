@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { Button } from "react-native-paper";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import SingleCategory from "./SingleCategory";
-import Colors from "../../constants/Colors";
 
 const Categories = () => {
   return (
@@ -36,7 +34,7 @@ const Categories = () => {
         />
         <SingleCategory
           mainCategory="Vegetables"
-          subCategory="Indian"
+          subCategory="Indian Vegetables"
           source="https://images263.s3-us-west-1.amazonaws.com/Categories/Vegetables/cowpea.jpg"
         />
 
@@ -65,7 +63,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 15,
     height: 370,
-    // borderWidth: 1,
   },
   title: { fontSize: 20, fontWeight: "bold", marginBottom: 5 },
   categoriesContainerStyle: {

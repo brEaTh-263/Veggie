@@ -13,7 +13,7 @@ const SingleCategory = ({ mainCategory, source, parent, subCategory }) => {
             navigation.navigate(`${mainCategory}Category`); //PARENT TRUE MEANS SELECTED A MAIN CATEGORY
             return;
           }
-          navigation.navigate(`${mainCategory}Products`, {
+          navigation.navigate(`AllProducts`, {
             // CLICKED SUBCATEGORY
             title: subCategory,
           });
@@ -27,7 +27,14 @@ const SingleCategory = ({ mainCategory, source, parent, subCategory }) => {
           style={{ width: "100%", height: "100%" }}
         />
         <View style={styles.titleContainer}>
-          <Text style={{ fontWeight: "bold" }} numberOfLines={1}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              marginHorizontal: 5,
+              textAlign: "center",
+            }}
+            numberOfLines={2}
+          >
             {subCategory ? subCategory : mainCategory}
           </Text>
         </View>
@@ -54,7 +61,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     width: "100%",
-    height: "20%",
+    // height: "20%",
     justifyContent: "center",
   },
 });

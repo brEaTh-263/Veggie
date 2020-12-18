@@ -15,15 +15,15 @@ import Colors from "../../../constants/Colors";
 import { useSelector, useDispatch } from "react-redux";
 // import * as profileActions from "../../store/actions/Profile";
 // import DP from "../../components/Profile/DP";
-// import ProductItem from "../../components/Products/ProductItem";
-import { Entypo } from "@expo/vector-icons/Entypo";
+import ProductItem from "../../../components/General/ProductItem";
+import { Entypo } from "@expo/vector-icons";
 
 const ProfileScreen = ({ navigation }) => {
-  //   const profileData = useSelector((state) => state.Profile);
+  const profileData = useSelector((state) => state.Profile);
   const [isLoading, setIsLoading] = useState(false);
-  //   const [image, setImage] = useState(`${profileData.imageURL}`);
-  //   const cartProducts = useSelector((state) => state.Cart.cartProducts); //used to check if items added in cart are bookmarked as well..then the quantity is showed here
-  //   const allProducts = useSelector((state) => state.Products.products); //used to filter all the bookmarks from all products
+  const [image, setImage] = useState(`${profileData.imageURL}`);
+  const cartProducts = useSelector((state) => state.Cart.cartProducts); //used to check if items added in cart are bookmarked as well..then the quantity is showed here
+  const allProducts = useSelector((state) => state.Products.products); //used to filter all the bookmarks from all products
   const dispatch = useDispatch();
   // console.log(profileData);
   //   const fetchData = useCallback(async () => {
@@ -55,12 +55,12 @@ const ProfileScreen = ({ navigation }) => {
   //     };
   //   }, [fetchData]);
 
-  //   const bookmarks = profileData.bookmarks.map((prod) => {
-  //     const productIndex = allProducts.findIndex(
-  //       (product) => product._id === prod.productId
-  //     );
-  //     return allProducts[productIndex];
-  //   });
+  const bookmarks = profileData.bookmarks.map((prod) => {
+    const productIndex = allProducts.findIndex(
+      (product) => product._id === prod.productId
+    );
+    return allProducts[productIndex];
+  });
   if (isLoading) {
     <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
       <ActivityIndicator size="large" color={Colors.tertiary} />
@@ -71,13 +71,13 @@ const ProfileScreen = ({ navigation }) => {
   }
   return (
     <View style={styles.container} centerContent={true}>
-      {/* <FlatList
+      <FlatList
         showsVerticalScrollIndicator={false}
         data={bookmarks}
         keyExtractor={(Item) => Item._id}
         ListHeaderComponent={
           <>
-            <DP
+            {/* <DP
               username={profileData.username}
               image={image}
               setImage={setImage}
@@ -106,7 +106,7 @@ const ProfileScreen = ({ navigation }) => {
               <Payments navigation={navigation} />
               <Settings navigation={navigation} />
               <YourOrders navigation={navigation} />
-            </View>
+            </View> */}
 
             <View style={{ marginTop: 10, marginVertical: 10 }}>
               <Text
@@ -158,7 +158,7 @@ const ProfileScreen = ({ navigation }) => {
             />
           );
         }}
-      /> */}
+      />
     </View>
   );
 };

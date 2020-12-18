@@ -1,4 +1,8 @@
-import { PROFILE_DATA, SELECTED_ADDRESS } from "../actions/Profile";
+import {
+  EDIT_BOOKMARK,
+  PROFILE_DATA,
+  SELECTED_ADDRESS,
+} from "../actions/Profile";
 
 const initialState = {
   username: "",
@@ -44,6 +48,12 @@ export default (state = initialState, action) => {
           },
           address: action.profileData.address,
         },
+      };
+    }
+    case EDIT_BOOKMARK: {
+      return {
+        ...state,
+        bookmarks: action.profileData.bookmarks,
       };
     }
     default: {

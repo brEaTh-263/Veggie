@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Card, Avatar, Button, Divider } from "react-native-paper";
+import { View, Text, TouchableOpacity, Image } from "react-native";
+import { Button, Divider } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import InputSpinner from "react-native-input-spinner";
 import * as cartActions from "../../store/actions/Cart";
@@ -18,16 +18,15 @@ const ProductItem = ({
   category,
 }) => {
   const [qty, setQty] = useState(0);
-  // const bookmarkIds = useSelector((state) =>
-  //   state.Profile.bookmarks.filter((prod) => {
-  //     return prod.productId === _id;
-  //   }),
-  // );
-  // console.log(bookmarkIds);
+  const bookmarkIds = useSelector((state) =>
+    state.Profile.bookmarks.filter((prod) => {
+      return prod.productId === _id;
+    })
+  );
   const token = useSelector((state) => state.Auth.token);
-  // const [isBookmarked, setIsBookmarked] = useState(
-  //   bookmarkIds.length > 0 ? true : false,
-  // );
+  const [isBookmarked, setIsBookmarked] = useState(
+    bookmarkIds.length > 0 ? true : false
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     if (quantity >= 0) {
@@ -44,23 +43,23 @@ const ProductItem = ({
           flexDirection: "row",
         }}
       >
-        {/* <TouchableOpacity
-          style={{position: 'absolute', right: '5%', top: '5%'}}
+        <TouchableOpacity
+          style={{ position: "absolute", right: "5%", top: "5%" }}
           onPress={async () => {
-            // console.log("Pressed");
             setIsBookmarked(!isBookmarked);
             if (isBookmarked) {
               dispatch(profileActions.removeBookmark(_id, token));
             } else {
-              dispatch(profileActions.addBookmark({_id}, token));
+              dispatch(profileActions.addBookmark(_id, token));
             }
-          }}>
+          }}
+        >
           <Fontisto
-            name={isBookmarked ? 'bookmark-alt' : 'bookmark'}
+            name={isBookmarked ? "bookmark-alt" : "bookmark"}
             size={24}
             color="black"
           />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
         <Image
           resizeMode="contain"
           source={{

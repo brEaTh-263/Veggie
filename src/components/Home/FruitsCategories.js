@@ -27,14 +27,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 15,
     height: 150,
-    // borderWidth: 1,
   },
   title: { fontSize: 20, fontWeight: "bold", marginBottom: 5 },
   categoriesContainerStyle: {
-    // flexWrap: "wrap",
+    flexWrap: "wrap",
     width: "100%",
     height: 100,
-    // borderWidth: 1,
     flexDirection: "row",
   },
 });
