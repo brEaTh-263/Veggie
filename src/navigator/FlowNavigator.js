@@ -73,7 +73,17 @@ const FlowNavigator = () => {
         name="Profile"
         component={ProfileNavigator}
         options={({ route }) => {
+          let tabBarVisible;
+          const routeName = getFocusedRouteNameFromRoute(route);
+
+          if (routeName === "ChangePassword" || routeName === "NewPassword") {
+            tabBarVisible = false;
+          } else {
+            tabBarVisible = true;
+          }
+
           return {
+            tabBarVisible,
             tabBarIcon: ({ color }) => (
               <AntDesign name="user" size={24} color={color} />
             ),

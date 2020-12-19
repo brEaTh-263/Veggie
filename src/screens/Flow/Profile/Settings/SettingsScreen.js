@@ -25,7 +25,7 @@ const SettingsScreen = ({ navigation }) => {
       <PlainCard
         title="Change Password"
         subtitle="Some suggestion"
-        // navScreen="ChangePassword"
+        navScreen="ChangePassword"
       />
       <Button
         icon="power"

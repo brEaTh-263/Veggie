@@ -7,7 +7,7 @@ import Colors from "../../constants/Colors";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as profileActions from "../../store/actions/Profile";
 import { Portal, Dialog, Button, Avatar } from "react-native-paper";
-const DP = ({ username, image, setImage, canEdit }) => {
+const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
   const token = useSelector((state) => state.Profile.token);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const DP = ({ username, image, setImage, canEdit }) => {
         quality: 1,
       });
       console.log(result);
-      if (!image.cancelled) {
+      if (!result.cancelled) {
         onSave(result);
         setImage(result.uri);
       }
@@ -43,6 +43,7 @@ const DP = ({ username, image, setImage, canEdit }) => {
   };
 
   const onSave = async (image) => {
+    setIsLoading(true);
     const manipResult = await ImageManipulator.manipulateAsync(image.uri, [
       { resize: { width: 720, height: 540 } },
     ]);
@@ -54,6 +55,7 @@ const DP = ({ username, image, setImage, canEdit }) => {
       name: "profilePic.jpg",
     });
     await dispatch(profileActions.changeImage(body, token));
+    setIsLoading(false);
   };
 
   return (
@@ -84,6 +86,7 @@ const DP = ({ username, image, setImage, canEdit }) => {
           source={{
             uri: image,
           }}
+          style={{ backgroundColor: "white" }}
         />
         {canEdit && (
           <TouchableOpacity

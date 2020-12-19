@@ -11,7 +11,7 @@ import Colors from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const CardButton = ({ title, icon }) => {
+const CardButton = ({ title, icon, navScreen }) => {
   const navigation = useNavigation();
 
   return (
@@ -26,9 +26,7 @@ const CardButton = ({ title, icon }) => {
     >
       <TouchableOpacity
         onPress={() => {
-          if (title === "Settings") {
-            navigation.navigate("Settings");
-          }
+          navigation.navigate(navScreen);
         }}
         style={{
           alignItems: "center",

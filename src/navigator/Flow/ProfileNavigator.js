@@ -2,6 +2,10 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../screens/Flow/Profile/ProfileScreen";
 import SettingsScreen from "../../screens/Flow/Profile/Settings/SettingsScreen";
+import ChangePasswordScreen from "../../screens/Flow/Profile/Settings/ChangePasswordScreen";
+import NewPasswordScreen from "../../screens/Flow/Profile/Settings/NewPasswordScreen";
+import PersonalInfoScreen from "../../screens/Flow/Profile/PersonalInfo/PersonalInfoScreen";
+import EditProfileScreen from "../../screens/Flow/Profile/PersonalInfo/EditProfileScreen";
 const ProfileStackNavigator = createStackNavigator();
 
 const ProfileNavigator = () => {
@@ -12,18 +16,20 @@ const ProfileNavigator = () => {
         name="Settings"
         component={SettingsScreen}
       />
-      {/* <ProfileStackNavigator.Screen
+      <ProfileStackNavigator.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
-      />
-      <ProfileStackNavigator.Screen
-        name="PersonalInfo"
-        component={PersonalInfoScreen}
       />
       <ProfileStackNavigator.Screen
         name="EditProfile"
         component={EditProfileScreen}
       />
+      <ProfileStackNavigator.Screen
+        name="PersonalInfo"
+        component={PersonalInfoScreen}
+      />
+      {/*
+     
       <ProfileStackNavigator.Screen
         name="PhoneNumber"
         component={PhoneNumberScreen}
@@ -37,11 +43,11 @@ const ProfileNavigator = () => {
         name="SearchLocations"
         component={SearchLocationsScreen}
       />
-      <ProfileStackNavigator.Screen name="Address" component={AddressScreen} />
+      <ProfileStackNavigator.Screen name="Address" component={AddressScreen} />*/}
       <ProfileStackNavigator.Screen
         name="NewPassword"
         component={NewPasswordScreen}
-      /> */}
+      />
     </ProfileStackNavigator.Navigator>
   );
 };

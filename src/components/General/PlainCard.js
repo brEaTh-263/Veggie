@@ -7,7 +7,7 @@ const PlainCard = ({ title, subtitle, navScreen }) => {
   return (
     <Card style={styles.container}>
       <TouchableOpacity
-        // onPress={() => navigation.navigate(navScreen)}
+        onPress={() => navigation.navigate(navScreen)}
         style={{ height: "100%", justifyContent: "center" }}
       >
         <Card.Content>

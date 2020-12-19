@@ -31,7 +31,6 @@ const SignUpScreen = ({ navigation }) => {
       await dispatch(
         authActions.signUpDefault(data.username, data.email, data.password)
       );
-      // setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       return setError("email", {

@@ -1,6 +1,7 @@
 export const PROFILE_DATA = "PROFILE_DATA";
 export const EDIT_BOOKMARK = "EDIT_BOOKMARK";
 export const SELECTED_ADDRESS = "SELECTED_ADDRESS";
+export const CHANGE_IMAGE = "CHANGE_IMAGE";
 import { url } from "../../constants/url";
 
 export const getProfileData = (token) => {
@@ -103,6 +104,85 @@ export const removeBookmark = (id, token) => {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const checkValidityOfPassword = (password, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/user/check-validity-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          password: password,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status !== 200) {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error();
+    }
+  };
+};
+
+export const newPassword = (password, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/auth/new-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          password: password,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status != 200) {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error();
+    }
+  };
+};
+
+export const changeImage = (file, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/images/image-upload`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-auth-token": token,
+        },
+        body: file,
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status != 200) {
+        throw new Error();
+      }
+      dispatch({
+        type: CHANGE_IMAGE,
+        profileData: {
+          imageURL: responseJson.details.imageURL,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      throw new Error();
     }
   };
 };

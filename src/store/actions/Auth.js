@@ -4,7 +4,6 @@ export const DID_TRY_AUTO_AL = "DID_TRY_AUTO_AL";
 export const LOG_OUT = "LOG_OUT";
 export const setDidTryAutoLogin = () => {
   return async (dispatch) => {
-    // console.log('Tried');
     dispatch({ type: DID_TRY_AUTO_AL });
   };
 };

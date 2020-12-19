@@ -1,5 +1,6 @@
 import { LOG_OUT } from "../actions/Auth";
 import {
+  CHANGE_IMAGE,
   EDIT_BOOKMARK,
   PROFILE_DATA,
   SELECTED_ADDRESS,
@@ -55,6 +56,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         bookmarks: action.profileData.bookmarks,
+      };
+    }
+    case CHANGE_IMAGE: {
+      return {
+        ...state,
+        imageURL: action.profileData.imageURL,
       };
     }
 

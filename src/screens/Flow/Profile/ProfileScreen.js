@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -17,52 +17,21 @@ import CardButton from "../../../components/Profile/CardButton";
 
 const ProfileScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
-  const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState(`${profileData.imageURL}`);
   const cartProducts = useSelector((state) => state.Cart.cartProducts); //used to check if items added in cart are bookmarked as well..then the quantity is showed here
   const allProducts = useSelector((state) => state.Products.products); //used to filter all the bookmarks from all products
-  const dispatch = useDispatch();
-  const fetchData = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      await dispatch(profileActions.getProfileData(profileData.token));
-      setIsLoading(false);
-    } catch (err) {
-      setIsLoading(false);
-      return Alert.alert(
-        "Something Went Wrong!",
-        "Please check your internet connection",
-        [
-          {
-            text: "Try Again",
-            onPress: dispatch(profileActions.getProfileData(token)),
-          },
-        ]
-      );
-    }
-  }, [isLoading, dispatch]);
-  useEffect(() => {
-    const willFocus = navigation.addListener("focus", fetchData);
-
-    return () => {
-      willFocus();
-    };
-  }, [fetchData]);
-
   const bookmarks = profileData.bookmarks.map((prod) => {
     const productIndex = allProducts.findIndex(
       (product) => product._id === prod.productId
     );
     return allProducts[productIndex];
   });
-  if (isLoading) {
-    <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-      <ActivityIndicator size="large" color={Colors.tertiary} />
-      <Text style={{ fontSize: 16, marginVertical: 15 }}>
-        Updating your profile
-      </Text>
-    </View>;
-  }
+  console.log(profileData);
+
+  useEffect(() => {
+    setImage(`${profileData.imageURL}`);
+  }, [profileData, setImage]);
+
   return (
     <View style={styles.container} centerContent={true}>
       <FlatList
@@ -71,12 +40,7 @@ const ProfileScreen = ({ navigation }) => {
         keyExtractor={(Item) => Item._id}
         ListHeaderComponent={
           <>
-            <DP
-              username={profileData.username}
-              image={image}
-              setImage={setImage}
-              canEdit={false}
-            />
+            <DP username={profileData.username} image={image} canEdit={false} />
 
             <View style={{ marginVertical: 10, marginTop: 80 }}>
               <Text style={{ fontSize: 18, color: "black", marginLeft: 10 }}>
@@ -84,13 +48,21 @@ const ProfileScreen = ({ navigation }) => {
               </Text>
             </View>
             <View style={styles.cardsContainer}>
-              <CardButton title="Personal Info" icon="user" />
+              <CardButton
+                title="Personal Info"
+                icon="user"
+                navScreen="PersonalInfo"
+              />
               <CardButton
                 title="Payments"
                 icon="credit-card-settings-outline"
               />
               <CardButton title="My Orders" icon="pencil-outline" />
-              <CardButton title="Settings" icon="settings" />
+              <CardButton
+                title="Settings"
+                icon="settings"
+                navScreen="Settings"
+              />
             </View>
 
             <View style={{ marginTop: 10, marginVertical: 10 }}>
