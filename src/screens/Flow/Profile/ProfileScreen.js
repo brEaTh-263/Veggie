@@ -1,15 +1,7 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  FlatList,
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { FlatList, View, Text, StyleSheet } from "react-native";
 import Colors from "../../../constants/Colors";
-import { useSelector, useDispatch } from "react-redux";
-import * as profileActions from "../../../store/actions/Profile";
+import { useSelector } from "react-redux";
 import DP from "../../../components/Profile/DP";
 import ProductItem from "../../../components/General/ProductItem";
 import { Entypo } from "@expo/vector-icons";

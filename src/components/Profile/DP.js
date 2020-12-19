@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
       aspect: [2, 2],
       quality: 0.7,
     });
-    console.log(result);
+
     if (!result.cancelled) {
       onSave(result);
       setImage(result.uri);
@@ -32,7 +32,7 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
         aspect: [4, 3],
         quality: 1,
       });
-      console.log(result);
+
       if (!result.cancelled) {
         onSave(result);
         setImage(result.uri);
@@ -47,15 +47,21 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
     const manipResult = await ImageManipulator.manipulateAsync(image.uri, [
       { resize: { width: 720, height: 540 } },
     ]);
-    console.log(manipResult);
     const body = new FormData();
     body.append("image", {
       uri: manipResult.uri,
       type: "image/jpg",
       name: "profilePic.jpg",
     });
-    await dispatch(profileActions.changeImage(body, token));
-    setIsLoading(false);
+    try {
+      await dispatch(profileActions.changeImage(body, token));
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      return Alert.alert("Something went wrong", "Please try again", [
+        { text: "Okay" },
+      ]);
+    }
   };
 
   return (
@@ -93,12 +99,7 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
             onPress={() => {
               setVisible(true);
             }}
-            style={{
-              position: "relative",
-              left: 80,
-              bottom: 25,
-              width: 30,
-            }}
+            style={styles.editContainer}
           >
             <AntDesign name="camera" size={24} color="black" style={{}} />
           </TouchableOpacity>
@@ -120,6 +121,12 @@ const styles = StyleSheet.create({
     marginTop: 0,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  editContainer: {
+    position: "relative",
+    left: 80,
+    bottom: 25,
+    width: 30,
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,12 +8,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { Button, TextInput, List } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 import Header from "../../../../components/General/Header";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Colors from "../../../../constants/Colors";
 import { useSelector, useDispatch } from "react-redux";
-import * as profileActions from "../../../../store/actions/Profile";
 import BackButton from "../../../../components/General/BackButton";
 
 // import UserName from '../../../components/PersonalInfo/UserName';
@@ -49,36 +48,6 @@ const EditProfileScreen = ({ navigation }) => {
       );
     }
   };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       await dispatch(profileActions.getProfileData(profileData.token));
-  //       setIsLoading(false);
-  //     } catch (err) {
-  //       setIsLoading(false);
-  //       return Alert.alert(
-  //         'Something Went Wrong!',
-  //         'Please check your internet connection',
-  //         [
-  //           {
-  //             text: 'Try Again',
-  //             onPress: async () => {
-  //               fetchData();
-  //             },
-  //           },
-  //         ],
-  //       );
-  //     }
-  //   };
-  //   const unsubscribe = navigation.addListener('focus', fetchData);
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-
   if (isLoading) {
     return (
       <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
@@ -140,7 +109,6 @@ const EditProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
     backgroundColor: Colors.bkg,
   },
   headerContainer: {
@@ -149,7 +117,6 @@ const styles = StyleSheet.create({
     marginTop: 35,
   },
   inputContainer: {
-    // borderWidth: 1,
     marginHorizontal: 10,
     height: 60,
   },
@@ -166,8 +133,6 @@ const styles = StyleSheet.create({
     width: "95%",
     borderRadius: 5,
     margin: 10,
-    // borderWidth: 1,
-    // height: 140,
     bottom: -90,
     position: "relative",
     left: 0,

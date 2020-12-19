@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Card } from "react-native-paper";
 import {
   MaterialCommunityIcons,
@@ -9,31 +9,17 @@ import {
 } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const CardButton = ({ title, icon, navScreen }) => {
   const navigation = useNavigation();
 
   return (
-    <Card
-      style={{
-        width: "45%",
-        height: "40%",
-        elevation: 5,
-        backgroundColor: Colors.bkg,
-        marginVertical: 5,
-      }}
-    >
+    <Card style={styles.cardContainer}>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate(navScreen);
         }}
-        style={{
-          alignItems: "center",
-          alignSelf: "center",
-          justifyContent: "center",
-          height: "100%",
-        }}
+        style={styles.cardStyle}
       >
         <View>
           {title === "Personal Info" ? (
@@ -56,5 +42,21 @@ const CardButton = ({ title, icon, navScreen }) => {
     </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    width: "45%",
+    height: "40%",
+    elevation: 5,
+    backgroundColor: Colors.bkg,
+    marginVertical: 5,
+  },
+  cardStyle: {
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+    height: "100%",
+  },
+});
 
 export default CardButton;
