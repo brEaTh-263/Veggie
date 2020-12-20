@@ -4,6 +4,7 @@ export const SELECTED_ADDRESS = "SELECTED_ADDRESS";
 export const CHANGE_IMAGE = "CHANGE_IMAGE";
 import { url } from "../../constants/url";
 export const UPDATE_USERNAME = "UPDATE_USERNAME";
+export const ADD_ADDRESS = "ADD_ADDRESS";
 
 export const getProfileData = (token) => {
   return async (dispatch) => {
@@ -216,6 +217,39 @@ export const updateUsername = (name, token) => {
     } catch (err) {
       console.log(err);
       throw new Error(err.Error);
+    }
+  };
+};
+
+export const addAddress = (address, token, lat, lng) => {
+  return async (dispatch) => {
+    try {
+      console.log(address, token, lat, lng);
+      const response = await fetch(`${url}/user/add-address`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          address: address,
+          latitude: lat,
+          longitude: lng,
+        }),
+      });
+      const responseJson = await response.json();
+      if (response.status != 200) {
+        throw new Error(responseJson.Error);
+      }
+      dispatch({
+        type: ADD_ADDRESS,
+        profileData: {
+          addresses: responseJson.allLocations,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
     }
   };
 };

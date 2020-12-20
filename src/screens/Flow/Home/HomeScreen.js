@@ -90,6 +90,7 @@ const HomeScreen = () => {
         <ChooseLiveOrOtherLocation
           isVisible={isVisible}
           setIsVisible={setIsVisible}
+          inCart={false}
         />
         <AddressHeader setIsVisible={setIsVisible} address={address} />
 

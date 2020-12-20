@@ -6,6 +6,9 @@ import ChangePasswordScreen from "../../screens/Flow/Profile/Settings/ChangePass
 import NewPasswordScreen from "../../screens/Flow/Profile/Settings/NewPasswordScreen";
 import PersonalInfoScreen from "../../screens/Flow/Profile/PersonalInfo/PersonalInfoScreen";
 import EditProfileScreen from "../../screens/Flow/Profile/PersonalInfo/EditProfileScreen";
+import AddressScreen from "../../screens/Flow/Profile/PersonalInfo/AddressScreen";
+import AddAddressScreen from "../../screens/Flow/Profile/PersonalInfo/AddAddressScreen";
+import SearchLocationsScreen from "../../screens/Flow/Profile/PersonalInfo/SearchLocationsScreen";
 const ProfileStackNavigator = createStackNavigator();
 
 const ProfileNavigator = () => {
@@ -28,6 +31,11 @@ const ProfileNavigator = () => {
         name="PersonalInfo"
         component={PersonalInfoScreen}
       />
+      <ProfileStackNavigator.Screen name="Address" component={AddressScreen} />
+      <ProfileStackNavigator.Screen
+        name="AddAddress"
+        component={AddAddressScreen}
+      />
       {/*
      
       <ProfileStackNavigator.Screen
@@ -35,15 +43,13 @@ const ProfileNavigator = () => {
         component={PhoneNumberScreen}
       />
       <ProfileStackNavigator.Screen name="OTP" component={OTPScreen} />
-      <ProfileStackNavigator.Screen
-        name="AddAddress"
-        component={AddAddressScreen}
-      />
+     
+    
+     */}
       <ProfileStackNavigator.Screen
         name="SearchLocations"
         component={SearchLocationsScreen}
       />
-      <ProfileStackNavigator.Screen name="Address" component={AddressScreen} />*/}
       <ProfileStackNavigator.Screen
         name="NewPassword"
         component={NewPasswordScreen}

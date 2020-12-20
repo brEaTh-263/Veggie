@@ -79,7 +79,9 @@ const FlowNavigator = () => {
           if (
             routeName === "ChangePassword" ||
             routeName === "NewPassword" ||
-            routeName === "EditProfile"
+            routeName === "EditProfile" ||
+            routeName === "AddAddress" ||
+            routeName === "SearchLocations"
           ) {
             tabBarVisible = false;
           } else {

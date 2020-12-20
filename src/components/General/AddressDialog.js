@@ -62,7 +62,16 @@ const AddressDialog = ({
             icon="magnify"
             color="black"
             onPress={() => {
-              //PENDING
+              setAddressDialogVisible(false);
+              setIsVisible(false);
+              navigation.navigate("Profile", {
+                screen: "SearchLocations",
+                initial: false,
+                params: {
+                  addressOnly: true,
+                  inCart: inCart,
+                },
+              });
             }}
           >
             Search for a location

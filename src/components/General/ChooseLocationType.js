@@ -25,7 +25,7 @@ const ChooseLiveOrOtherLocation = ({ isVisible, setIsVisible, inCart }) => {
     const { latitude, longitude } = await getCurrentLocation();
 
     const { formattedAddress } = await getReadableLocation(latitude, longitude);
-
+    console.log(errorMsgFromLiveLocation);
     if (errorMsgFromLiveLocation || errorMsgFromReadableLocation) {
       setIsLoading(false);
       return Alert.alert("Something went wrong", "Please try again", [

@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
   buttonStyle: {
-    top: "17%",
+    bottom: 0,
+    position: "absolute",
     width: "95%",
     paddingVertical: 10,
     margin: 10,
