@@ -5,7 +5,7 @@ import {
   PROFILE_DATA,
   SELECTED_ADDRESS,
   UPDATE_USERNAME,
-  ADD_ADDRESS,
+  EDIT_ADDRESS,
 } from "../actions/Profile";
 
 const initialState = {
@@ -72,7 +72,7 @@ export default (state = initialState, action) => {
         username: action.profileData.username,
       };
     }
-    case ADD_ADDRESS: {
+    case EDIT_ADDRESS: {
       const { profileData } = action;
       return {
         ...state,

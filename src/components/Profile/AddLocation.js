@@ -13,8 +13,8 @@ const AddLocation = ({ navigation }) => {
       }}
       style={styles.container}
     >
-      <Entypo name="plus" size={26} color={Colors.primary} />
-      <Text style={styles.title}>ADD ADDRESS</Text>
+      <Entypo name="plus" size={26} color={Colors.sub} />
+      <Text style={styles.title}>ADD NEW ADDRESS</Text>
     </TouchableOpacity>
   );
 };
@@ -23,13 +23,21 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     paddingHorizontal: 10,
+    paddingVertical: 10,
     marginVertical: 10,
-    borderBottomColor: "#888",
-    borderBottomWidth: 0.3,
+    marginTop: 20,
+    // borderBottomColor: "#888",
+    borderWidth: 0.5,
+    marginHorizontal: 10,
   },
-  title: { fontSize: 16, marginHorizontal: 10, color: Colors.primary },
+  title: {
+    fontSize: 16,
+    marginHorizontal: 10,
+    color: Colors.primary,
+    fontWeight: "bold",
+  },
 });
 
 export default AddLocation;

@@ -4,7 +4,7 @@ export const SELECTED_ADDRESS = "SELECTED_ADDRESS";
 export const CHANGE_IMAGE = "CHANGE_IMAGE";
 import { url } from "../../constants/url";
 export const UPDATE_USERNAME = "UPDATE_USERNAME";
-export const ADD_ADDRESS = "ADD_ADDRESS";
+export const EDIT_ADDRESS = "EDIT_ADDRESS";
 
 export const getProfileData = (token) => {
   return async (dispatch) => {
@@ -242,7 +242,7 @@ export const addAddress = (address, token, lat, lng) => {
         throw new Error(responseJson.Error);
       }
       dispatch({
-        type: ADD_ADDRESS,
+        type: EDIT_ADDRESS,
         profileData: {
           addresses: responseJson.allLocations,
         },
@@ -250,6 +250,69 @@ export const addAddress = (address, token, lat, lng) => {
     } catch (error) {
       console.log(error);
       throw new Error(error);
+    }
+  };
+};
+
+export const deleteAddress = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/user/delete-address`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          addressId: id,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status != 200) {
+        throw new Error();
+      }
+      dispatch({
+        type: EDIT_ADDRESS,
+        profileData: {
+          addresses: responseJson.allLocations,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      throw new Error();
+    }
+  };
+};
+
+export const editAddress = (_id, address, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/user/edit-address`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          addressId: _id,
+          address: address,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status != 200) {
+        throw new Error();
+      }
+      dispatch({
+        type: EDIT_ADDRESS,
+        profileData: {
+          addresses: responseJson.allLocations,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      throw new Error();
     }
   };
 };

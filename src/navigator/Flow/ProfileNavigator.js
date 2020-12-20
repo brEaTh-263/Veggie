@@ -46,6 +46,7 @@ const ProfileNavigator = () => {
      
     
      */}
+
       <ProfileStackNavigator.Screen
         name="SearchLocations"
         component={SearchLocationsScreen}

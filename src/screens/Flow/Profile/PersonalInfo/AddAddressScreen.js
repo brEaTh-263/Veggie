@@ -10,7 +10,6 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
-import * as Location from "expo-location";
 import { ActivityIndicator } from "react-native";
 import Colors from "../../../../constants/Colors";
 import AddressName from "../../../../components/General/AddressName";
@@ -171,7 +170,7 @@ const AddAddressScreen = ({ navigation, route }) => {
           ref={refRBSheet}
           closeOnDragDown={true}
           closeOnPressMask={false}
-          height={250}
+          height={300}
           customStyles={{
             wrapper: {
               backgroundColor: "transparent",
@@ -182,7 +181,11 @@ const AddAddressScreen = ({ navigation, route }) => {
           }}
         >
           <Text style={styles.simpleText}>Add some precise details</Text>
-          <GetExtraLocationDetails errors={errors} control={control} />
+          <GetExtraLocationDetails
+            errors={errors}
+            control={control}
+            editAddress={false}
+          />
 
           <Button
             style={styles.buttonStyle}
@@ -228,8 +231,8 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   simpleText: {
-    fontSize: 18,
-    marginHorizontal: 25,
+    fontSize: 24,
+    marginHorizontal: 15,
     marginVertical: 10,
     fontStyle: "italic",
     fontWeight: "bold",

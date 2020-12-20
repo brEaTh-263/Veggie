@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Controller } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { AntDesign } from "@expo/vector-icons";
+import Colors from "../../constants/Colors";
 
-const GetExtraLocationDetails = ({ errors, control }) => {
+const GetExtraLocationDetails = ({ errors, control, editAddress }) => {
+  let name, landmark, restAddress;
+  if (editAddress) {
+    name = editAddress.address.split(",")[0];
+    landmark = editAddress.address.split(",")[1];
+    restAddress = editAddress.address.split(",")[2];
+    restAddress = editAddress.address.slice(
+      editAddress.address.indexOf(restAddress)
+    );
+  }
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
+      <Text style={styles.title}>Flat/House No/Building</Text>
       <Controller
         control={control}
         render={({ onChange, onBlur, value }) => (
@@ -22,7 +36,7 @@ const GetExtraLocationDetails = ({ errors, control }) => {
         rules={{
           required: true,
         }}
-        defaultValue=""
+        defaultValue={editAddress ? name : ""}
       />
       {errors.building && (
         <View style={styles.errorMessage}>
@@ -31,6 +45,7 @@ const GetExtraLocationDetails = ({ errors, control }) => {
           </Text>
         </View>
       )}
+      <Text style={styles.title}>Nearest landmark</Text>
       <Controller
         control={control}
         render={({ onChange, onBlur, value }) => (
@@ -48,14 +63,42 @@ const GetExtraLocationDetails = ({ errors, control }) => {
         rules={{
           required: true,
         }}
-        defaultValue=""
+        defaultValue={editAddress ? landmark : ""}
       />
       {errors.landmark && (
         <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Nearest landmark to you
-          </Text>
+          <Text style={{ color: "red", fontWeight: "bold" }}>required*</Text>
         </View>
+      )}
+      {editAddress && (
+        <>
+          <View style={styles.inputContainer}>
+            <Text style={{ fontStyle: "italic", fontSize: 18 }}>
+              {restAddress}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              marginHorizontal: 20,
+              bottom: "20%",
+              position: "absolute",
+            }}
+          >
+            <AntDesign name="exclamationcircleo" size={24} color="black" />
+            <Text
+              style={{
+                width: "90%",
+                marginHorizontal: 10,
+                fontSize: 14,
+              }}
+            >
+              If you want to edit the whole address,kindly add a new one
+            </Text>
+          </View>
+        </>
       )}
     </View>
   );
@@ -75,6 +118,13 @@ const styles = StyleSheet.create({
     color: "red",
     marginHorizontal: 15,
     marginTop: 0,
+  },
+  title: {
+    marginHorizontal: 15,
+    fontStyle: "italic",
+    fontSize: 16,
+    color: Colors.primary,
+    fontWeight: "bold",
   },
 });
 
