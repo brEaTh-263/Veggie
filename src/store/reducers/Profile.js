@@ -4,6 +4,7 @@ import {
   EDIT_BOOKMARK,
   PROFILE_DATA,
   SELECTED_ADDRESS,
+  UPDATE_USERNAME,
 } from "../actions/Profile";
 
 const initialState = {
@@ -62,6 +63,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         imageURL: action.profileData.imageURL,
+      };
+    }
+    case UPDATE_USERNAME: {
+      return {
+        ...state,
+        username: action.profileData.username,
       };
     }
 

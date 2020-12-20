@@ -1,0 +1,31 @@
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Colors from "../../constants/Colors";
+import { Button } from "react-native-paper";
+
+const PhoneNumber = ({ phoneNumber }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={{ fontWeight: "700" }}>Phone Number</Text>
+      <View style={styles.numberContainer}>
+        <Text style={{ fontWeight: "700", fontSize: 18 }}>
+          +91 | {phoneNumber}
+        </Text>
+        <Button mode="text" color={Colors.tertiary} onPress={() => {}}>
+          Change
+        </Button>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: { marginHorizontal: 20, marginVertical: 5 },
+  numberContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});
+
+export default PhoneNumber;

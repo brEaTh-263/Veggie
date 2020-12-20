@@ -76,7 +76,11 @@ const FlowNavigator = () => {
           let tabBarVisible;
           const routeName = getFocusedRouteNameFromRoute(route);
 
-          if (routeName === "ChangePassword" || routeName === "NewPassword") {
+          if (
+            routeName === "ChangePassword" ||
+            routeName === "NewPassword" ||
+            routeName === "EditProfile"
+          ) {
             tabBarVisible = false;
           } else {
             tabBarVisible = true;

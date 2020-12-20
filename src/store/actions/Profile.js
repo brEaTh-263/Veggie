@@ -3,6 +3,7 @@ export const EDIT_BOOKMARK = "EDIT_BOOKMARK";
 export const SELECTED_ADDRESS = "SELECTED_ADDRESS";
 export const CHANGE_IMAGE = "CHANGE_IMAGE";
 import { url } from "../../constants/url";
+export const UPDATE_USERNAME = "UPDATE_USERNAME";
 
 export const getProfileData = (token) => {
   return async (dispatch) => {
@@ -183,6 +184,38 @@ export const changeImage = (file, token) => {
     } catch (error) {
       console.log(error);
       throw new Error();
+    }
+  };
+};
+
+export const updateUsername = (name, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/user/edit-username`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          userName: name,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+
+      if (response.status != 200) {
+        throw new Error(responseJson.Error);
+      }
+      dispatch({
+        type: UPDATE_USERNAME,
+        profileData: {
+          username: responseJson.details.name,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      throw new Error(err.Error);
     }
   };
 };

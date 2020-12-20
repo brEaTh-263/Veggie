@@ -14,13 +14,13 @@ import { useForm } from "react-hook-form";
 import Colors from "../../../../constants/Colors";
 import { useSelector, useDispatch } from "react-redux";
 import BackButton from "../../../../components/General/BackButton";
-
-// import UserName from '../../../components/PersonalInfo/UserName';
-// import ChangePhoneNumberButton from '../../../components/PersonalInfo/ChangePhoneNumberButton';
+import * as profileActions from "../../../../store/actions/Profile";
+import Username from "../../../../components/Profile/Username";
+import ChangePhoneNumberButton from "../../../../components/Profile/ChangePhoneNumberButton";
 import DP from "../../../../components/Profile/DP";
 
 const EditProfileScreen = ({ navigation }) => {
-  const { control, handleSubmit, errors, getValues, setValue } = useForm();
+  const { control, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
 
   const profileData = useSelector((state) => state.Profile);
@@ -29,12 +29,12 @@ const EditProfileScreen = ({ navigation }) => {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      // await dispatch(
-      //   profileActions.updateUserName(data.userName, profileData.token),
-      // );
-      setIsLoading(false);
+      await dispatch(
+        profileActions.updateUsername(data.userName, profileData.token)
+      );
       navigation.navigate("PersonalInfo");
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
       return Alert.alert(
         "Something Went Wrong!",
@@ -60,10 +60,7 @@ const EditProfileScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView
-      centerContent={true}
-      contentContainerStyle={{ flex: 1, backgroundColor: Colors.bkg }}
-    >
+    <ScrollView centerContent={true} contentContainerStyle={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={{ marginHorizontal: 15 }}
@@ -80,8 +77,8 @@ const EditProfileScreen = ({ navigation }) => {
         setImage={setImage}
         canEdit={true}
       />
-      {/* <UserName control={control} errors={errors} /> */}
-      {/* <ChangePhoneNumberButton phoneNumber={profileData.phoneNumber} /> */}
+      <Username control={control} errors={errors} />
+      <ChangePhoneNumberButton phoneNumber={profileData.phoneNumber} />
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -92,16 +89,14 @@ const EditProfileScreen = ({ navigation }) => {
         />
       </View>
 
-      <View style={styles.saveButtonStyle}>
-        <Button
-          mode="contained"
-          style={{ paddingVertical: 7 }}
-          color={Colors.tertiary}
-          onPress={handleSubmit(onSubmit)}
-        >
-          Save Changes
-        </Button>
-      </View>
+      <Button
+        mode="contained"
+        style={styles.buttonStyle}
+        color={Colors.tertiary}
+        onPress={handleSubmit(onSubmit)}
+      >
+        Save Changes
+      </Button>
     </ScrollView>
   );
 };
@@ -120,24 +115,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     height: 60,
   },
-  buttonContainer: {
-    borderRadius: 30,
-    overflow: "hidden",
-    margin: 20,
+  buttonStyle: {
+    top: "17%",
+    width: "95%",
+    paddingVertical: 10,
+    margin: 10,
+    borderRadius: 5,
   },
   errorMessage: {
     color: "red",
     marginHorizontal: 15,
   },
-  saveButtonStyle: {
-    width: "95%",
-    borderRadius: 5,
-    margin: 10,
-    bottom: -90,
-    position: "relative",
-    left: 0,
-    right: 0,
-  },
+
   input: {
     color: "black",
     fontSize: 18,
