@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 
 export default (title) => {

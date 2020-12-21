@@ -4,8 +4,6 @@ import { MaterialIcons, EvilIcons } from "@expo/vector-icons";
 import * as profileActions from "../../store/actions/Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Title, Paragraph } from "react-native-paper";
-import Colors from "../../constants/Colors";
-import { useNavigation } from "@react-navigation/native";
 const SingleAddress = ({
   address,
   _id,
@@ -15,9 +13,7 @@ const SingleAddress = ({
   longitude,
 }) => {
   const token = useSelector((state) => state.Profile.token);
-
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   const delAddress = useCallback(async () => {
     try {

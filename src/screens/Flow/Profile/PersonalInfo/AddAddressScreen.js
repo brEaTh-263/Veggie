@@ -13,9 +13,8 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import { ActivityIndicator } from "react-native";
 import Colors from "../../../../constants/Colors";
 import AddressName from "../../../../components/General/AddressName";
-import { useForm, Controller } from "react-hook-form";
-import { Button, Searchbar, List, Divider } from "react-native-paper";
-// import Tag from '../../../components/Location/Tag';
+import { useForm } from "react-hook-form";
+import { Button } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import * as profileActions from "../../../../store/actions/Profile";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -35,7 +34,6 @@ const AddAddressScreen = ({ navigation, route }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [addressLoading, setAddressLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(null);
   const [address, setAddress] = useState("");
   const { control, handleSubmit, errors } = useForm();
   const refRBSheet = useRef();
@@ -44,27 +42,32 @@ const AddAddressScreen = ({ navigation, route }) => {
 
   const [getCurrentLocation, errorLive] = useLiveLocation();
   const [getReadableLocation, errorRead] = useReadLocation();
-
   const getLocation = useCallback(async () => {
-    setIsLoading(true);
-    const { latitude, longitude } = await getCurrentLocation();
-    const { formattedAddress } = await getReadableLocation(latitude, longitude);
+    try {
+      setIsLoading(true);
+      const { latitude, longitude } = await getCurrentLocation();
+      const { formattedAddress } = await getReadableLocation(
+        latitude,
+        longitude
+      );
 
-    setRegion({
-      latitude: latitude,
-      longitude: longitude,
-      latitudeDelta: 0.0005,
-      longitudeDelta: 0.0005,
-    });
-    setAddress(formattedAddress);
-    setIsLoading(false);
+      setRegion({
+        latitude: latitude,
+        longitude: longitude,
+        latitudeDelta: 0.0005,
+        longitudeDelta: 0.0005,
+      });
+      setAddress(formattedAddress);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
   }, [setIsLoading, setAddress]);
 
   useEffect(() => {
     if (newCoords) {
       return;
     }
-    console.log("Live Called");
     getLocation();
   }, [setAddress]);
 
@@ -90,7 +93,6 @@ const AddAddressScreen = ({ navigation, route }) => {
           region.longitude
         )
       );
-      setIsLoading(false);
       navigation.navigate("Address");
     } catch (error) {
       setIsLoading(false);
@@ -106,6 +108,27 @@ const AddAddressScreen = ({ navigation, route }) => {
     return (
       <View style={(styles.container, { justifyContent: "center", flex: 1 })}>
         <ActivityIndicator size="large" color={Colors.tertiary} />
+      </View>
+    );
+  }
+
+  if (errorLive || errorRead) {
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <View style={styles.backButtonStyle}>
+          <TouchableOpacity onPress={() => navigation.navigate("Address")}>
+            <BackButton />
+          </TouchableOpacity>
+        </View>
+        <Image
+          source={require("../../../../../assets/locationDenied.png")}
+          resizeMode="cover"
+          style={{ width: "100%", height: "20%", borderWidth: 1 }}
+        />
+        <Text style={styles.warningTitle}>
+          Please provide sufficient permissions to continue
+        </Text>
+        <Button onPress={() => getLocation()}>Try again</Button>
       </View>
     );
   }
@@ -206,11 +229,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   mapStyle: {
-    // flex: 1,
     width: "100%",
     height: "100%",
   },
@@ -218,12 +238,6 @@ const styles = StyleSheet.create({
   marker: {
     height: 48,
     width: 48,
-  },
-  footer: {
-    // backgroundColor: "rgba(0, 0, 0, 0.5)",
-    bottom: 0,
-    position: "absolute",
-    width: "100%",
   },
   region: {
     color: "#fff",
@@ -236,6 +250,13 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontStyle: "italic",
     fontWeight: "bold",
+  },
+  warningTitle: {
+    fontSize: 18,
+    paddingVertical: 15,
+    marginHorizontal: 10,
+    textAlign: "center",
+    fontStyle: "italic",
   },
   buttonStyle: {
     marginTop: 10,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Button, Divider } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import InputSpinner from "react-native-input-spinner";
@@ -36,15 +36,9 @@ const ProductItem = ({
 
   return (
     <>
-      <View
-        style={{
-          marginHorizontal: 10,
-          height: 150,
-          flexDirection: "row",
-        }}
-      >
+      <View style={styles.container}>
         <TouchableOpacity
-          style={{ position: "absolute", right: "5%", top: "5%" }}
+          style={styles.bookmarkIconStyle}
           onPress={async () => {
             setIsBookmarked(!isBookmarked);
             if (isBookmarked) {
@@ -67,38 +61,17 @@ const ProductItem = ({
               ? imageUrl
               : "https://th.bing.com/th/id/OIP.ouOFcEHOYh7Dj3JCmDUfhwAAAA?pid=Api&rs=1",
           }}
-          style={{
-            height: "100%",
-            width: "40%",
-            alignSelf: "center",
-            borderWidth: 1,
-          }}
+          style={styles.productImageStyle}
         />
         <View style={{ marginTop: 10, width: "60%" }}>
-          <Text style={{ fontSize: 20, fontWeight: "bold", width: "80%" }}>
-            {name}
-          </Text>
+          <Text style={styles.nameStyle}>{name}</Text>
 
-          <Text
-            style={{
-              fontSize: 14,
-              color: "#888",
-              marginTop: 5,
-              fontStyle: "italic",
-              fontWeight: "bold",
-            }}
-          >
+          <Text style={styles.indianNameStyle}>
             {indianName ? indianName : name}
           </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: 10,
-            }}
-          >
+          <View style={styles.priceContainerStyle}>
             <FontAwesome name="rupee" size={18} color="#888" />
-            <Text style={{ fontSize: 18, fontStyle: "italic" }}>99/kg</Text>
+            <Text style={styles.priceStyle}>99/kg</Text>
           </View>
 
           {qty === 0 ? (
@@ -134,11 +107,7 @@ const ProductItem = ({
                   setQty(num);
                 }
               }}
-              style={{
-                marginTop: 10,
-                alignSelf: "flex-end",
-                width: 100,
-              }}
+              style={styles.spinnerStyle}
               inputStyle={{
                 width: 30,
                 height: 35,
@@ -154,5 +123,39 @@ const ProductItem = ({
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 10,
+    height: 150,
+    flexDirection: "row",
+  },
+  bookmarkIconStyle: { position: "absolute", right: "5%", top: "5%" },
+  productImageStyle: {
+    height: "100%",
+    width: "40%",
+    alignSelf: "center",
+    borderWidth: 1,
+  },
+  nameStyle: { fontSize: 20, fontWeight: "bold", width: "80%" },
+  indianNameStyle: {
+    fontSize: 14,
+    color: "#888",
+    marginTop: 5,
+    fontStyle: "italic",
+    fontWeight: "bold",
+  },
+  priceContainerStyle: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  priceStyle: { fontSize: 18, fontStyle: "italic" },
+  spinnerStyle: {
+    marginTop: 10,
+    alignSelf: "flex-end",
+    width: 100,
+  },
+});
 
 export default ProductItem;

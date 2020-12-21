@@ -36,16 +36,6 @@ const ProfileNavigator = () => {
         name="AddAddress"
         component={AddAddressScreen}
       />
-      {/*
-     
-      <ProfileStackNavigator.Screen
-        name="PhoneNumber"
-        component={PhoneNumberScreen}
-      />
-      <ProfileStackNavigator.Screen name="OTP" component={OTPScreen} />
-     
-    
-     */}
 
       <ProfileStackNavigator.Screen
         name="SearchLocations"

@@ -21,25 +21,27 @@ const ChooseLiveOrOtherLocation = ({ isVisible, setIsVisible, inCart }) => {
   const [getReadableLocation, errorMsgFromReadableLocation] = useReadLocation();
 
   const fetchLiveLocationHandler = async () => {
-    setIsLoading(true);
-    const { latitude, longitude } = await getCurrentLocation();
+    try {
+      setIsLoading(true);
+      const { latitude, longitude } = await getCurrentLocation();
 
-    const { formattedAddress } = await getReadableLocation(latitude, longitude);
-    console.log(errorMsgFromLiveLocation);
-    if (errorMsgFromLiveLocation || errorMsgFromReadableLocation) {
+      const { formattedAddress } = await getReadableLocation(
+        latitude,
+        longitude
+      );
+      dispatch(
+        profileActions.getSelectedAddress(formattedAddress, {
+          lat: latitude,
+          lng: longitude,
+        })
+      );
+      setIsLoading(false);
+    } catch (error) {
       setIsLoading(false);
       return Alert.alert("Something went wrong", "Please try again", [
         { text: "Okay" },
       ]);
     }
-
-    dispatch(
-      profileActions.getSelectedAddress(formattedAddress, {
-        lat: latitude,
-        lng: longitude,
-      })
-    );
-    setIsLoading(false);
   };
 
   const showAddressDialogHandler = () => {

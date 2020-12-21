@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { googleApiKey } from "../config";
+import { useState } from "react";
 import * as Location from "expo-location";
 
 export default () => {
@@ -9,11 +7,11 @@ export default () => {
   const getCurrentLocation = async () => {
     try {
       let { status } = await Location.requestPermissionsAsync();
-      let { locationServicesEnabled } = await Location.getProviderStatusAsync();
+      console.log(status);
       if (status !== "granted") {
-        setError(true);
-        return;
+        throw new Error();
       }
+      setError(false);
       let location = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Highest,
       });

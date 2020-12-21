@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
 import { googleApiKey } from "../config";
 
 export default () => {
