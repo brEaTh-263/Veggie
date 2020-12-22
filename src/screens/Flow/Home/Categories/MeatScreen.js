@@ -21,7 +21,12 @@ const MeatCategoryScreen = ({ navigation }) => {
         mode="contained"
         style={{ marginHorizontal: 15 }}
         color={Colors.tertiary}
-        onPress={() => navigation.navigate("AllProducts", { title: "Meat" })}
+        onPress={() =>
+          navigation.navigate("AllProducts", {
+            title: "Meat",
+            subCategory: false,
+          })
+        }
       >
         View All
       </Button>

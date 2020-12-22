@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 import InputSpinner from "react-native-input-spinner";
 import * as cartActions from "../../store/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
-import { Fontisto, FontAwesome } from "@expo/vector-icons";
+import { Fontisto, FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as profileActions from "../../store/actions/Profile";
 
 const ProductItem = ({
@@ -48,10 +48,10 @@ const ProductItem = ({
             }
           }}
         >
-          <Fontisto
-            name={isBookmarked ? "bookmark-alt" : "bookmark"}
+          <Ionicons
+            name={isBookmarked ? "leaf-sharp" : "leaf-outline"}
             size={24}
-            color="black"
+            color={Colors.sub}
           />
         </TouchableOpacity>
         <Image

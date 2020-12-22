@@ -21,7 +21,12 @@ const GrainsCategoryScreen = ({ navigation }) => {
         mode="contained"
         style={{ marginHorizontal: 15 }}
         color={Colors.tertiary}
-        onPress={() => navigation.navigate("AllProducts", { title: "Grains" })}
+        onPress={() =>
+          navigation.navigate("AllProducts", {
+            title: "Grains",
+            subCategory: false,
+          })
+        }
       >
         View All
       </Button>

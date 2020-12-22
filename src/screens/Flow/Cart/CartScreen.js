@@ -64,7 +64,7 @@ const CartScreen = ({ navigation }) => {
     <View style={{ backgroundColor: Colors.bkg, flex: 1 }}>
       <Header
         text="Cart"
-        style={{ marginHorizontal: 10, marginTop: 35 }}
+        style={{ marginHorizontal: 20, marginTop: 35 }}
         textSize={30}
       />
       <ChooseLocationType
@@ -78,15 +78,8 @@ const CartScreen = ({ navigation }) => {
         keyExtractor={(item) => item._id}
         ListHeaderComponent={
           vegetableProducts.length > 0 && (
-            <View
-              style={{
-                backgroundColor: Colors.bkg,
-                height: 30,
-                justifyContent: "center",
-                paddingHorizontal: 20,
-              }}
-            >
-              <Text style={{ fontSize: 18 }}>Vegetables</Text>
+            <View style={styles.categoryContainerStyle}>
+              <Text style={styles.categoryTitle}>Vegetables</Text>
             </View>
           )
         }
@@ -97,15 +90,8 @@ const CartScreen = ({ navigation }) => {
             keyExtractor={(item) => item._id}
             ListHeaderComponent={
               fruitProducts.length > 0 && (
-                <View
-                  style={{
-                    backgroundColor: Colors.bkg,
-                    height: 30,
-                    justifyContent: "center",
-                    paddingHorizontal: 20,
-                  }}
-                >
-                  <Text style={{ fontSize: 18 }}>Fruits</Text>
+                <View style={styles.categoryContainerStyle}>
+                  <Text style={styles.categoryTitle}>Fruits</Text>
                 </View>
               )
             }
@@ -116,15 +102,8 @@ const CartScreen = ({ navigation }) => {
                 keyExtractor={(item) => item._id}
                 ListHeaderComponent={
                   nonVegProducts.length > 0 ? (
-                    <View
-                      style={{
-                        backgroundColor: Colors.bkg,
-                        height: 30,
-                        justifyContent: "center",
-                        paddingHorizontal: 20,
-                      }}
-                    >
-                      <Text style={{ fontSize: 18 }}>Meat</Text>
+                    <View style={styles.categoryContainerStyle}>
+                      <Text style={styles.categoryTitle}>Meat</Text>
                     </View>
                   ) : null
                 }
@@ -135,15 +114,8 @@ const CartScreen = ({ navigation }) => {
                     keyExtractor={(item) => item._id}
                     ListHeaderComponent={
                       grainProducts.length > 0 ? (
-                        <View
-                          style={{
-                            backgroundColor: Colors.bkg,
-                            height: 30,
-                            justifyContent: "center",
-                            paddingHorizontal: 20,
-                          }}
-                        >
-                          <Text style={{ fontSize: 18 }}>Grains</Text>
+                        <View style={styles.categoryContainerStyle}>
+                          <Text style={styles.categoryTitle}>Grains</Text>
                         </View>
                       ) : null
                     }
@@ -152,26 +124,12 @@ const CartScreen = ({ navigation }) => {
                         <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                           Bill Details
                         </Text>
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginVertical: 10,
-                          }}
-                        >
+                        <View style={styles.otherTitleContainerStyle}>
                           <Text style={{ fontSize: 15 }}>Item total</Text>
                           <Text>Rs {amount}</Text>
                         </View>
 
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginVertical: 10,
-                          }}
-                        >
+                        <View style={styles.otherTitleContainerStyle}>
                           <Text
                             style={{
                               fontSize: 15,
@@ -184,14 +142,7 @@ const CartScreen = ({ navigation }) => {
                           </Text>
                           <Text>Rs 70</Text>
                         </View>
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginVertical: 10,
-                          }}
-                        >
+                        <View style={styles.otherTitleContainerStyle}>
                           <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                             To pay
                           </Text>
@@ -270,6 +221,24 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bkg,
     justifyContent: "center",
     alignItems: "center",
+  },
+  categoryTitle: {
+    fontSize: 18,
+    color: Colors.sub,
+    fontWeight: "bold",
+    fontStyle: "italic",
+  },
+  categoryContainerStyle: {
+    backgroundColor: Colors.bkg,
+    height: 30,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+  otherTitleContainerStyle: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginVertical: 10,
   },
 });
 

@@ -16,6 +16,7 @@ const SingleCategory = ({ mainCategory, source, parent, subCategory }) => {
           navigation.navigate(`AllProducts`, {
             // CLICKED SUBCATEGORY
             title: subCategory,
+            subCategory: true,
           });
         }}
       >

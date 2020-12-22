@@ -24,7 +24,10 @@ const VegetablesCategoryScreen = ({ navigation }) => {
         style={{ marginHorizontal: 15 }}
         color={Colors.tertiary}
         onPress={() =>
-          navigation.navigate("AllProducts", { title: "Vegetables" })
+          navigation.navigate("AllProducts", {
+            title: "Vegetables",
+            subCategory: false,
+          })
         }
       >
         View All

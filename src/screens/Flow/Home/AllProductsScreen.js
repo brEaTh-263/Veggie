@@ -10,14 +10,21 @@ import useSearchGrocery from "../../../hooks/useSearchGrocery";
 import ViewCart from "../../../components/Cart/ViewCart";
 
 const AllProductsScreen = ({ route, navigation }) => {
-  const { title } = route.params;
+  const { title, subCategory } = route.params;
   const products = useSelector((state) =>
-    state.Products.products.filter(
-      (prod) => prod.Category === title || prod.subCategory === title
-    )
+    state.Products.products.filter((prod) => {
+      if (subCategory) {
+        return prod.subCategory === title;
+      } else {
+        return prod.Category === title;
+      }
+    })
   );
   const cartProducts = useSelector((state) => state.Cart.cartProducts);
-  const [getSearchedGrocery, items, setItems] = useSearchGrocery(title);
+  const [getSearchedGrocery, items, setItems] = useSearchGrocery(
+    title,
+    subCategory
+  );
 
   useEffect(() => {
     setItems(products);

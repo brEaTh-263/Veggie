@@ -30,7 +30,12 @@ const FruitsCategoryScreen = ({ navigation }) => {
         mode="contained"
         style={{ marginHorizontal: 15 }}
         color={Colors.tertiary}
-        onPress={() => navigation.navigate("AllProducts", { title: "Fruits" })}
+        onPress={() =>
+          navigation.navigate("AllProducts", {
+            title: "Fruits",
+            subCategory: false,
+          })
+        }
       >
         View All
       </Button>

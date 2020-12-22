@@ -1,16 +1,20 @@
 import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 
-export default (title) => {
+export default (title, subCategory) => {
   let products = [];
   if (title.length === 0) {
     // FOR SEARCHGROCERIES SCREEN WHERE ALL PRODUCTS MUST EXISTS
     products = useSelector((state) => state.Products.products);
   } else {
     products = useSelector((state) =>
-      state.Products.products.filter(
-        (prod) => prod.Category === title || prod.subCategory === title
-      )
+      state.Products.products.filter((prod) => {
+        if (subCategory) {
+          return prod.subCategory === title;
+        } else {
+          return prod.Category === title;
+        }
+      })
     );
   }
 
