@@ -3,10 +3,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../screens/Flow/Home/HomeScreen";
 import VegetablesCategoryScreen from "../../screens/Flow/Home/Categories/VegetablesScreen";
 import FruitsCategoryScreen from "../../screens/Flow/Home/Categories/FruitsScreen";
-import MeatCategoryScreen from "../../screens/Flow/Home/Categories/MeatScreen";
-import GrainsCategoryScreen from "../../screens/Flow/Home/Categories/GrainsScreen";
+import FishAndMeatCategoryScreen from "../../screens/Flow/Home/Categories/FishAndMeatScreen";
+import FoodgrainsOilAndVinegarCategoryScreen from "../../screens/Flow/Home/Categories/FoodgrainsOilAndVinegarScreen.js";
 import AllProductsScreen from "../../screens/Flow/Home/AllProductsScreen";
-
+import DairyBakeryAndEggsScreen from "../../screens/Flow/Home/Categories/DairyBakeryAndEggsScreen";
+import CannedAndPackagedScreen from "../../screens/Flow/Home/Categories/CannedAndPackagedScreen";
+import SnacksAndBeveragesScreen from "../../screens/Flow/Home/Categories/SnacksAndBeveragesScreen";
 const HomeStackNavigator = createStackNavigator();
 
 const HomeNavigator = () => {
@@ -26,12 +28,24 @@ const HomeNavigator = () => {
         component={FruitsCategoryScreen}
       />
       <HomeStackNavigator.Screen
-        name="MeatCategory"
-        component={MeatCategoryScreen}
+        name="Fish and MeatCategory"
+        component={FishAndMeatCategoryScreen}
       />
       <HomeStackNavigator.Screen
-        name="GrainsCategory"
-        component={GrainsCategoryScreen}
+        name="Foodgrains,Oil and VinegarCategory"
+        component={FoodgrainsOilAndVinegarCategoryScreen}
+      />
+      <HomeStackNavigator.Screen
+        name="Dairy,Bakery and EggsCategory"
+        component={DairyBakeryAndEggsScreen}
+      />
+      <HomeStackNavigator.Screen
+        name="Canned and PackagedCategory"
+        component={CannedAndPackagedScreen}
+      />
+      <HomeStackNavigator.Screen
+        name="Snacks and BeveragesCategory"
+        component={SnacksAndBeveragesScreen}
       />
     </HomeStackNavigator.Navigator>
   );

@@ -1,11 +1,18 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import BackButton from "../../../../components/General/BackButton";
 import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
+
 import { Button } from "react-native-paper";
 
-const GrainsCategoryScreen = ({ navigation }) => {
+const CannedAndPackagedScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container} centerContent={true}>
       <View style={styles.headerContainer}>
@@ -15,7 +22,7 @@ const GrainsCategoryScreen = ({ navigation }) => {
         >
           <BackButton />
         </TouchableOpacity>
-        <Header text="Grains" textSize={30} />
+        <Header text="Canned and Packaged" textSize={20} />
       </View>
       <Button
         mode="contained"
@@ -23,7 +30,7 @@ const GrainsCategoryScreen = ({ navigation }) => {
         color={Colors.tertiary}
         onPress={() =>
           navigation.navigate("AllProducts", {
-            title: "Grains",
+            title: "Canned And Packaged",
             subCategory: false,
           })
         }
@@ -46,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GrainsCategoryScreen;
+export default CannedAndPackagedScreen;

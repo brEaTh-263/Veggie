@@ -1,11 +1,18 @@
 import React from "react";
-import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import BackButton from "../../../../components/General/BackButton";
 import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
+
 import { Button } from "react-native-paper";
 
-const MeatCategoryScreen = ({ navigation }) => {
+const SnacksAndBeveragesScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container} centerContent={true}>
       <View style={styles.headerContainer}>
@@ -15,7 +22,7 @@ const MeatCategoryScreen = ({ navigation }) => {
         >
           <BackButton />
         </TouchableOpacity>
-        <Header text="Meat" textSize={30} />
+        <Header text="Snacks and Beverages" textSize={20} />
       </View>
       <Button
         mode="contained"
@@ -23,7 +30,7 @@ const MeatCategoryScreen = ({ navigation }) => {
         color={Colors.tertiary}
         onPress={() =>
           navigation.navigate("AllProducts", {
-            title: "Meat",
+            title: "Snacks and Beverages",
             subCategory: false,
           })
         }
@@ -46,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MeatCategoryScreen;
+export default SnacksAndBeveragesScreen;

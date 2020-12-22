@@ -18,14 +18,35 @@ const Categories = () => {
           source="https://images263.s3-us-west-1.amazonaws.com/Categories/Fruits.jpg"
         />
         <SingleCategory
-          // parent={true} //NOT WILLING TO NAVIGATE TO CATEGORY SCREEN INSTEAL PRODUCTS
-          subCategory="Meat" //ALL PRODUCTS TAKES SUBCATEGORY SO PASSING A PROP
-          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Non-Veg.jpg"
+          parent={true}
+          mainCategory="Fish and Meat"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/FishAndMeat.jpeg"
+        />
+
+        <SingleCategory
+          parent={true}
+          mainCategory="Foodgrains,Oil and Vinegar"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Foodgrains%2COil+And+Vinegar.jpeg"
         />
         <SingleCategory
-          // parent={true} //NOT WILLING TO NAVIGATE TO CATEGORY SCREEN INSTEAL PRODUCTS
-          subCategory="Grains" //ALL PRODUCTS TAKES SUBCATEGORY SO PASSING A PROP
-          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Grains.jpg"
+          parent={true}
+          mainCategory="Dairy,Bakery and Eggs"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Dairy%2CBakery+and+Eggs.jpeg"
+        />
+        <SingleCategory
+          parent={true}
+          mainCategory="Canned and Packaged"
+          source="https://th.bing.com/th/id/OIP.8xIvwj9-YC-HK96ppjtg7QHaJz?pid=Api&rs=1"
+        />
+        <SingleCategory
+          parent={true}
+          mainCategory="Snacks and Beverages"
+          source="https://th.bing.com/th/id/OIP.8xIvwj9-YC-HK96ppjtg7QHaJz?pid=Api&rs=1"
+        />
+        <SingleCategory
+          parent={true}
+          mainCategory="Selfcare and Hygiene"
+          source="https://th.bing.com/th/id/OIP.8xIvwj9-YC-HK96ppjtg7QHaJz?pid=Api&rs=1"
         />
       </View>
     </View>

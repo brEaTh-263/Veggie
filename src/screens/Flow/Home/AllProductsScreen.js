@@ -50,7 +50,7 @@ const AllProductsScreen = ({ route, navigation }) => {
               >
                 <BackButton />
               </TouchableOpacity>
-              <Header text={title} textSize={30} />
+              <Header text={title} textSize={20} />
             </View>
 
             <Searchbar
