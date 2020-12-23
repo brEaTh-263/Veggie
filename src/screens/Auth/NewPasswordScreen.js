@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import BackButton from "../../components/General/BackButton";
-import GetNewPassword from "../../components/Auth/GetNewPasswordProfile";
+import GetNewPassword from "../../components/Auth/GetNewPassword";
 import Header from "../../components/General/Header";
 
 const NewPasswordScreen = ({ navigation }) => {

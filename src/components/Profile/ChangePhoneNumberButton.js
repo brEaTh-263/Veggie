@@ -2,8 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const PhoneNumber = ({ phoneNumber }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={{ fontWeight: "700" }}>Phone Number</Text>
@@ -11,7 +13,13 @@ const PhoneNumber = ({ phoneNumber }) => {
         <Text style={{ fontWeight: "700", fontSize: 18 }}>
           +91 | {phoneNumber}
         </Text>
-        <Button mode="text" color={Colors.tertiary} onPress={() => {}}>
+        <Button
+          mode="text"
+          color={Colors.tertiary}
+          onPress={() => {
+            navigation.navigate("PhoneNumber");
+          }}
+        >
           Change
         </Button>
       </View>

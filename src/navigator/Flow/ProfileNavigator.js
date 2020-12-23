@@ -9,6 +9,8 @@ import EditProfileScreen from "../../screens/Flow/Profile/PersonalInfo/EditProfi
 import AddressScreen from "../../screens/Flow/Profile/PersonalInfo/AddressScreen";
 import AddAddressScreen from "../../screens/Flow/Profile/PersonalInfo/AddAddressScreen";
 import SearchLocationsScreen from "../../screens/Flow/Profile/PersonalInfo/SearchLocationsScreen";
+import PhoneNumberScreen from "../../screens/Flow/Profile/PersonalInfo/Edit PhoneNumber/PhoneNumberScreen";
+import OTPScreen from "../../screens/Flow/Profile/PersonalInfo/Edit PhoneNumber/OTPScreen";
 const ProfileStackNavigator = createStackNavigator();
 
 const ProfileNavigator = () => {
@@ -45,6 +47,12 @@ const ProfileNavigator = () => {
         name="NewPassword"
         component={NewPasswordScreen}
       />
+
+      <ProfileStackNavigator.Screen
+        name="PhoneNumber"
+        component={PhoneNumberScreen}
+      />
+      <ProfileStackNavigator.Screen name="OTP" component={OTPScreen} />
     </ProfileStackNavigator.Navigator>
   );
 };

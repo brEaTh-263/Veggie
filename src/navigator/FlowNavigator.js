@@ -82,7 +82,9 @@ const FlowNavigator = () => {
             routeName === "EditProfile" ||
             routeName === "AddAddress" ||
             routeName === "SearchLocations" ||
-            routeName === "Address"
+            routeName === "Address" ||
+            routeName === "PhoneNumber" ||
+            routeName === "OTP"
           ) {
             tabBarVisible = false;
           } else {

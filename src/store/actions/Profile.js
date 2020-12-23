@@ -5,6 +5,7 @@ export const CHANGE_IMAGE = "CHANGE_IMAGE";
 import { url } from "../../constants/url";
 export const UPDATE_USERNAME = "UPDATE_USERNAME";
 export const EDIT_ADDRESS = "EDIT_ADDRESS";
+export const EDIT_PHONE_NUMBER = "EDIT_PHONE_NUMBER";
 
 export const getProfileData = (token) => {
   return async (dispatch) => {
@@ -312,6 +313,68 @@ export const editAddress = (_id, address, token) => {
       });
     } catch (error) {
       console.log(error);
+      throw new Error();
+    }
+  };
+};
+
+export const getOTPForNewPhoneNumber = (phoneNumber, token) => {
+  //on a number user gives
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/phoneNumber/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          phoneNumber: phoneNumber,
+        }),
+      });
+      const responseJson = await response.json();
+      if (response.status != 200) {
+        throw new Error();
+      }
+      console.log(responseJson);
+    } catch (error) {
+      console.log(error);
+      throw new Error();
+    }
+  };
+};
+export const verifyOTPAndSaveNewPhoneNumber = (phoneNumber, code, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/phoneNumber/verify-status-save`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          phoneNumber: phoneNumber,
+          code: code,
+        }),
+      });
+      const responseJson = await response.json();
+      if (response.status != 200) {
+        throw new Error();
+      }
+      console.log(responseJson);
+
+      if (responseJson.details.status === "approved") {
+      } else {
+        throw new Error();
+      }
+      dispatch({
+        type: EDIT_PHONE_NUMBER,
+        profileData: {
+          phoneNumber: phoneNumber,
+        },
+      });
+    } catch (err) {
+      console.log(err);
       throw new Error();
     }
   };

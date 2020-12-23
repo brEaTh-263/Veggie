@@ -6,6 +6,7 @@ import {
   SELECTED_ADDRESS,
   UPDATE_USERNAME,
   EDIT_ADDRESS,
+  EDIT_PHONE_NUMBER,
 } from "../actions/Profile";
 
 const initialState = {
@@ -83,6 +84,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         email: action.profileData.email,
+        phoneNumber: `${action.profileData.phoneNumber}`,
+      };
+    }
+    case EDIT_PHONE_NUMBER: {
+      return {
+        ...state,
         phoneNumber: `${action.profileData.phoneNumber}`,
       };
     }
