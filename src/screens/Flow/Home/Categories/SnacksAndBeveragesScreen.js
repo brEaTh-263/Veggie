@@ -11,6 +11,7 @@ import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
 
 import { Button } from "react-native-paper";
+import SnacksAndBeveragesCategories from "../../../../components/Home/SnacksAndBeveragesCategories";
 
 const SnacksAndBeveragesScreen = ({ navigation }) => {
   return (
@@ -24,6 +25,7 @@ const SnacksAndBeveragesScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Header text="Snacks and Beverages" textSize={20} />
       </View>
+      <SnacksAndBeveragesCategories />
       <Button
         mode="contained"
         style={{ marginHorizontal: 15 }}

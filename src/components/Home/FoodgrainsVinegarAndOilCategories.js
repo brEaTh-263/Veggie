@@ -10,12 +10,12 @@ const FoodgrainsOilAndVinegarCategories = () => {
         <SingleCategory
           mainCategory="Foodgrains,Oil and Vinegar"
           subCategory="Foodgrains"
-          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Grains.jpg"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Foodgrains%2COil+and+Vinegar/Foodgrains.jpg"
         />
         <SingleCategory
           mainCategory="Foodgrains,Oil and Vinegar"
-          subCategory="Oil & Vinegar"
-          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Fruits/Exotic.jpg"
+          subCategory="Oil and Vinegar"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Foodgrains%2COil+and+Vinegar/Oils+and+Vinegars.jpeg"
         />
       </View>
     </View>

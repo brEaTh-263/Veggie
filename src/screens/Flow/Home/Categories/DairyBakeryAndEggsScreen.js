@@ -11,6 +11,7 @@ import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
 
 import { Button } from "react-native-paper";
+import DairyBakeryAndEggsCategories from "../../../../components/Home/DairyBakeryAndEggsCategories";
 
 const DairyBakeryAndEggsScreen = ({ navigation }) => {
   return (
@@ -24,6 +25,7 @@ const DairyBakeryAndEggsScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Header text="Dairy,Bakery and Eggs" textSize={20} />
       </View>
+      <DairyBakeryAndEggsCategories />
       <Button
         mode="contained"
         style={{ marginHorizontal: 15 }}

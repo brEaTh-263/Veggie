@@ -36,17 +36,17 @@ const Categories = () => {
         <SingleCategory
           parent={true}
           mainCategory="Canned and Packaged"
-          source="https://th.bing.com/th/id/OIP.8xIvwj9-YC-HK96ppjtg7QHaJz?pid=Api&rs=1"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Canned+and+Packaged.jpeg"
         />
         <SingleCategory
           parent={true}
           mainCategory="Snacks and Beverages"
-          source="https://th.bing.com/th/id/OIP.8xIvwj9-YC-HK96ppjtg7QHaJz?pid=Api&rs=1"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Snacks+and+Beverages.jpeg"
         />
         <SingleCategory
           parent={true}
-          mainCategory="Selfcare and Hygiene"
-          source="https://th.bing.com/th/id/OIP.8xIvwj9-YC-HK96ppjtg7QHaJz?pid=Api&rs=1"
+          mainCategory="Self-care and Hygiene"
+          source="https://images263.s3-us-west-1.amazonaws.com/Categories/Self-care+and+Hygiene.jpeg"
         />
       </View>
     </View>

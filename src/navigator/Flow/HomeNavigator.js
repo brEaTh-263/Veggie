@@ -9,6 +9,7 @@ import AllProductsScreen from "../../screens/Flow/Home/AllProductsScreen";
 import DairyBakeryAndEggsScreen from "../../screens/Flow/Home/Categories/DairyBakeryAndEggsScreen";
 import CannedAndPackagedScreen from "../../screens/Flow/Home/Categories/CannedAndPackagedScreen";
 import SnacksAndBeveragesScreen from "../../screens/Flow/Home/Categories/SnacksAndBeveragesScreen";
+import SelfcareAndHygieneScreen from "../../screens/Flow/Home/Categories/SelfcareAndHygieneScreen";
 const HomeStackNavigator = createStackNavigator();
 
 const HomeNavigator = () => {
@@ -46,6 +47,10 @@ const HomeNavigator = () => {
       <HomeStackNavigator.Screen
         name="Snacks and BeveragesCategory"
         component={SnacksAndBeveragesScreen}
+      />
+      <HomeStackNavigator.Screen
+        name="Self-care and HygieneCategory"
+        component={SelfcareAndHygieneScreen}
       />
     </HomeStackNavigator.Navigator>
   );

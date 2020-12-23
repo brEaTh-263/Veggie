@@ -11,9 +11,8 @@ import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
 
 import { Button } from "react-native-paper";
-import CannedAndPackagedCategories from "../../../../components/Home/CannedAndPackagedCategories";
 
-const CannedAndPackagedScreen = ({ navigation }) => {
+const SelfcareAndHygieneScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container} centerContent={true}>
       <View style={styles.headerContainer}>
@@ -23,16 +22,15 @@ const CannedAndPackagedScreen = ({ navigation }) => {
         >
           <BackButton />
         </TouchableOpacity>
-        <Header text="Canned and Packaged" textSize={20} />
+        <Header text="Self-care and Hygiene" textSize={20} />
       </View>
-      <CannedAndPackagedCategories />
       <Button
         mode="contained"
         style={{ marginHorizontal: 15 }}
         color={Colors.tertiary}
         onPress={() =>
           navigation.navigate("AllProducts", {
-            title: "Canned And Packaged",
+            title: "Self-care and Hygiene",
             subCategory: false,
           })
         }
@@ -55,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CannedAndPackagedScreen;
+export default SelfcareAndHygieneScreen;
