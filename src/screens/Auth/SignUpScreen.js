@@ -47,16 +47,15 @@ const SignUpScreen = ({ navigation }) => {
       behavior="position"
       keyboardVerticalOffset={-200}
     >
-      <TouchableOpacity onPress={() => navigation.navigate("Start")}>
-        <BackButton style={styles.backButtonStyle} />
-      </TouchableOpacity>
-
-      <Header
-        text="Create new account"
-        style={{ marginHorizontal: 15, marginTop: 5 }}
-        textSize={30}
-      />
-
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={{ marginHorizontal: 15 }}
+          onPress={() => navigation.goBack()}
+        >
+          <BackButton />
+        </TouchableOpacity>
+        <Header text="Create a new account" textSize={25} />
+      </View>
       <Controller
         control={control}
         render={({ onChange, onBlur, value }) => (
@@ -267,6 +266,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: 20,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 35,
   },
 });
 

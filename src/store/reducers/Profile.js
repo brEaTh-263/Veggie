@@ -1,4 +1,4 @@
-import { LOG_OUT } from "../actions/Auth";
+import { GET_PHONENUMBER_FROM_EMAIL_SEND_OTP, LOG_OUT } from "../actions/Auth";
 import {
   CHANGE_IMAGE,
   EDIT_BOOKMARK,
@@ -77,6 +77,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         locations: profileData.addresses,
+      };
+    }
+    case GET_PHONENUMBER_FROM_EMAIL_SEND_OTP: {
+      return {
+        ...state,
+        email: action.profileData.email,
+        phoneNumber: `${action.profileData.phoneNumber}`,
       };
     }
     case LOG_OUT: {

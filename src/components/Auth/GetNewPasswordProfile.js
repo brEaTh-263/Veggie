@@ -4,11 +4,12 @@ import { useForm, Controller } from "react-hook-form";
 import { TextInput, Button } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import * as profileActions from "../../store/actions/Profile";
+import * as authActions from "../../store/actions/Auth";
 import Colors from "../../constants/Colors";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-const GetNewPassword = ({ isLoading, setIsLoading }) => {
+const GetNewPassword = ({ isLoading, setIsLoading, auth }) => {
   const { control, handleSubmit, errors, setError, reset } = useForm();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.Auth.token);
@@ -22,8 +23,12 @@ const GetNewPassword = ({ isLoading, setIsLoading }) => {
       }
       try {
         setIsLoading(true);
-        await dispatch(profileActions.newPassword(password, token));
-        navigation.navigate("Settings");
+        if (auth) {
+          await dispatch(authActions.newPassword(password, token));
+        } else {
+          await dispatch(profileActions.newPassword(password, token));
+          navigation.navigate("Settings");
+        }
       } catch (error) {
         setIsLoading(false);
         console.log(error);
