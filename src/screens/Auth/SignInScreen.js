@@ -14,22 +14,26 @@ import Colors from "../../constants/Colors";
 import { useForm, Controller } from "react-hook-form";
 import Header from "../../components/General/Header";
 import BackButton from "../../components/General/BackButton";
-import Eye from "../../components/Auth/Eye";
 import * as authActions from "../../store/actions/Auth";
 import { useDispatch } from "react-redux";
 
 const SignInScreen = ({ navigation }) => {
   const { control, handleSubmit, errors } = useForm();
   const [isLoading, setIsLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(
     async (data) => {
       try {
         setIsLoading(true);
-        await dispatch(authActions.signInDefault(data.email, data.password));
+        await dispatch(authActions.signInEmail(data.email));
+        setIsLoading(false);
+        navigation.navigate("OTPEmail", {
+          email: data.email,
+          login: true,
+        });
       } catch (error) {
+        console.log(error);
         setIsLoading(false);
         return Alert.alert("Invalid", "Email or password is incorrect", [
           {
@@ -38,7 +42,7 @@ const SignInScreen = ({ navigation }) => {
         ]);
       }
     },
-    [setIsLoading, setVisible, isLoading]
+    [setIsLoading, isLoading]
   );
 
   return (
@@ -47,32 +51,29 @@ const SignInScreen = ({ navigation }) => {
       behavior="padding"
       keyboardVerticalOffset={20}
     >
-      <View style={styles.backButtonStyle}>
-        <TouchableOpacity onPress={() => navigation.navigate("Start")}>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={{ marginHorizontal: 15 }}
+          onPress={() => navigation.goBack()}
+        >
           <BackButton />
         </TouchableOpacity>
+        <Header text="Login" textSize={25} />
       </View>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../../../assets/logo.png")}
-          style={styles.imageStyle}
-        />
-        <Header text="Welcome!" textSize={30} />
-      </View>
-      <View style={{ height: "5%" }}></View>
+
       <Controller //CHECK FOR EMAIL REGEX!!
         control={control}
         render={({ onChange, onBlur, value }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              placeholder="email@gmail.com"
-              underlineColor="white"
-            />
-          </View>
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            theme={{ colors: { primary: Colors.primary } }}
+            mode="flat"
+            label="Email"
+            underlineColor="green"
+          />
         )}
         name="email"
         rules={{
@@ -81,77 +82,28 @@ const SignInScreen = ({ navigation }) => {
         }}
         defaultValue=""
       />
+      <Text
+        style={{ marginHorizontal: 15, fontStyle: "italic", color: "black" }}
+      >
+        We will send you an email with OTP
+      </Text>
       {errors.email && (
         <View style={styles.errorMessage}>
           <Text style={{ color: "red", fontWeight: "bold" }}>
-            You must provide a valid email address
+            Please provide a valid email address
           </Text>
         </View>
       )}
-      <Controller
-        control={control}
-        render={({ onChange, onBlur, value }) => (
-          <View style={styles.passwordContainerStyle}>
-            <TextInput
-              style={{ width: "100%" }}
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              placeholder="Password"
-              secureTextEntry={!visible}
-              underlineColor="white"
-            />
-            <TouchableOpacity
-              onPress={() => {
-                setVisible(!visible);
-              }}
-              style={styles.eyeStyle}
-            >
-              <Eye visible={visible} setVisible={setVisible} />
-            </TouchableOpacity>
-          </View>
-        )}
-        name="password"
-        rules={{
-          required: true,
-          minLength: 6,
-          maxLength: 20,
-        }}
-        defaultValue=""
-      />
-      {errors.password && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Please provide a valid password
-          </Text>
-        </View>
-      )}
-
-      <View style={{ alignItems: "flex-end", marginHorizontal: 50 }}>
-        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
-          <Text style={{ color: "black" }}>Forgot password?</Text>
-        </TouchableOpacity>
-      </View>
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
           loading={isLoading}
-          color={Colors.primary}
+          contentStyle={{ paddingVertical: 5 }}
+          color={Colors.tertiary}
           onPress={handleSubmit(onSubmit)}
         >
-          Log In
+          Continue
         </Button>
-      </View>
-      <View style={styles.signUpContainer}>
-        <Text>
-          Don't have an account?
-          <Text
-            style={{ color: Colors.secondary }}
-            onPress={() => navigation.navigate("SignUp")}
-          >
-            Sign Up
-          </Text>
-        </Text>
       </View>
     </KeyboardAvoidingView>
   );
@@ -165,9 +117,8 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   buttonContainer: {
-    borderRadius: 30,
-    overflow: "hidden",
-    margin: 20,
+    margin: 10,
+    marginTop: 40,
   },
   container: {
     flex: 1,
@@ -177,40 +128,15 @@ const styles = StyleSheet.create({
     color: "red",
     marginHorizontal: 15,
   },
-  eyeStyle: {
-    position: "absolute",
-    right: "5%",
-  },
-  imageContainer: {
-    alignItems: "center",
-    width: "100%",
-    height: "40%",
-    marginTop: 25,
-    // borderWidth: 1,
-    justifyContent: "center",
-  },
-  imageStyle: { width: "100%", height: "80%" },
-  inputContainer: {
-    borderRadius: 30,
-    overflow: "hidden",
-    margin: 10,
-    marginTop: 15,
-    height: 60,
-  },
-  passwordContainerStyle: {
-    borderRadius: 30,
-    overflow: "hidden",
-    margin: 10,
-    marginTop: 15,
-    height: 60,
+  headerContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 35,
   },
-  signUpContainer: {
-    margin: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    height: 20,
+  input: {
+    backgroundColor: "transparent",
+    marginHorizontal: 15,
+    marginTop: 10,
   },
 });
 

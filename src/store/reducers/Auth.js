@@ -1,9 +1,4 @@
-import {
-  DID_TRY_AUTO_AL,
-  LOG_OUT,
-  SIGN_UP_DEFAULT,
-  VERIFY_OTP,
-} from "../actions/Auth";
+import { DID_TRY_AUTO_AL, LOG_OUT, SIGN_UP_DEFAULT } from "../actions/Auth";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const initialState = {
@@ -34,12 +29,6 @@ export default (state = initialState, action) => {
       AsyncStorage.removeItem("tokenId");
 
       return initialState;
-    }
-    case VERIFY_OTP: {
-      return {
-        ...state,
-        token: action.authData,
-      };
     }
 
     default: {

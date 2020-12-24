@@ -77,8 +77,6 @@ const FlowNavigator = () => {
           const routeName = getFocusedRouteNameFromRoute(route);
 
           if (
-            routeName === "ChangePassword" ||
-            routeName === "NewPassword" ||
             routeName === "EditProfile" ||
             routeName === "AddAddress" ||
             routeName === "SearchLocations" ||

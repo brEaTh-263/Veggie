@@ -38,7 +38,7 @@ const StartScreen = ({ navigation }) => {
       setIsLoading(true);
       await dispatch(authActions.signInUsingPhoneNumber(phoneNumber));
       setIsLoading(false);
-      navigation.navigate("OTP", {
+      navigation.navigate("OTPPhoneNumber", {
         phoneNumber: phoneNumber,
       });
     } catch (error) {
@@ -121,7 +121,7 @@ const StartScreen = ({ navigation }) => {
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("SignIn")}
+          onPress={() => navigation.navigate("SignUp")}
           style={styles.emailContainerStyle}
         >
           <MaterialIcons name="email" size={28} color="black" />
@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     marginLeft: 25,
   },
+  servicesAndPrivacyTextStyle: { color: Colors.tertiary, fontWeight: "bold" },
 });
 
 export default StartScreen;

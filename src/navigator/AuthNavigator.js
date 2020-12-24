@@ -3,9 +3,8 @@ import SignUpScreen from "../screens/Auth/SignUpScreen";
 import StartScreen from "../screens/Auth/StartScreen";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ForgotPasswordScreen from "../screens/Auth/ForgotPasswordScreen";
-import OTPScreen from "../screens/Auth/OTPScreen";
-import NewPasswordScreen from "../screens/Auth/NewPasswordScreen";
+import OTPPhoneNumberScreen from "../screens/Auth/OTPPhoneNumberScreen";
+import OTPEmailScreen from "../screens/Auth/OTPEmailScreen";
 const AuthStackNavigator = createStackNavigator();
 
 const AuthNavigator = () => {
@@ -14,15 +13,12 @@ const AuthNavigator = () => {
       <AuthStackNavigator.Screen name="Start" component={StartScreen} />
       <AuthStackNavigator.Screen name="SignUp" component={SignUpScreen} />
       <AuthStackNavigator.Screen name="SignIn" component={SignInScreen} />
-      <AuthStackNavigator.Screen //TO-DO AUTOREAD
-        name="ForgotPassword"
-        component={ForgotPasswordScreen}
-      />
-      <AuthStackNavigator.Screen name="OTP" component={OTPScreen} />
+
       <AuthStackNavigator.Screen
-        name="NewPassword"
-        component={NewPasswordScreen}
+        name="OTPPhoneNumber"
+        component={OTPPhoneNumberScreen}
       />
+      <AuthStackNavigator.Screen name="OTPEmail" component={OTPEmailScreen} />
     </AuthStackNavigator.Navigator>
   );
 };

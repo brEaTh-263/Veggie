@@ -1,6 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, StyleSheet, Alert, TouchableOpacity } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  Image,
+} from "react-native";
+import { ActivityIndicator, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import BackButton from "../../components/General/BackButton";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,17 +17,20 @@ import Header from "../../components/General/Header";
 const OTPScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
-  const { phoneNumber } = route.params;
+  const { email, username, login } = route.params;
   const [isLoading, setIsLoading] = useState(false);
-  const profileData = useSelector((state) => state.Profile);
 
   const getOtp = useCallback(async () => {
     try {
-      if (phoneNumber) {
-        dispatch(authActions.signInUsingPhoneNumber(phoneNumber));
+      setIsLoading(true);
+
+      if (login) {
+        await dispatch(authActions.signInEmail(email));
       } else {
-        dispatch(authActions.getPhoneNumberFromEmail(profileData.email));
+        await dispatch(authActions.signUpEmail(email, username));
       }
+
+      setIsLoading(false);
     } catch (error) {
       return Alert.alert("Something went wrong", "Please try again!", [
         { text: "Okay" },
@@ -35,13 +45,12 @@ const OTPScreen = ({ navigation, route }) => {
           throw new Error();
         }
         setIsLoading(true);
-        if (phoneNumber) {
-          await dispatch(
-            authActions.verifyPhoneNumberForPhoneNumberSignIn(code, phoneNumber)
-          );
+        if (login) {
+          await dispatch(authActions.authenticateSignInEmail(email, code));
         } else {
-          await dispatch(authActions.verifyOTP(code, profileData.email));
-          navigation.navigate("NewPassword");
+          await dispatch(
+            authActions.authenticateSignUpEmail(email, code, username)
+          );
         }
       } catch (error) {
         setIsLoading(false);
@@ -73,10 +82,29 @@ const OTPScreen = ({ navigation, route }) => {
         </TouchableOpacity>
         <Header text="Enter the code" textSize={20} />
       </View>
-      <View style={{ margin: 20 }}>
-        <Text style={styles.title}>
-          We've sent a verification code to {"                              "}
-          +91 | {phoneNumber ? phoneNumber : profileData.phoneNumber}
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 20,
+        }}
+      >
+        <Image
+          source={require("../../../assets/check-mail.png")}
+          resizeMode="cover"
+          style={{ width: "60%", height: 100 }}
+        />
+      </View>
+      <View style={{ margin: 40 }}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 18,
+            fontStyle: "italic",
+          }}
+        >
+          To confirm your email address,please enter the OTP we sent to {email}.
+          {"           "}Please make sure you check spam mails as well
         </Text>
       </View>
 
@@ -85,6 +113,7 @@ const OTPScreen = ({ navigation, route }) => {
           style={styles.otpStyle}
           pinCount={6}
           code={otp}
+          editable={true}
           onCodeChanged={(code) => setOtp(code)}
           autoFocusOnLoad
           codeInputFieldStyle={styles.inputFieldStyle}
@@ -92,14 +121,15 @@ const OTPScreen = ({ navigation, route }) => {
           onCodeFilled={verifyOtp}
         ></OTPInputView>
       </View>
-      <View style={styles.noOtpTextContainerStyle}>
-        <Text style={{ textAlign: "center", fontSize: 18 }}>
-          Didn't get an OTP?{" "}
-          <Text style={{ color: Colors.tertiary }} onPress={getOtp}>
-            Resend now
-          </Text>
-        </Text>
-      </View>
+      <Button
+        mode="contained"
+        color={Colors.primary}
+        onPress={() => getOtp()}
+        contentStyle={{ marginVertical: 5 }}
+        style={{ margin: 10, marginVertical: 30, borderRadius: 5 }}
+      >
+        Resend verification email
+      </Button>
     </View>
   );
 };
@@ -117,23 +147,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 20,
   },
-  title: {
-    textAlign: "center",
-    marginVertical: 15,
-    fontSize: 16,
-    marginTop: 30,
-  },
   inputFieldStyle: {
     color: "black",
     fontWeight: "bold",
     borderWidth: 2,
-  },
-  noOtpTextContainerStyle: {
-    position: "absolute",
-    bottom: 0,
-    marginBottom: 15,
-    alignItems: "center",
-    width: "100%",
   },
 });
 

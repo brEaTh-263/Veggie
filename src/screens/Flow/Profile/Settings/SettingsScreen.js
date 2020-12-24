@@ -22,11 +22,6 @@ const SettingsScreen = ({ navigation }) => {
         <Header text="Settings" textSize={30} />
       </View>
 
-      <PlainCard
-        title="Change Password"
-        subtitle="Some suggestion"
-        navScreen="ChangePassword"
-      />
       <Button
         icon="power"
         color={Colors.tertiary}

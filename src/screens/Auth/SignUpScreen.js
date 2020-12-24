@@ -5,19 +5,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
+  ActivityIndicator,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import Header from "../../components/General/Header";
 import { useForm, Controller } from "react-hook-form";
 import BackButton from "../../components/General/BackButton";
-import Eye from "../../components/Auth/Eye";
 import * as authActions from "../../store/actions/Auth";
 import { useDispatch } from "react-redux";
 
 const SignUpScreen = ({ navigation }) => {
   const { control, handleSubmit, errors, setError } = useForm();
-  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -28,29 +28,32 @@ const SignUpScreen = ({ navigation }) => {
     }
     try {
       setIsLoading(true);
-      await dispatch(
-        authActions.signUpDefault(data.username, data.email, data.password)
-      );
+      await dispatch(authActions.signUpEmail(data.email, data.username));
+      setIsLoading(false);
+      navigation.navigate("OTPEmail", {
+        email: data.email,
+        username: data.username,
+      });
     } catch (error) {
       setIsLoading(false);
-      return setError("email", {
-        types: {
-          validate: "Please try another email..",
-        },
-      });
+      return Alert.alert("Please try another email");
     }
   }, []);
 
+  if (isLoading) {
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <ActivityIndicator size="large" color={Colors.tertiary} />
+      </View>
+    );
+  }
+
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior="position"
-      keyboardVerticalOffset={-200}
-    >
+    <View style={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.navigate("SignIn")}
+          onPress={() => navigation.navigate("Start")}
         >
           <BackButton />
         </TouchableOpacity>
@@ -59,15 +62,15 @@ const SignUpScreen = ({ navigation }) => {
       <Controller
         control={control}
         render={({ onChange, onBlur, value }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              placeholder="@username"
-            />
-          </View>
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            mode="flat"
+            label="Username"
+            theme={{ colors: { primary: Colors.primary } }}
+          />
         )}
         name="username"
         rules={{ required: true, minLength: 3 }}
@@ -85,15 +88,15 @@ const SignUpScreen = ({ navigation }) => {
       <Controller //CHECK FOR EMAIL REGEX
         control={control}
         render={({ onChange, onBlur, value }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              placeholder="email@gmail.com"
-            />
-          </View>
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            mode="flat"
+            label="Email"
+            theme={{ colors: { primary: Colors.primary } }}
+          />
         )}
         name="email"
         rules={{
@@ -103,116 +106,18 @@ const SignUpScreen = ({ navigation }) => {
         defaultValue=""
       />
 
-      {errors.email && !errors.email.types && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            You must provide a valid email address
-          </Text>
-        </View>
-      )}
-
-      {errors.email && errors.email.types && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            {errors.email.types.validate}
-          </Text>
-        </View>
-      )}
-
-      <Controller
-        control={control}
-        render={({ onChange, onBlur, value }) => (
-          <View style={styles.passwordContainerStyle}>
-            <TextInput
-              style={{ width: "100%" }}
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              placeholder="Password"
-              secureTextEntry={!visible}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                setVisible(!visible);
-              }}
-              style={styles.eyeStyle}
-            >
-              <Eye visible={visible} setVisible={setVisible} />
-            </TouchableOpacity>
-          </View>
-        )}
-        name="password"
-        rules={{
-          required: true,
-          minLength: 6,
-          maxLength: 20,
-        }}
-        defaultValue=""
-      />
-      {errors.password && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Must be 6 letters or more
-          </Text>
-        </View>
-      )}
-
-      <Controller
-        control={control}
-        render={({ onChange, onBlur, value }) => (
-          <View style={styles.passwordContainerStyle}>
-            <TextInput
-              style={{ width: "100%" }}
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              placeholder="Confirm password"
-              secureTextEntry={!visible}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                setVisible(!visible);
-              }}
-              style={styles.eyeStyle}
-            >
-              <Eye visible={visible} setVisible={setVisible} />
-            </TouchableOpacity>
-          </View>
-        )}
-        name="repassword"
-        rules={{ required: true }}
-        defaultValue=""
-      />
-      {errors.repassword && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Password doesn't match
-          </Text>
-        </View>
-      )}
-
-      <View style={{ margin: 10, marginLeft: 20 }}>
-        <Text>
-          By signing up,you accept the{" "}
-          <Text style={styles.servicesAndPrivacyTextStyle}>
-            Terms of Service
-          </Text>
-          {"  "}and{" "}
-          <Text style={styles.servicesAndPrivacyTextStyle}>Privacy Policy</Text>
-        </Text>
-      </View>
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
           color={Colors.tertiary}
-          loading={isLoading}
+          contentStyle={{ marginVertical: 5 }}
           onPress={handleSubmit(onSubmit)}
         >
-          Sign Up
+          Continue
         </Button>
       </View>
       <View style={styles.signInContainerStyle}>
-        <Text>
+        <Text style={{ fontSize: 18 }}>
           Already have an account?
           <Text
             style={{ color: Colors.tertiary }}
@@ -222,19 +127,18 @@ const SignUpScreen = ({ navigation }) => {
           </Text>
         </Text>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  backButtonStyle: {
-    marginTop: 25,
-    marginHorizontal: 15,
-  },
   container: {
     flex: 1,
   },
-  eyeStyle: { position: "absolute", right: "5%" },
+  input: {
+    backgroundColor: "transparent",
+    marginHorizontal: 15,
+  },
   inputContainer: {
     borderRadius: 30,
     overflow: "hidden",
@@ -243,24 +147,13 @@ const styles = StyleSheet.create({
     height: 60,
   },
   buttonContainer: {
-    borderRadius: 30,
-    overflow: "hidden",
-    margin: 20,
+    margin: 10,
+    marginTop: 60,
   },
   errorMessage: {
     color: "red",
     marginHorizontal: 15,
   },
-  passwordContainerStyle: {
-    borderRadius: 30,
-    overflow: "hidden",
-    margin: 10,
-    marginTop: 15,
-    height: 60,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  servicesAndPrivacyTextStyle: { color: Colors.tertiary, fontWeight: "bold" },
   signInContainerStyle: {
     margin: 10,
     alignItems: "center",
