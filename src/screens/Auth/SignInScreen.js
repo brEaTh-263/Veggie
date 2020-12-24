@@ -158,7 +158,12 @@ const SignInScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  backButtonStyle: { position: "absolute", marginLeft: 15, marginTop: 20 },
+  backButtonStyle: {
+    position: "absolute",
+    marginLeft: 15,
+    marginTop: 20,
+    zIndex: 1000,
+  },
   buttonContainer: {
     borderRadius: 30,
     overflow: "hidden",

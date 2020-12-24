@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   conatiner: {
     marginVertical: 10,
     marginHorizontal: 15,
-    height: 260,
+    height: 350,
   },
   categoriesContainer: {
     flexWrap: "wrap",

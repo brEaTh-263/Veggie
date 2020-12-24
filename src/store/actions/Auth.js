@@ -5,6 +5,60 @@ export const LOG_OUT = "LOG_OUT";
 export const GET_PHONENUMBER_FROM_EMAIL_SEND_OTP =
   "GET_PHONENUMER_FROM_EMAIL_SEND_OTP";
 export const VERIFY_OTP = "VERIFY_OTP";
+
+export const signInUsingPhoneNumber = (phoneNumber) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/auth/signup-phonenumber`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phoneNumber }),
+      });
+
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status != 200) {
+        throw new Error();
+      }
+    } catch (error) {
+      throw new Error();
+    }
+  };
+};
+
+export const verifyPhoneNumberForPhoneNumberSignIn = (code, phoneNumber) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/auth/authenticate-phonenumber`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code,
+          phoneNumber,
+        }),
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status != 200) {
+        throw new Error();
+      }
+
+      dispatch({
+        type: SIGN_UP_DEFAULT,
+        authData: {
+          token: responseJson.token,
+        },
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  };
+};
+
 export const setDidTryAutoLogin = () => {
   return async (dispatch) => {
     dispatch({ type: DID_TRY_AUTO_AL });

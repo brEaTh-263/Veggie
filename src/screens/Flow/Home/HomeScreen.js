@@ -18,7 +18,7 @@ import * as productActions from "../../../store/actions/Products";
 import Carousel from "../../../components/Home/Carousel";
 import ChooseLiveOrOtherLocation from "../../../components/General/ChooseLocationType";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_WIDTH = Dimensions.get("screen").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 const HomeScreen = () => {
@@ -86,11 +86,8 @@ const HomeScreen = () => {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
-      <View>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ChooseLiveOrOtherLocation
           isVisible={isVisible}
           setIsVisible={setIsVisible}
@@ -101,15 +98,14 @@ const HomeScreen = () => {
         <Carousel />
 
         <Categories />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: SCREEN_HEIGHT,
-    width: SCREEN_WIDTH,
+    flex: 1,
     backgroundColor: Colors.bkg,
   },
 });

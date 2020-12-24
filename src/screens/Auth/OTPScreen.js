@@ -7,15 +7,20 @@ import { useSelector, useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/Auth";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Header from "../../components/General/Header";
-const OTPScreen = ({ navigation }) => {
+const OTPScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
+  const { phoneNumber } = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const profileData = useSelector((state) => state.Profile);
 
   const getOtp = useCallback(async () => {
     try {
-      dispatch(authActions.getPhoneNumberFromEmail(profileData.email));
+      if (phoneNumber) {
+        dispatch(authActions.signInUsingPhoneNumber(phoneNumber));
+      } else {
+        dispatch(authActions.getPhoneNumberFromEmail(profileData.email));
+      }
     } catch (error) {
       return Alert.alert("Something went wrong", "Please try again!", [
         { text: "Okay" },
@@ -26,13 +31,18 @@ const OTPScreen = ({ navigation }) => {
   const verifyOtp = useCallback(
     async (code) => {
       try {
-        if (!code || !profileData.email) {
+        if (!code) {
           throw new Error();
         }
         setIsLoading(true);
-        await dispatch(authActions.verifyOTP(code, profileData.email));
-        setIsLoading(false);
-        navigation.navigate("NewPassword");
+        if (phoneNumber) {
+          await dispatch(
+            authActions.verifyPhoneNumberForPhoneNumberSignIn(code, phoneNumber)
+          );
+        } else {
+          await dispatch(authActions.verifyOTP(code, profileData.email));
+          navigation.navigate("NewPassword");
+        }
       } catch (error) {
         setIsLoading(false);
         console.log(error);
@@ -66,7 +76,7 @@ const OTPScreen = ({ navigation }) => {
       <View style={{ margin: 20 }}>
         <Text style={styles.title}>
           We've sent a verification code to {"                              "}
-          +91 | {profileData.phoneNumber}
+          +91 | {phoneNumber ? phoneNumber : profileData.phoneNumber}
         </Text>
       </View>
 
