@@ -35,8 +35,10 @@ const HomeScreen = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        await dispatch(profileActions.getProfileData(token));
-        await dispatch(productActions.getAllProducts(token));
+        if (token.length > 0) {
+          await dispatch(profileActions.getProfileData(token));
+        }
+        await dispatch(productActions.getAllProducts());
 
         setIsLoading(false);
       } catch (err) {

@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 import InputSpinner from "react-native-input-spinner";
 import * as cartActions from "../../store/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
-import { Fontisto, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as profileActions from "../../store/actions/Profile";
 
 const ProductItem = ({
@@ -23,6 +23,7 @@ const ProductItem = ({
       return prod.productId === _id;
     })
   );
+  const cart = useSelector((state) => state.Cart);
   const token = useSelector((state) => state.Auth.token);
   const [isBookmarked, setIsBookmarked] = useState(
     bookmarkIds.length > 0 ? true : false
@@ -37,23 +38,25 @@ const ProductItem = ({
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.bookmarkIconStyle}
-          onPress={async () => {
-            setIsBookmarked(!isBookmarked);
-            if (isBookmarked) {
-              dispatch(profileActions.removeBookmark(_id, token));
-            } else {
-              dispatch(profileActions.addBookmark(_id, token));
-            }
-          }}
-        >
-          <Ionicons
-            name={isBookmarked ? "leaf-sharp" : "leaf-outline"}
-            size={24}
-            color={Colors.sub}
-          />
-        </TouchableOpacity>
+        {token.length > 0 && (
+          <TouchableOpacity
+            style={styles.bookmarkIconStyle}
+            onPress={async () => {
+              setIsBookmarked(!isBookmarked);
+              if (isBookmarked) {
+                dispatch(profileActions.removeBookmark(_id, token));
+              } else {
+                dispatch(profileActions.addBookmark(_id, token));
+              }
+            }}
+          >
+            <Ionicons
+              name={isBookmarked ? "leaf-sharp" : "leaf-outline"}
+              size={24}
+              color={Colors.sub}
+            />
+          </TouchableOpacity>
+        )}
         <Image
           resizeMode="contain"
           source={{
@@ -79,7 +82,17 @@ const ProductItem = ({
               style={{ alignSelf: "flex-end", marginRight: 15 }}
               color={Colors.tertiary}
               onPress={() => {
-                dispatch(cartActions.addProduct(_id, token));
+                if (token.length > 0) {
+                  dispatch(cartActions.addProduct(_id, token));
+                } else {
+                  dispatch(
+                    cartActions.addProductNoAuth(
+                      _id,
+                      cart.cartProducts,
+                      cart.totalAmount
+                    )
+                  );
+                }
                 setQty(1);
               }}
             >
@@ -100,10 +113,31 @@ const ProductItem = ({
               value={qty}
               onChange={(num) => {
                 if (num > qty) {
-                  dispatch(cartActions.addProduct(_id, token));
+                  if (token.length > 0) {
+                    dispatch(cartActions.addProduct(_id, token));
+                  } else {
+                    dispatch(
+                      cartActions.addProductNoAuth(
+                        _id,
+                        cart.cartProducts,
+                        cart.totalAmount
+                      )
+                    );
+                  }
+
                   setQty(num);
                 } else if (num < qty) {
-                  dispatch(cartActions.removeProduct(_id, token));
+                  if (token.length > 0) {
+                    dispatch(cartActions.removeProduct(_id, token));
+                  } else {
+                    dispatch(
+                      cartActions.removeProductNoAuth(
+                        _id,
+                        cart.cartProducts,
+                        cart.totalAmount
+                      )
+                    );
+                  }
                   setQty(num);
                 }
               }}

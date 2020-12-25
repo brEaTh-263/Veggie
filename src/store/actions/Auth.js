@@ -2,6 +2,8 @@ import { url } from "../../constants/url";
 export const SIGN_UP_DEFAULT = "SIGN_UP_DEFAULT";
 export const DID_TRY_AUTO_AL = "DID_TRY_AUTO_AL";
 export const LOG_OUT = "LOG_OUT";
+export const SKIP_AUTHENTICATION = "SKIP_AUTHENTICATION";
+export const CONTINUE_WITH_AUTHENTICATION = "CONTINUE_WITH_AUTHENTICATION";
 
 export const signInUsingPhoneNumber = (phoneNumber) => {
   return async (dispatch) => {
@@ -22,6 +24,18 @@ export const signInUsingPhoneNumber = (phoneNumber) => {
     } catch (error) {
       throw new Error();
     }
+  };
+};
+
+export const skipAuthentication = () => {
+  return async (dispatch) => {
+    dispatch({ type: SKIP_AUTHENTICATION });
+  };
+};
+
+export const continueWithAuthentication = () => {
+  return async (dispatch) => {
+    dispatch({ type: CONTINUE_WITH_AUTHENTICATION });
   };
 };
 

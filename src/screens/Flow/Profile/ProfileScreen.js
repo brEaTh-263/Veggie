@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import {
+  FlatList,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import Colors from "../../../constants/Colors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DP from "../../../components/Profile/DP";
 import ProductItem from "../../../components/General/ProductItem";
 import { Entypo } from "@expo/vector-icons";
+import { Button } from "react-native-paper";
 import CardButton from "../../../components/Profile/CardButton";
+import Header from "../../../components/General/Header";
+import * as authActions from "../../../store/actions/Auth";
+import NotAuthenticated from "../../../components/Profile/NotAuthenticated";
 
 const ProfileScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
+  const dispatch = useDispatch();
   const [image, setImage] = useState(`${profileData.imageURL}`);
+  const token = useSelector((state) => state.Auth.token);
   const cartProducts = useSelector((state) => state.Cart.cartProducts); //used to check if items added in cart are bookmarked as well..then the quantity is showed here
   const allProducts = useSelector((state) => state.Products.products); //used to filter all the bookmarks from all products
   const bookmarks = profileData.bookmarks.map((prod) => {
@@ -23,6 +36,10 @@ const ProfileScreen = ({ navigation }) => {
   useEffect(() => {
     setImage(`${profileData.imageURL}`);
   }, [profileData, setImage]);
+
+  if (token.length === 0) {
+    return <NotAuthenticated />;
+  }
 
   return (
     <View style={styles.container} centerContent={true}>

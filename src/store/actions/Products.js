@@ -1,14 +1,13 @@
 import { url } from "../../constants/url";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 
-export const getAllProducts = (token) => {
+export const getAllProducts = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(`${url}/stock/products`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "x-auth-token": token,
         },
       });
       if (response.status != 200) {

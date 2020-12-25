@@ -1,16 +1,16 @@
-import {url} from '../../constants/url';
+import { url } from "../../constants/url";
 
-export const ADD_TO_CART = 'ADD_TO_CART';
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 
 export const addProduct = (_id, token) => {
   return async (dispatch) => {
     try {
       const response = await fetch(`${url}/user/add-to-cart`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token,
+          "Content-Type": "application/json",
+          "x-auth-token": token,
         },
         body: JSON.stringify({
           productId: _id,
@@ -41,13 +41,85 @@ export const removeProduct = (_id, token) => {
   return async (dispatch) => {
     try {
       const response = await fetch(`${url}/user/remove-from-cart`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token,
+          "Content-Type": "application/json",
+          "x-auth-token": token,
         },
         body: JSON.stringify({
           productId: _id,
+        }),
+      });
+
+      const responseJson = await response.json();
+      console.log(responseJson);
+
+      if (response.status != 200) {
+        throw new Error();
+      }
+      dispatch({
+        type: REMOVE_FROM_CART,
+        productData: {
+          totalAmount: responseJson.totalAmount,
+          cartProducts: responseJson.cartProducts,
+        },
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  };
+};
+
+export const addProductNoAuth = (_id, cartProducts, totalAmount) => {
+  return async (dispatch) => {
+    let total = parseInt(totalAmount);
+    try {
+      const response = await fetch(`${url}/user/add-to-cart-no-auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: _id,
+          totalAmount: total,
+          cartProducts: cartProducts,
+        }),
+      });
+
+      const responseJson = await response.json();
+      console.log(responseJson);
+
+      if (response.status != 200) {
+        throw new Error();
+      }
+
+      dispatch({
+        type: ADD_TO_CART,
+        productData: {
+          totalAmount: responseJson.totalAmount,
+          cartProducts: responseJson.cartProducts,
+        },
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  };
+};
+
+export const removeProductNoAuth = (_id, cartProducts, totalAmount) => {
+  return async (dispatch) => {
+    let total = parseInt(totalAmount);
+
+    try {
+      const response = await fetch(`${url}/user/remove-from-cart-no-auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: _id,
+          cartProducts: cartProducts,
+          totalAmount: total,
         }),
       });
 

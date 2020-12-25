@@ -72,6 +72,22 @@ const StartScreen = ({ navigation }) => {
         <View style={{ alignItems: "center" }}>
           <Text style={{ fontSize: 30, marginBottom: 15 }}>Veggiee!!</Text>
         </View>
+        <Button
+          color={Colors.tertiary}
+          compact={true}
+          onPress={() => {
+            dispatch(authActions.skipAuthentication());
+          }}
+          style={{
+            position: "absolute",
+            right: "5%",
+            top: "5%",
+            backgroundColor: "#888",
+            borderRadius: 20,
+          }}
+        >
+          <Text style={{ fontSize: 10 }}> Skip</Text>
+        </Button>
 
         <View style={styles.inputContainerStyle}>
           <Image
