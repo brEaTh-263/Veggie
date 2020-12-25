@@ -10,7 +10,7 @@ const PersonalInfoScreen = ({ navigation }) => {
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Profile")}
         >
           <BackButton />
         </TouchableOpacity>

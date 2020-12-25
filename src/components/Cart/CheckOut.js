@@ -5,11 +5,15 @@ import { FontAwesome } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import AddressName from "../General/AddressName";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 const CheckOut = ({ amount, setIsVisible }) => {
   const address = useSelector(
     (state) => state.Profile.selectedLocation.address
   );
+  const token = useSelector((state) => state.Auth.token);
+  const phoneNumber = useSelector((state) => state.Profile.phoneNumber);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
@@ -40,7 +44,6 @@ const CheckOut = ({ amount, setIsVisible }) => {
             flexDirection: "row",
             alignItems: "center",
             width: "50%",
-            // justifyContent: "center",
             paddingHorizontal: 15,
           }}
         >
@@ -50,6 +53,13 @@ const CheckOut = ({ amount, setIsVisible }) => {
 
         <Button
           color={Colors.tertiary}
+          onPress={() => {
+            if (phoneNumber.length !== 10) {
+              navigation.navigate("PhoneNumber", {
+                checkOut: true,
+              });
+            }
+          }}
           mode="contained"
           style={{ width: "50%" }}
         >

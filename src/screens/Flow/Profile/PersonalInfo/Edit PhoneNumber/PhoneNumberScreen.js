@@ -7,23 +7,33 @@ import { TouchableOpacity } from "react-native";
 import BackButton from "../../../../../components/General/BackButton";
 import { useSelector, useDispatch } from "react-redux";
 import * as profileActions from "../../../../../store/actions/Profile";
+import * as authActions from "../../../../../store/actions/Auth";
 import Header from "../../../../../components/General/Header";
 
-const PhoneNumberScreen = ({ navigation }) => {
+const PhoneNumberScreen = ({ navigation, route }) => {
   const { control, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.Auth.token);
   const profileData = useSelector((state) => state.Profile);
   const [isLoading, setIsLoading] = useState(false);
+  const { checkOut } = route.params;
 
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      await dispatch(
-        profileActions.getOTPForNewPhoneNumber(data.phoneNumber, token)
-      );
+      if (checkOut && !token) {
+        await dispatch(authActions.signInUsingPhoneNumber(data.phoneNumber));
+      } else {
+        await dispatch(
+          profileActions.getOTPForNewPhoneNumber(data.phoneNumber, token)
+        );
+      }
+
       setIsLoading(false);
-      navigation.navigate("OTP", { newPhoneNumber: data.phoneNumber });
+      navigation.navigate("OTP", {
+        newPhoneNumber: data.phoneNumber,
+        checkOut: checkOut,
+      });
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -38,7 +48,13 @@ const PhoneNumberScreen = ({ navigation }) => {
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.navigate("EditProfile")}
+          onPress={() => {
+            if (checkOut) {
+              navigation.navigate("Cart");
+            } else {
+              navigation.goBack();
+            }
+          }}
         >
           <BackButton />
         </TouchableOpacity>

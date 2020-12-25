@@ -6,6 +6,8 @@ import { url } from "../../constants/url";
 export const UPDATE_USERNAME = "UPDATE_USERNAME";
 export const EDIT_ADDRESS = "EDIT_ADDRESS";
 export const EDIT_PHONE_NUMBER = "EDIT_PHONE_NUMBER";
+export const ADD_TOKEN_AND_CART_PROFILE_DETAILS =
+  "ADD_TOKEN_AND_CART_PROFILE_DETAILS";
 
 export const getProfileData = (token) => {
   return async (dispatch) => {
@@ -107,56 +109,6 @@ export const removeBookmark = (id, token) => {
       });
     } catch (error) {
       console.log(error);
-    }
-  };
-};
-
-export const checkValidityOfPassword = (password, token) => {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(`${url}/user/check-validity-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-        body: JSON.stringify({
-          password: password,
-        }),
-      });
-      const responseJson = await response.json();
-      console.log(responseJson);
-      if (response.status !== 200) {
-        throw new Error();
-      }
-    } catch (error) {
-      console.log(error);
-      throw new Error();
-    }
-  };
-};
-
-export const newPassword = (password, token) => {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(`${url}/auth/new-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-        body: JSON.stringify({
-          password: password,
-        }),
-      });
-      const responseJson = await response.json();
-      console.log(responseJson);
-      if (response.status != 200) {
-        throw new Error();
-      }
-    } catch (error) {
-      console.log(error);
-      throw new Error();
     }
   };
 };
@@ -343,6 +295,7 @@ export const getOTPForNewPhoneNumber = (phoneNumber, token) => {
     }
   };
 };
+
 export const verifyOTPAndSaveNewPhoneNumber = (phoneNumber, code, token) => {
   return async (dispatch) => {
     try {
@@ -375,6 +328,59 @@ export const verifyOTPAndSaveNewPhoneNumber = (phoneNumber, code, token) => {
       });
     } catch (err) {
       console.log(err);
+      throw new Error();
+    }
+  };
+};
+
+export const addTokenAndOverwriteCartProducts = (
+  phoneNumber,
+  code,
+  cartProducts,
+  totalAmount
+) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${url}/auth/authenticate-phonenumber-and-get-details`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            code,
+            phoneNumber,
+            cartProducts,
+            totalAmount,
+          }),
+        }
+      );
+      const responseJson = await response.json();
+      console.log(responseJson);
+      if (response.status != 200) {
+        throw new Error();
+      }
+
+      dispatch({
+        type: ADD_TOKEN_AND_CART_PROFILE_DETAILS,
+        authData: {
+          token: responseJson.token,
+        },
+        profileData: {
+          email: responseJson.details.email,
+          username: responseJson.details.name,
+          phoneNumber: responseJson.details.phoneNumber,
+          id: responseJson.details._id,
+          token: responseJson.token,
+          imageURL: responseJson.details.imageURL,
+          addresses: responseJson.details.location,
+          bookmarks: responseJson.details.bookmarks,
+          totalAmount: responseJson.details.totalAmount,
+          cartProducts: responseJson.details.cartProducts,
+        },
+      });
+    } catch (error) {
       throw new Error();
     }
   };

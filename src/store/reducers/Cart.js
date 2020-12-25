@@ -1,6 +1,9 @@
 import { LOG_OUT } from "../actions/Auth";
 import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/Cart";
-import { PROFILE_DATA } from "../actions/Profile";
+import {
+  ADD_TOKEN_AND_CART_PROFILE_DETAILS,
+  PROFILE_DATA,
+} from "../actions/Profile";
 
 const initialState = {
   cartProducts: [],
@@ -27,6 +30,12 @@ export default (state = initialState, action) => {
     }
     case PROFILE_DATA: {
       //getting cart details from database
+      return {
+        cartProducts: action.profileData.cartProducts,
+        totalAmount: action.profileData.totalAmount,
+      };
+    }
+    case ADD_TOKEN_AND_CART_PROFILE_DETAILS: {
       return {
         cartProducts: action.profileData.cartProducts,
         totalAmount: action.profileData.totalAmount,

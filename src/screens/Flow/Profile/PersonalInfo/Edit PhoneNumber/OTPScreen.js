@@ -7,17 +7,23 @@ import { useSelector, useDispatch } from "react-redux";
 import * as profileActions from "../../../../../store/actions/Profile";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Header from "../../../../../components/General/Header";
+import * as authActions from "../../../../../store/actions/Auth";
 
 const OTPScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
   const token = useSelector((state) => state.Auth.token);
-  const { newPhoneNumber } = route.params;
+  const { newPhoneNumber, checkOut } = route.params;
   const [isLoading, setIsLoading] = useState(false);
+  const cart = useSelector((state) => state.Cart);
 
   const getOtp = useCallback(async () => {
     try {
-      dispatch(profileActions.getOTPForNewPhoneNumber(newPhoneNumber, token));
+      if (checkOut && !token) {
+        dispatch(authActions.signInUsingPhoneNumber(data.phoneNumber));
+      } else {
+        dispatch(profileActions.getOTPForNewPhoneNumber(newPhoneNumber, token));
+      }
     } catch (error) {
       return Alert.alert("Something went wrong", "Please try again!", [
         { text: "Okay" },
@@ -32,15 +38,31 @@ const OTPScreen = ({ navigation, route }) => {
           throw new Error();
         }
         setIsLoading(true);
-        await dispatch(
-          profileActions.verifyOTPAndSaveNewPhoneNumber(
-            newPhoneNumber,
-            code,
-            token
-          )
-        );
+        if (checkOut && !token) {
+          await dispatch(
+            profileActions.addTokenAndOverwriteCartProducts(
+              newPhoneNumber,
+              code,
+              cart.cartProducts,
+              cart.totalAmounts
+            )
+          );
+        } else {
+          await dispatch(
+            profileActions.verifyOTPAndSaveNewPhoneNumber(
+              newPhoneNumber,
+              code,
+              token
+            )
+          );
+        }
+
         setIsLoading(false);
-        navigation.navigate("EditProfile");
+        if (checkOut) {
+          navigation.push("Cart");
+        } else {
+          navigation.navigate("EditProfile");
+        }
       } catch (error) {
         setIsLoading(false);
         console.log(error);

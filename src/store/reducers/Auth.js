@@ -6,6 +6,7 @@ import {
   SKIP_AUTHENTICATION,
 } from "../actions/Auth";
 import AsyncStorage from "@react-native-community/async-storage";
+import { ADD_TOKEN_AND_CART_PROFILE_DETAILS } from "../actions/Profile";
 
 const initialState = {
   oAuth: false,
@@ -47,6 +48,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAuth: false,
+      };
+    }
+    case ADD_TOKEN_AND_CART_PROFILE_DETAILS: {
+      AsyncStorage.setItem("tokenId", action.authData.token);
+
+      return {
+        ...state,
+        token: action.authData.token,
       };
     }
 

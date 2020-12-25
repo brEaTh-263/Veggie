@@ -78,15 +78,9 @@ const StartScreen = ({ navigation }) => {
           onPress={() => {
             dispatch(authActions.skipAuthentication());
           }}
-          style={{
-            position: "absolute",
-            right: "5%",
-            top: "5%",
-            backgroundColor: "#888",
-            borderRadius: 20,
-          }}
+          style={}
         >
-          <Text style={{ fontSize: 10 }}> Skip</Text>
+          <Text style={{ fontSize: 10 }}>Skip</Text>
         </Button>
 
         <View style={styles.inputContainerStyle}>
@@ -258,6 +252,14 @@ const styles = StyleSheet.create({
   servicesAndPrivacyTextStyle: {
     color: Colors.tertiary,
     fontWeight: "bold",
+  },
+  skipButtonStyle: {
+    position: "absolute",
+    right: "5%",
+    top: "5%",
+    backgroundColor: "#d3d3d3",
+    borderRadius: 20,
+    opacity: 0.7,
   },
 });
 

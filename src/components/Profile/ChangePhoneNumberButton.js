@@ -17,7 +17,9 @@ const PhoneNumber = ({ phoneNumber }) => {
           mode="text"
           color={Colors.tertiary}
           onPress={() => {
-            navigation.navigate("PhoneNumber");
+            navigation.navigate("PhoneNumber", {
+              checkOut: false,
+            });
           }}
         >
           Change

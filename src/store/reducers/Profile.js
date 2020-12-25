@@ -7,6 +7,7 @@ import {
   UPDATE_USERNAME,
   EDIT_ADDRESS,
   EDIT_PHONE_NUMBER,
+  ADD_TOKEN_AND_CART_PROFILE_DETAILS,
 } from "../actions/Profile";
 
 const initialState = {
@@ -88,6 +89,20 @@ export default (state = initialState, action) => {
     }
     case LOG_OUT: {
       return initialState;
+    }
+    case ADD_TOKEN_AND_CART_PROFILE_DETAILS: {
+      const { profileData } = action;
+      return {
+        ...state,
+        username: profileData.username,
+        email: profileData.email,
+        token: profileData.token,
+        phoneNumber: `${profileData.phoneNumber}`,
+        _id: profileData.id,
+        locations: profileData.addresses,
+        imageURL: profileData.imageURL,
+        bookmarks: profileData.bookmarks,
+      };
     }
     default: {
       return state;
