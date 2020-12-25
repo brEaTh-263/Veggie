@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Dimensions,
 } from "react-native";
 import {
   ActivityIndicator,
@@ -23,6 +24,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 
+const SCREEN_HEIGHT = Dimensions.get("window").height;
 const StartScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -61,7 +63,7 @@ const StartScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         <Image
           source={require("../../../assets/backgroundLeaves.png")}
           resizeMode="cover"
@@ -107,7 +109,7 @@ const StartScreen = ({ navigation }) => {
           mode="contained"
           color={Colors.primary}
           onPress={handleSubmit(onSubmit)}
-          contentStyle={{ paddingVertical: 5 }}
+          contentStyle={{ justifyContent: "center", paddingVertical: 5 }}
           style={{ margin: 20, borderRadius: 10 }}
         >
           Send OTP
@@ -116,7 +118,7 @@ const StartScreen = ({ navigation }) => {
         <Divider
           style={{
             marginVertical: 15,
-            marginBottom: 25,
+            marginBottom: 5,
           }}
         />
 
@@ -135,13 +137,30 @@ const StartScreen = ({ navigation }) => {
             <GoogleSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
           </View>
         </View>
+        <View
+          style={{
+            margin: 10,
+            marginHorizontal: 20,
+          }}
+        >
+          <Text style={{ textAlign: "center", fontStyle: "italic" }}>
+            By signing up,you accept the{" "}
+            <Text style={styles.servicesAndPrivacyTextStyle}>
+              Terms of Service
+            </Text>
+            {"  "}and{" "}
+            <Text style={styles.servicesAndPrivacyTextStyle}>
+              Privacy Policy
+            </Text>
+          </Text>
+        </View>
         <Snackbar
           visible={visible}
           onDismiss={onDismissSnackBar}
           duration={3000}
           style={{
             borderRadius: 10,
-            backgroundColor: "#888",
+            backgroundColor: "black",
           }}
         >
           Please give a valid number
@@ -153,19 +172,18 @@ const StartScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "transparent",
   },
   imageStyle: {
     width: "100%",
-    height: "30%",
+    height: SCREEN_HEIGHT / 3.5,
   },
   oAuthTitleStyle: {
     textAlign: "center",
     fontSize: 20,
     margin: 20,
-    marginTop: 40,
+    marginTop: 20,
   },
   oAuthComponentContainerStyle: {
     flexDirection: "row",
@@ -178,10 +196,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     borderWidth: 1,
     width: "90%",
-    paddingVertical: 10,
+    // paddingVertical: 10,
+    height: SCREEN_HEIGHT / 13,
     alignSelf: "center",
     borderRadius: 10,
-    backgroundColor: "#E3D7C5",
+    backgroundColor: "transparent",
   },
   flagStyle: {
     width: 25,
@@ -209,7 +228,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    height: 55,
+    height: SCREEN_HEIGHT / 13,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Colors.primary,
@@ -220,7 +239,10 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     marginLeft: 25,
   },
-  servicesAndPrivacyTextStyle: { color: Colors.tertiary, fontWeight: "bold" },
+  servicesAndPrivacyTextStyle: {
+    color: Colors.tertiary,
+    fontWeight: "bold",
+  },
 });
 
 export default StartScreen;

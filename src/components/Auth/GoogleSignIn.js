@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Alert, Image, TouchableOpacity } from "react-native";
+import { View, Alert, Image, TouchableOpacity, Dimensions } from "react-native";
 
 const GoogleSignInComponent = ({ isLoading, setIsLoading }) => {
   async function signInWithGoogleAsync() {
@@ -20,7 +20,10 @@ const GoogleSignInComponent = ({ isLoading, setIsLoading }) => {
       <TouchableOpacity onPress={() => signInWithGoogleAsync()}>
         <Image
           source={require("../../../assets/google-icon.png")}
-          style={{ width: 60, height: 60 }}
+          style={{
+            width: Dimensions.get("window").width / 6,
+            height: Dimensions.get("window").height / 11,
+          }}
         />
       </TouchableOpacity>
     </View>

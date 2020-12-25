@@ -10,7 +10,7 @@ import {
 import { ActivityIndicator, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import BackButton from "../../components/General/BackButton";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/Auth";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Header from "../../components/General/Header";
@@ -72,7 +72,7 @@ const OTPScreen = ({ navigation, route }) => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.bkg }}>
+    <View style={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={{ marginHorizontal: 15 }}
@@ -82,13 +82,7 @@ const OTPScreen = ({ navigation, route }) => {
         </TouchableOpacity>
         <Header text="Enter the code" textSize={20} />
       </View>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 20,
-        }}
-      >
+      <View style={styles.imageContainer}>
         <Image
           source={require("../../../assets/check-mail.png")}
           resizeMode="cover"
@@ -96,13 +90,7 @@ const OTPScreen = ({ navigation, route }) => {
         />
       </View>
       <View style={{ margin: 40 }}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 18,
-            fontStyle: "italic",
-          }}
-        >
+        <Text style={styles.title}>
           To confirm your email address,please enter the OTP we sent to {email}.
           {"           "}Please make sure you check spam mails as well
         </Text>
@@ -135,6 +123,7 @@ const OTPScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: Colors.bkg },
   otpContainer: { height: 50, width: "100%" },
   headerContainer: {
     flexDirection: "row",
@@ -151,6 +140,16 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     borderWidth: 2,
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 18,
+    fontStyle: "italic",
+  },
+  imageContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
   },
 });
 

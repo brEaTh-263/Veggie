@@ -70,15 +70,6 @@ const OTPScreen = ({ navigation, route }) => {
           We've sent a verification code to {"                              "}
           +91 | {phoneNumber}
         </Text>
-        {/* <Text
-          style={{
-            textAlign: "center",
-            fontSize: 18,
-            fontStyle: "italic",
-          }}
-        >
-          To confirm your email address,please enter the OTP we sent to {email}
-        </Text> */}
       </View>
 
       <View style={styles.otpContainer}>

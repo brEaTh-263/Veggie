@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Image, TouchableOpacity, Alert, Dimensions } from "react-native";
 
 const FacebookSignIn = ({ isLoading, setIsLoading }) => {
   const signInWithFaceBookAsync = async () => {
@@ -20,7 +20,10 @@ const FacebookSignIn = ({ isLoading, setIsLoading }) => {
       <TouchableOpacity onPress={() => signInWithFaceBookAsync()}>
         <Image
           source={require("../../../assets/facebook-icon.png")}
-          style={{ width: 60, height: 60 }}
+          style={{
+            width: Dimensions.get("window").width / 6,
+            height: Dimensions.get("window").height / 11,
+          }}
         />
       </TouchableOpacity>
     </View>
