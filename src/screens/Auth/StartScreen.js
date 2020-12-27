@@ -78,7 +78,7 @@ const StartScreen = ({ navigation }) => {
           onPress={() => {
             dispatch(authActions.skipAuthentication());
           }}
-          style={}
+          style={styles.skipButtonStyle}
         >
           <Text style={{ fontSize: 10 }}>Skip</Text>
         </Button>

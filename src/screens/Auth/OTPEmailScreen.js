@@ -92,7 +92,7 @@ const OTPScreen = ({ navigation, route }) => {
       <View style={{ margin: 40 }}>
         <Text style={styles.title}>
           To confirm your email address,please enter the OTP we sent to {email}.
-          {"           "}Please make sure you check spam mails as well
+          Please make sure you check spam mails as well
         </Text>
       </View>
 
