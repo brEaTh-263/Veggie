@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   Alert,
   Dimensions,
+  ImageBackground,
 } from "react-native";
-import { ActivityIndicator, Button } from "react-native-paper";
+import { ActivityIndicator, Button, Snackbar } from "react-native-paper";
 import FacebookSignIn from "../../components/Auth/FacebookSignIn";
 import GoogleSignIn from "../../components/Auth/GoogleSignIn";
 import Colors from "../../constants/Colors";
@@ -25,9 +26,13 @@ const StartScreen = ({ navigation }) => {
   const { control, errors, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
-  const onToggleSnackBar = () => setVisible(!visible);
+  const onToggleSnackBar = () => {
+    setVisible(!visible);
+  };
 
-  const onDismissSnackBar = () => setVisible(false);
+  const onDismissSnackbar = () => {
+    setVisible(false);
+  };
 
   const onSubmit = async ({ phoneNumber }) => {
     try {
@@ -56,12 +61,10 @@ const StartScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../../../assets/backgroundLeaves.png")}
-        resizeMode="cover"
-        style={styles.imageStyle}
-      />
+    <ImageBackground
+      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      source={require("../../../assets/AuthBackground.jpeg")}
+    >
       <Button
         color={Colors.tertiary}
         compact={true}
@@ -72,95 +75,122 @@ const StartScreen = ({ navigation }) => {
       >
         <Text style={{ fontSize: 10 }}>Skip</Text>
       </Button>
-      <View style={{ height: "15%" }} />
-
-      <View style={styles.inputContainerStyle}>
-        <Image
-          style={styles.flagStyle}
-          source={require("../../../assets/flag.jpg")}
-        />
-        <Text style={styles.prefixStyle}>+91 |</Text>
-
-        <Controller
-          control={control}
-          render={({ onChange, onBlur, value }) => (
-            <TextInput
-              placeholder="Phone Number"
-              place
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              keyboardType="phone-pad"
-              value={value}
-              textContentType="telephoneNumber"
-              style={styles.inputStyle}
-            />
-          )}
-          name="phoneNumber"
-          rules={{
-            required: true,
-            minLength: 10,
-            maxLength: 10,
-            pattern: /^\d+$/,
-          }}
-          defaultValue=""
-        />
-      </View>
-
-      <Button
-        mode="contained"
-        color={Colors.primary}
-        onPress={handleSubmit(onSubmit)}
-        contentStyle={{ justifyContent: "center", paddingVertical: 5 }}
-        style={{ margin: 20, borderRadius: 10 }}
-      >
-        Send OTP
-      </Button>
-
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <View style={{ flex: 1, height: 1, backgroundColor: "#888" }} />
-        <View>
-          <Text style={{ width: 30, textAlign: "center", color: "#888" }}>
-            OR
+      <View style={styles.container}>
+        <View style={{ height: "15%" }} />
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ fontSize: 50, marginBottom: 15, fontFamily: "logo" }}>
+            Organic
           </Text>
         </View>
-        <View style={{ flex: 1, height: 1, backgroundColor: "#888" }} />
-      </View>
-      <View style={{ marginVertical: 10 }} />
-      <TouchableOpacity
-        onPress={() => navigation.navigate("SignUp")}
-        style={styles.emailContainerStyle}
-      >
-        <MaterialIcons name="email" size={28} color="black" />
-        <Text style={styles.emailTextStyle}> Continue with Email</Text>
-      </TouchableOpacity>
+        <View style={styles.inputContainerStyle}>
+          <Image
+            style={styles.flagStyle}
+            source={require("../../../assets/flag.jpg")}
+          />
+          <Text style={styles.prefixStyle}>+91 |</Text>
 
-      <View style={styles.oAuthComponentContainerStyle}>
-        <FacebookSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
-        <GoogleSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
-      </View>
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <TextInput
+                placeholder="Phone Number"
+                place
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+                keyboardType="phone-pad"
+                value={value}
+                textContentType="telephoneNumber"
+                style={styles.inputStyle}
+              />
+            )}
+            name="phoneNumber"
+            rules={{
+              required: true,
+              minLength: 10,
+              maxLength: 10,
+              pattern: /^\d+$/,
+            }}
+            defaultValue=""
+          />
+        </View>
 
-      <View
+        <Button
+          mode="contained"
+          color={Colors.primary}
+          onPress={handleSubmit(onSubmit)}
+          contentStyle={{ justifyContent: "center", paddingVertical: 7 }}
+          style={{
+            borderRadius: 10,
+            width: "90%",
+            alignSelf: "center",
+            marginVertical: 20,
+          }}
+        >
+          <Text style={{ fontSize: 17 }}> Send OTP</Text>
+        </Button>
+
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flex: 1, height: 1, backgroundColor: "#888" }} />
+          <View>
+            <Text style={{ width: 30, textAlign: "center", color: "#888" }}>
+              OR
+            </Text>
+          </View>
+          <View style={{ flex: 1, height: 1, backgroundColor: "#888" }} />
+        </View>
+        <View style={{ marginVertical: 10 }} />
+        <TouchableOpacity
+          onPress={() => navigation.navigate("SignUp")}
+          style={styles.emailContainerStyle}
+        >
+          <MaterialIcons name="email" size={28} color="black" />
+          <Text style={styles.emailTextStyle}> Continue with Email</Text>
+        </TouchableOpacity>
+
+        <View style={styles.oAuthComponentContainerStyle}>
+          <FacebookSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
+          <GoogleSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
+        </View>
+
+        <View
+          style={{
+            marginHorizontal: 20,
+            marginVertical: 20,
+          }}
+        >
+          <Text style={{ textAlign: "center", fontStyle: "italic" }}>
+            By signing up,you accept the{" "}
+            <Text style={styles.servicesAndPrivacyTextStyle}>
+              Terms of Service
+            </Text>
+            {"  "}and{" "}
+            <Text style={styles.servicesAndPrivacyTextStyle}>
+              Privacy Policy
+            </Text>
+          </Text>
+        </View>
+      </View>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackbar}
+        duration={3000}
         style={{
-          marginHorizontal: 20,
-          marginVertical: 20,
+          borderRadius: 30,
+          backgroundColor: "#888",
         }}
       >
-        <Text style={{ textAlign: "center", fontStyle: "italic" }}>
-          By signing up,you accept the{" "}
-          <Text style={styles.servicesAndPrivacyTextStyle}>
-            Terms of Service
-          </Text>
-          {"  "}and{" "}
-          <Text style={styles.servicesAndPrivacyTextStyle}>Privacy Policy</Text>
-        </Text>
-      </View>
-    </View>
+        <Text style={{ color: "black" }}>Please give a valid number</Text>
+      </Snackbar>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "70%",
+    width: "90%",
+    borderRadius: 20,
+    justifyContent: "flex-end",
     backgroundColor: "transparent",
   },
   imageStyle: {
