@@ -4,18 +4,12 @@ import {
   Text,
   StyleSheet,
   Image,
-  ScrollView,
   TextInput,
   TouchableOpacity,
   Alert,
   Dimensions,
 } from "react-native";
-import {
-  ActivityIndicator,
-  Button,
-  Divider,
-  Snackbar,
-} from "react-native-paper";
+import { ActivityIndicator, Button } from "react-native-paper";
 import FacebookSignIn from "../../components/Auth/FacebookSignIn";
 import GoogleSignIn from "../../components/Auth/GoogleSignIn";
 import Colors from "../../constants/Colors";
@@ -63,119 +57,103 @@ const StartScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={{ flex: 1 }}>
+      <Image
+        source={require("../../../assets/backgroundLeaves.png")}
+        resizeMode="cover"
+        style={styles.imageStyle}
+      />
+      <Button
+        color={Colors.tertiary}
+        compact={true}
+        onPress={() => {
+          dispatch(authActions.skipAuthentication());
+        }}
+        style={styles.skipButtonStyle}
+      >
+        <Text style={{ fontSize: 10 }}>Skip</Text>
+      </Button>
+      <View style={{ height: "15%" }} />
+
+      <View style={styles.inputContainerStyle}>
         <Image
-          source={require("../../../assets/backgroundLeaves.png")}
-          resizeMode="cover"
-          style={styles.imageStyle}
+          style={styles.flagStyle}
+          source={require("../../../assets/flag.jpg")}
         />
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ fontSize: 30, marginBottom: 15 }}>Veggiee!!</Text>
-        </View>
-        <Button
-          color={Colors.tertiary}
-          compact={true}
-          onPress={() => {
-            dispatch(authActions.skipAuthentication());
+        <Text style={styles.prefixStyle}>+91 |</Text>
+
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <TextInput
+              placeholder="Phone Number"
+              place
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+              keyboardType="phone-pad"
+              value={value}
+              textContentType="telephoneNumber"
+              style={styles.inputStyle}
+            />
+          )}
+          name="phoneNumber"
+          rules={{
+            required: true,
+            minLength: 10,
+            maxLength: 10,
+            pattern: /^\d+$/,
           }}
-          style={styles.skipButtonStyle}
-        >
-          <Text style={{ fontSize: 10 }}>Skip</Text>
-        </Button>
-
-        <View style={styles.inputContainerStyle}>
-          <Image
-            style={styles.flagStyle}
-            source={require("../../../assets/flag.jpg")}
-          />
-          <Text style={styles.prefixStyle}>+91 |</Text>
-
-          <Controller
-            control={control}
-            render={({ onChange, onBlur, value }) => (
-              <TextInput
-                placeholder="Phone Number"
-                place
-                onBlur={onBlur}
-                onChangeText={(value) => onChange(value)}
-                keyboardType="phone-pad"
-                value={value}
-                textContentType="telephoneNumber"
-                style={styles.inputStyle}
-              />
-            )}
-            name="phoneNumber"
-            rules={{
-              required: true,
-              minLength: 10,
-              maxLength: 10,
-              pattern: /^\d+$/,
-            }}
-            defaultValue=""
-          />
-        </View>
-
-        <Button
-          mode="contained"
-          color={Colors.primary}
-          onPress={handleSubmit(onSubmit)}
-          contentStyle={{ justifyContent: "center", paddingVertical: 5 }}
-          style={{ margin: 20, borderRadius: 10 }}
-        >
-          Send OTP
-        </Button>
-
-        <Divider
-          style={{
-            marginVertical: 15,
-            marginBottom: 5,
-          }}
+          defaultValue=""
         />
+      </View>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("SignUp")}
-          style={styles.emailContainerStyle}
-        >
-          <MaterialIcons name="email" size={28} color="black" />
-          <Text style={styles.emailTextStyle}> Continue with Email</Text>
-        </TouchableOpacity>
+      <Button
+        mode="contained"
+        color={Colors.primary}
+        onPress={handleSubmit(onSubmit)}
+        contentStyle={{ justifyContent: "center", paddingVertical: 5 }}
+        style={{ margin: 20, borderRadius: 10 }}
+      >
+        Send OTP
+      </Button>
 
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flex: 1, height: 1, backgroundColor: "#888" }} />
         <View>
-          <Text style={styles.oAuthTitleStyle}>Sign In With</Text>
-          <View style={styles.oAuthComponentContainerStyle}>
-            <FacebookSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
-            <GoogleSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
-          </View>
-        </View>
-        <View
-          style={{
-            margin: 10,
-            marginHorizontal: 20,
-          }}
-        >
-          <Text style={{ textAlign: "center", fontStyle: "italic" }}>
-            By signing up,you accept the{" "}
-            <Text style={styles.servicesAndPrivacyTextStyle}>
-              Terms of Service
-            </Text>
-            {"  "}and{" "}
-            <Text style={styles.servicesAndPrivacyTextStyle}>
-              Privacy Policy
-            </Text>
+          <Text style={{ width: 30, textAlign: "center", color: "#888" }}>
+            OR
           </Text>
         </View>
-        <Snackbar
-          visible={visible}
-          onDismiss={onDismissSnackBar}
-          duration={3000}
-          style={{
-            borderRadius: 10,
-            backgroundColor: "black",
-          }}
-        >
-          Please give a valid number
-        </Snackbar>
-      </ScrollView>
+        <View style={{ flex: 1, height: 1, backgroundColor: "#888" }} />
+      </View>
+      <View style={{ marginVertical: 10 }} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate("SignUp")}
+        style={styles.emailContainerStyle}
+      >
+        <MaterialIcons name="email" size={28} color="black" />
+        <Text style={styles.emailTextStyle}> Continue with Email</Text>
+      </TouchableOpacity>
+
+      <View style={styles.oAuthComponentContainerStyle}>
+        <FacebookSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
+        <GoogleSignIn setIsLoading={setIsLoading} isLoading={isLoading} />
+      </View>
+
+      <View
+        style={{
+          marginHorizontal: 20,
+          marginVertical: 20,
+        }}
+      >
+        <Text style={{ textAlign: "center", fontStyle: "italic" }}>
+          By signing up,you accept the{" "}
+          <Text style={styles.servicesAndPrivacyTextStyle}>
+            Terms of Service
+          </Text>
+          {"  "}and{" "}
+          <Text style={styles.servicesAndPrivacyTextStyle}>Privacy Policy</Text>
+        </Text>
+      </View>
     </View>
   );
 };
@@ -196,9 +174,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   oAuthComponentContainerStyle: {
+    marginTop: 10,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-end",
+
+    alignItems: "center",
   },
   inputContainerStyle: {
     flexDirection: "row",
@@ -206,11 +186,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     borderWidth: 1,
     width: "90%",
-    // paddingVertical: 10,
     height: SCREEN_HEIGHT / 13,
     alignSelf: "center",
     borderRadius: 10,
-    backgroundColor: "transparent",
+    backgroundColor: "#fff",
   },
   flagStyle: {
     width: 25,
@@ -227,7 +206,7 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     width: "60%",
-    height: 30,
+    height: 60,
     fontSize: 18,
     fontWeight: "bold",
     paddingLeft: 15,
@@ -246,7 +225,7 @@ const styles = StyleSheet.create({
   emailTextStyle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: Colors.primary,
+    color: "black",
     marginLeft: 25,
   },
   servicesAndPrivacyTextStyle: {
@@ -255,7 +234,7 @@ const styles = StyleSheet.create({
   },
   skipButtonStyle: {
     position: "absolute",
-    right: "5%",
+    right: "2%",
     top: "5%",
     backgroundColor: "#d3d3d3",
     borderRadius: 20,
