@@ -13,7 +13,7 @@ const tabOptions = {
   activeTintColor: Colors.tertiary,
   inactiveTintColor: "gray",
   tabStyle: {
-    backgroundColor: Colors.bkg,
+    backgroundColor: "#fff",
   },
 };
 

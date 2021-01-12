@@ -23,6 +23,9 @@ const rootReducer = combineReducers({
 const fetchFonts = () => {
   return Font.loadAsync({
     logo: require("./assets/fonts/Yellowtail-Regular.ttf"),
+    "Oswald-Regular": require("./assets/fonts/Oswald-Regular.ttf"),
+    "Oswald-Medium": require("./assets/fonts/Oswald-Medium.ttf"),
+    "Oswald-Light": require("./assets/fonts/Oswald-Light.ttf"),
   });
 };
 

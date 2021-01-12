@@ -1,11 +1,11 @@
-import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native";
 
 const BackButton = (props) => {
   return (
     <View {...props}>
-      <AntDesign name="arrowleft" size={28} color="#888" />
+      <Ionicons name="chevron-back" size={28} color="#888" />
     </View>
   );
 };

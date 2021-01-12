@@ -1,16 +1,8 @@
-import React, { useEffect, useState, useCallback } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  Image,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
 import * as profileActions from "../../../store/actions/Profile";
 import { useDispatch, useSelector } from "react-redux";
-import { ActivityIndicator, Button } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import AddressHeader from "../../../components/General/AddressHeader";
 import Colors from "../../../constants/Colors";
 import Categories from "../../../components/Home/Categories";
@@ -18,8 +10,7 @@ import * as productActions from "../../../store/actions/Products";
 import Carousel from "../../../components/Home/Carousel";
 import ChooseLiveOrOtherLocation from "../../../components/General/ChooseLocationType";
 import Dash from "react-native-dash";
-const SCREEN_WIDTH = Dimensions.get("screen").width;
-const SCREEN_HEIGHT = Dimensions.get("window").height;
+import fonts from "../../../constants/fonts";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -38,7 +29,7 @@ const HomeScreen = () => {
         if (token.length > 0) {
           await dispatch(profileActions.getProfileData(token));
         }
-        // await dispatch(productActions.getAllProducts());
+        await dispatch(productActions.getAllProducts());
 
         setIsLoading(false);
       } catch (err) {
@@ -96,12 +87,7 @@ const HomeScreen = () => {
             backgroundColor: "#fff",
             width: "100%",
             height: 60,
-            // borderWidth: 1,
             justifyContent: "center",
-            borderStyle: "solid",
-            borderColor: "#fff",
-            borderBottomColor: Colors.primary,
-            opacity: 10,
           }}
         >
           <Text
@@ -109,8 +95,7 @@ const HomeScreen = () => {
               fontSize: 18,
               textTransform: "uppercase",
               color: Colors.primary,
-              fontWeight: "bold",
-              fontFamily: "logo",
+              fontFamily: fonts.Bold,
             }}
           >
             Grocery store
@@ -146,7 +131,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 25,
     flex: 1,
-    backgroundColor: "#f4f5f7",
+    backgroundColor: Colors.bkg,
   },
 });
 

@@ -37,21 +37,7 @@ const AllProductsScreen = ({ route, navigation }) => {
         keyExtractor={(item) => item._id}
         ListHeaderComponent={
           <>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 35,
-              }}
-            >
-              <TouchableOpacity
-                style={{ marginHorizontal: 15 }}
-                onPress={() => navigation.goBack()}
-              >
-                <BackButton />
-              </TouchableOpacity>
-              <Header text={title} textSize={20} />
-            </View>
+            <Header text={title} />
 
             <Searchbar
               style={{ marginVertical: 15, marginHorizontal: 15 }}
@@ -93,6 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bkg,
+    marginTop: 25,
   },
 });
 
