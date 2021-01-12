@@ -9,8 +9,9 @@ import {
   Alert,
   Dimensions,
   ImageBackground,
+  ToastAndroid,
 } from "react-native";
-import { ActivityIndicator, Button, Snackbar } from "react-native-paper";
+import { ActivityIndicator, Button } from "react-native-paper";
 import FacebookSignIn from "../../components/Auth/FacebookSignIn";
 import GoogleSignIn from "../../components/Auth/GoogleSignIn";
 import Colors from "../../constants/Colors";
@@ -22,16 +23,17 @@ import { Controller, useForm } from "react-hook-form";
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const StartScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
   const { control, errors, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
-  const onToggleSnackBar = () => {
-    setVisible(!visible);
-  };
-
-  const onDismissSnackbar = () => {
-    setVisible(false);
+  const showInvalidInputToast = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      "Please enter a valid phone number",
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
   };
 
   const onSubmit = async ({ phoneNumber }) => {
@@ -49,7 +51,7 @@ const StartScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    errors.phoneNumber ? onToggleSnackBar() : null;
+    errors.phoneNumber ? showInvalidInputToast() : null;
   }, [errors]);
 
   if (isLoading) {
@@ -170,17 +172,6 @@ const StartScreen = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      <Snackbar
-        visible={visible}
-        onDismiss={onDismissSnackbar}
-        duration={3000}
-        style={{
-          borderRadius: 30,
-          backgroundColor: "#888",
-        }}
-      >
-        <Text style={{ color: "black" }}>Please give a valid number</Text>
-      </Snackbar>
     </ImageBackground>
   );
 };

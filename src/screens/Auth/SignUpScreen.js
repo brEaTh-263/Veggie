@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  ToastAndroid,
   Alert,
   ActivityIndicator,
 } from "react-native";
@@ -19,13 +19,11 @@ import { useDispatch } from "react-redux";
 const SignUpScreen = ({ navigation }) => {
   const { control, handleSubmit, errors, setError } = useForm();
   const dispatch = useDispatch();
+  console.log(errors);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = useCallback(async (data) => {
-    if (data.password !== data.repassword) {
-      return setError("repassword", {});
-    }
     try {
       setIsLoading(true);
       await dispatch(authActions.signUpEmail(data.email, data.username));
@@ -39,6 +37,24 @@ const SignUpScreen = ({ navigation }) => {
       return Alert.alert("Please try another email");
     }
   }, []);
+
+  const showInvalidInputToast = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+  };
+
+  useEffect(() => {
+    errors.username
+      ? showInvalidInputToast("Username length must be greater than 3")
+      : errors.email
+      ? showInvalidInputToast("Please provide a valid email")
+      : null;
+  }, [errors]);
 
   if (isLoading) {
     return (
@@ -69,6 +85,8 @@ const SignUpScreen = ({ navigation }) => {
             value={value}
             mode="flat"
             label="Username"
+            autoCompleteType="name"
+            autoFocus={true}
             theme={{ colors: { primary: Colors.primary } }}
           />
         )}
@@ -76,14 +94,6 @@ const SignUpScreen = ({ navigation }) => {
         rules={{ required: true, minLength: 3 }}
         defaultValue=""
       />
-
-      {errors.username && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Must be 3 letters or more..
-          </Text>
-        </View>
-      )}
 
       <Controller //CHECK FOR EMAIL REGEX
         control={control}
@@ -95,6 +105,7 @@ const SignUpScreen = ({ navigation }) => {
             value={value}
             mode="flat"
             label="Email"
+            autoCompleteType="email"
             theme={{ colors: { primary: Colors.primary } }}
           />
         )}

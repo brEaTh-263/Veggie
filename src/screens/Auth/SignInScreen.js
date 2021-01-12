@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   Alert,
   KeyboardAvoidingView,
-  Image,
-  ActivityIndicator,
+  ToastAndroid,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
@@ -21,6 +20,16 @@ const SignInScreen = ({ navigation }) => {
   const { control, handleSubmit, errors } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+
+  const showInvalidInputToast = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+  };
 
   const onSubmit = useCallback(
     async (data) => {
@@ -44,6 +53,10 @@ const SignInScreen = ({ navigation }) => {
     },
     [setIsLoading, isLoading]
   );
+
+  useEffect(() => {
+    errors.email ? showInvalidInputToast("Please provide a valid email") : null;
+  }, [errors]);
 
   return (
     <KeyboardAvoidingView
@@ -72,6 +85,8 @@ const SignInScreen = ({ navigation }) => {
             theme={{ colors: { primary: Colors.primary } }}
             mode="flat"
             label="Email"
+            autoCompleteType="email"
+            autoFocus={true}
             underlineColor="green"
           />
         )}
@@ -87,17 +102,12 @@ const SignInScreen = ({ navigation }) => {
       >
         We will send you an email with OTP
       </Text>
-      {errors.email && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Please provide a valid email address
-          </Text>
-        </View>
-      )}
+
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
           loading={isLoading}
+          disabled={isLoading}
           contentStyle={{ paddingVertical: 5 }}
           color={Colors.tertiary}
           onPress={handleSubmit(onSubmit)}
