@@ -14,14 +14,16 @@ const AddressHeader = ({ setIsVisible, address }) => {
   return (
     <TouchableOpacity
       onPress={() => setIsVisible(true)} //OPENS ChooseLocationTypeDialog
-      style={{ marginTop: 30, marginHorizontal: 10, marginVertical: 15 }}
+      style={{ marginTop: 10, marginHorizontal: 10, marginVertical: 15 }}
     >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View
+        style={{ flexDirection: "row", alignItems: "center", width: "100%" }}
+      >
         <Entypo name="location-pin" size={28} color="black" />
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          style={{ fontWeight: "bold", fontSize: 20, width: "70%" }}
+          style={{ fontWeight: "bold", fontSize: 15 }}
         >
           {name}
         </Text>
@@ -30,7 +32,12 @@ const AddressHeader = ({ setIsVisible, address }) => {
       <Text
         numberOfLines={1}
         ellipsizeMode="tail"
-        style={{ color: "#888", width: "70%", marginHorizontal: 10 }}
+        style={{
+          color: "#888",
+          // width: "70%",
+          marginHorizontal: 10,
+          fontSize: 12,
+        }}
       >
         {address}
       </Text>
