@@ -33,6 +33,7 @@ const AllProductsScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
+        // numColumns={2}
         data={items}
         keyExtractor={(item) => item._id}
         ListHeaderComponent={

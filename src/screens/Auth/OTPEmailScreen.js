@@ -80,7 +80,7 @@ const OTPScreen = ({ navigation, route }) => {
         >
           <BackButton />
         </TouchableOpacity>
-        <Header text="Enter the code" textSize={20} />
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Enter the code</Text>
       </View>
       <View style={styles.imageContainer}>
         <Image

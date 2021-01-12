@@ -71,7 +71,7 @@ const SignInScreen = ({ navigation }) => {
         >
           <BackButton />
         </TouchableOpacity>
-        <Header text="Login" textSize={25} />
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Login</Text>
       </View>
 
       <Controller //CHECK FOR EMAIL REGEX!!

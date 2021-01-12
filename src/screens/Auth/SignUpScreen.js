@@ -73,7 +73,9 @@ const SignUpScreen = ({ navigation }) => {
         >
           <BackButton />
         </TouchableOpacity>
-        <Header text="Create a new account" textSize={25} />
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+          Create a new account
+        </Text>
       </View>
       <Controller
         control={control}
