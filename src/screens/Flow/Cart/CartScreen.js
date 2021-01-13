@@ -61,12 +61,8 @@ const CartScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={{ backgroundColor: Colors.bkg, flex: 1 }}>
-      <Header
-        text="Cart"
-        style={{ marginHorizontal: 20, marginTop: 35 }}
-        textSize={30}
-      />
+    <View style={{ backgroundColor: Colors.bkg, flex: 1, marginTop: 25 }}>
+      <Header text="Cart" />
       <ChooseLocationType
         isVisible={isVisible}
         setIsVisible={setIsVisible}

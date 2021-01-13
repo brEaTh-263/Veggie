@@ -33,7 +33,7 @@ const AllProductsScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        // numColumns={2}
+        numColumns={2}
         data={items}
         keyExtractor={(item) => item._id}
         ListHeaderComponent={
@@ -41,7 +41,12 @@ const AllProductsScreen = ({ route, navigation }) => {
             <Header text={title} />
 
             <Searchbar
-              style={{ marginVertical: 15, marginHorizontal: 15 }}
+              style={{
+                marginVertical: 15,
+                marginHorizontal: 15,
+                borderRadius: 20,
+                overflow: "hidden",
+              }}
               onChangeText={(text) => {
                 getSearchedGrocery(text);
               }}
@@ -71,7 +76,7 @@ const AllProductsScreen = ({ route, navigation }) => {
           );
         }}
       />
-      {cartProducts.length > 0 && <ViewCart navigation={navigation} />}
+      {/* {cartProducts.length > 0 && <ViewCart navigation={navigation} />} */}
     </View>
   );
 };

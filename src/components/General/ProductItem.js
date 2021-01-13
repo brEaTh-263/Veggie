@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { Button, Divider } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import InputSpinner from "react-native-input-spinner";
 import * as cartActions from "../../store/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as profileActions from "../../store/actions/Profile";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
+import RBSheet from "react-native-raw-bottom-sheet";
+import fonts from "../../constants/fonts";
+import ProductAdder from "./ProductAdder";
 
 const ProductItem = ({
   name,
@@ -18,6 +28,7 @@ const ProductItem = ({
   category,
 }) => {
   const [qty, setQty] = useState(0);
+  const refRBSheet = useRef();
   const bookmarkIds = useSelector((state) =>
     state.Profile.bookmarks.filter((prod) => {
       return prod.productId === _id;
@@ -28,6 +39,7 @@ const ProductItem = ({
   const [isBookmarked, setIsBookmarked] = useState(
     bookmarkIds.length > 0 ? true : false
   );
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (quantity >= 0) {
@@ -35,160 +47,166 @@ const ProductItem = ({
     }
   }, [quantity]);
 
+  const closeSheet = () => {
+    refRBSheet.current.close();
+  };
+
   return (
-    <>
-      <View style={styles.container}>
-        {token.length > 0 && (
-          <TouchableOpacity
-            style={styles.bookmarkIconStyle}
-            onPress={async () => {
-              setIsBookmarked(!isBookmarked);
-              if (isBookmarked) {
-                dispatch(profileActions.removeBookmark(_id, token));
-              } else {
-                dispatch(profileActions.addBookmark(_id, token));
-              }
+    <View style={styles.container}>
+      {token.length > 0 && (
+        <TouchableOpacity
+          style={styles.bookmarkIconStyle}
+          onPress={async () => {
+            setIsBookmarked(!isBookmarked);
+            if (isBookmarked) {
+              dispatch(profileActions.removeBookmark(_id, token));
+            } else {
+              dispatch(profileActions.addBookmark(_id, token));
+            }
+          }}
+        >
+          <Ionicons
+            name={isBookmarked ? "leaf-sharp" : "leaf-outline"}
+            size={24}
+            color={Colors.sub}
+          />
+        </TouchableOpacity>
+      )}
+      <Image
+        resizeMode="center"
+        style={{
+          width: "80%",
+          height: 100,
+          marginTop: 20,
+          alignSelf: "center",
+        }}
+        source={{
+          uri: imageUrl
+            ? imageUrl
+            : "https://bsmedia.business-standard.com/_media/bs/theme/faq_view_all/images/no-result-found.png",
+        }}
+      />
+      <View style={{ marginTop: 15, marginLeft: 10 }}>
+        <Text style={{ color: Colors.primary, fontSize: 24 }}>$0.99</Text>
+        <Text style={{ color: "black", fontSize: 16 }}>{name}</Text>
+        <Text style={{ color: "#888", fontSize: 13 }}>
+          {indianName ? indianName : name}
+        </Text>
+      </View>
+      <TouchableOpacity
+        onPress={() => refRBSheet.current.open()}
+        style={{
+          borderRadius: 20,
+          backgroundColor: Colors.primary,
+          paddingHorizontal: 10,
+          marginHorizontal: 20,
+          marginTop: 10,
+          alignItems: "center",
+          paddingVertical: 7,
+          justifyContent: "center",
+        }}
+      >
+        {qty > 0 ? (
+          <Text style={{ fontFamily: fonts.Regular, color: "#fff" }}>
+            {qty}
+          </Text>
+        ) : (
+          <AntDesign name="shoppingcart" size={24} color="#fff" />
+        )}
+      </TouchableOpacity>
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={true}
+        dragFromTopOnly={true}
+        height={520}
+        animationType="fade"
+        customStyles={{
+          wrapper: {
+            backgroundColor: "rgba(52, 52, 52, 0.8)",
+          },
+          draggableIcon: {
+            backgroundColor: "#000",
+          },
+          container: {
+            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40,
+          },
+        }}
+      >
+        <View style={{ justifyContent: "flex-start", flex: 1 }}>
+          <Image
+            resizeMode="contain"
+            style={{
+              width: "90%",
+              height: 200,
+              alignSelf: "center",
+            }}
+            source={{
+              uri: imageUrl
+                ? imageUrl
+                : "https://bsmedia.business-standard.com/_media/bs/theme/faq_view_all/images/no-result-found.png",
+            }}
+          />
+          <View
+            style={{
+              marginLeft: 10,
+              alignItems: "center",
+              justifyContent: "flex-start",
             }}
           >
-            <Ionicons
-              name={isBookmarked ? "leaf-sharp" : "leaf-outline"}
-              size={24}
-              color={Colors.sub}
-            />
-          </TouchableOpacity>
-        )}
-        <Image
-          resizeMode="contain"
-          source={{
-            uri: imageUrl
-              ? imageUrl
-              : "https://th.bing.com/th/id/OIP.ouOFcEHOYh7Dj3JCmDUfhwAAAA?pid=Api&rs=1",
-          }}
-          style={styles.productImageStyle}
-        />
-        <View style={{ marginTop: 10, width: "60%" }}>
-          <Text style={styles.nameStyle}>{name}</Text>
-
-          <Text style={styles.indianNameStyle}>
-            {indianName ? indianName : name}
-          </Text>
-          <View style={styles.priceContainerStyle}>
-            <FontAwesome name="rupee" size={18} color="#888" />
-            <Text style={styles.priceStyle}>99/kg</Text>
-          </View>
-
-          {qty === 0 ? (
-            <Button
-              style={{ alignSelf: "flex-end", marginRight: 15 }}
-              color={Colors.tertiary}
-              onPress={() => {
-                if (token.length > 0) {
-                  dispatch(cartActions.addProduct(_id, token));
-                } else {
-                  dispatch(
-                    cartActions.addProductNoAuth(
-                      _id,
-                      cart.cartProducts,
-                      cart.totalAmount
-                    )
-                  );
-                }
-                setQty(1);
+            <Text
+              style={{
+                color: Colors.primary,
+                fontSize: 28,
+                fontFamily: fonts.Regular,
               }}
             >
-              Add
-            </Button>
-          ) : (
-            <InputSpinner
-              max={10}
-              min={0}
-              step={1}
-              type="float"
-              precision={2}
-              height={20}
-              rounded={false}
-              showBorder={true}
-              colorMax={Colors.tertiary}
-              colorMin={Colors.tertiary}
-              value={qty}
-              onChange={(num) => {
-                if (num > qty) {
-                  if (token.length > 0) {
-                    dispatch(cartActions.addProduct(_id, token));
-                  } else {
-                    dispatch(
-                      cartActions.addProductNoAuth(
-                        _id,
-                        cart.cartProducts,
-                        cart.totalAmount
-                      )
-                    );
-                  }
-
-                  setQty(num);
-                } else if (num < qty) {
-                  if (token.length > 0) {
-                    dispatch(cartActions.removeProduct(_id, token));
-                  } else {
-                    dispatch(
-                      cartActions.removeProductNoAuth(
-                        _id,
-                        cart.cartProducts,
-                        cart.totalAmount
-                      )
-                    );
-                  }
-                  setQty(num);
+              {name}
+            </Text>
+            <Text style={{ color: "#888", fontSize: 20, fontStyle: "italic" }}>
+              {indianName ? indianName : name}
+            </Text>
+          </View>
+          <View style={{ marginTop: 15 }} />
+          <ProductAdder price={20} closeSheet={closeSheet} _id={_id} />
+          {token.length > 0 && (
+            <TouchableOpacity
+              style={{ position: "absolute", right: "10%", top: "1%" }}
+              onPress={async () => {
+                setIsBookmarked(!isBookmarked);
+                if (isBookmarked) {
+                  dispatch(profileActions.removeBookmark(_id, token));
+                } else {
+                  dispatch(profileActions.addBookmark(_id, token));
                 }
               }}
-              style={styles.spinnerStyle}
-              inputStyle={{
-                width: 30,
-                height: 35,
-              }}
-              colorLeft={Colors.tertiary}
-              colorRight={Colors.tertiary}
-              buttonStyle={{ width: 30, height: 35 }}
-            />
+            >
+              <Ionicons
+                name={isBookmarked ? "leaf-sharp" : "leaf-outline"}
+                size={24}
+                color={Colors.sub}
+              />
+            </TouchableOpacity>
           )}
         </View>
-      </View>
-      <Divider />
-    </>
+      </RBSheet>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
-    height: 150,
-    flexDirection: "row",
+    height: 270,
+    width: "45%",
+    backgroundColor: "#fff",
+    borderRadius: 25,
+    marginVertical: 10,
   },
-  bookmarkIconStyle: { position: "absolute", right: "5%", top: "5%" },
-  productImageStyle: {
-    height: "100%",
-    width: "40%",
-    alignSelf: "center",
-    borderWidth: 1,
-  },
-  nameStyle: { fontSize: 20, fontWeight: "bold", width: "80%" },
-  indianNameStyle: {
-    fontSize: 14,
-    color: "#888",
-    marginTop: 5,
-    fontStyle: "italic",
-    fontWeight: "bold",
-  },
-  priceContainerStyle: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  priceStyle: { fontSize: 18, fontStyle: "italic" },
-  spinnerStyle: {
-    marginTop: 10,
-    alignSelf: "flex-end",
-    width: 100,
+  bookmarkIconStyle: { position: "absolute", right: "5%", top: "3%" },
+  scene: {
+    height: 100,
   },
 });
 
