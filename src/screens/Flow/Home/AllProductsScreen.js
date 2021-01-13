@@ -1,82 +1,54 @@
-import React, { useEffect } from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import ProductItem from "../../../components/General/ProductItem";
-import { useSelector } from "react-redux";
+import React from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
 import Colors from "../../../constants/Colors";
-import { Searchbar } from "react-native-paper";
 import Header from "../../../components/General/Header";
-import BackButton from "../../../components/General/BackButton";
-import useSearchGrocery from "../../../hooks/useSearchGrocery";
-import ViewCart from "../../../components/Cart/ViewCart";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import fonts from "../../../constants/fonts";
+import AllProducts from "../../../components/Home/AllProducts";
 
 const AllProductsScreen = ({ route, navigation }) => {
-  const { title, subCategory } = route.params;
-  const products = useSelector((state) =>
-    state.Products.products.filter((prod) => {
-      if (subCategory) {
-        return prod.subCategory === title;
-      } else {
-        return prod.Category === title;
-      }
-    })
-  );
-  const cartProducts = useSelector((state) => state.Cart.cartProducts);
-  const [getSearchedGrocery, items, setItems] = useSearchGrocery(
-    title,
-    subCategory
-  );
+  const { title, subCategory, categories } = route.params;
 
-  useEffect(() => {
-    setItems(products);
-  }, []);
+  const Tab = createMaterialTopTabNavigator();
 
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        data={items}
-        keyExtractor={(item) => item._id}
-        ListHeaderComponent={
-          <>
-            <Header text={title} />
+      <Header text={title} />
+      <Tab.Navigator
+        initialLayout={{ width: Dimensions.get("window").width }}
+        lazy={true}
+        tabBarOptions={{
+          scrollEnabled: true,
+          allowFontScaling: true,
+          tabStyle: { height: 60, width: 80 },
 
-            <Searchbar
-              style={{
-                marginVertical: 15,
-                marginHorizontal: 15,
-                borderRadius: 20,
-                overflow: "hidden",
-              }}
-              onChangeText={(text) => {
-                getSearchedGrocery(text);
-              }}
-              placeholder="Search here..."
-            />
-          </>
-        }
-        renderItem={({ item }) => {
-          let i = cartProducts.findIndex(
-            (product) => product.productId === item._id
-          );
-          if (i === -1) {
-            i = 0;
-          } else {
-            i = cartProducts[i].quantity;
-          }
-          return (
-            <ProductItem
-              name={item.name}
-              indianName={item.indianName}
-              imageUrl={item.imageUrl}
-              price={item.price}
-              quantity={i}
-              _id={item._id}
-              category={title}
-            />
-          );
+          activeTintColor: Colors.primary,
+          labelStyle: {
+            textTransform: "capitalize",
+            fontFamily: fonts.Bold,
+            fontSize: 10,
+          },
+          indicatorStyle: { backgroundColor: Colors.tertiary },
         }}
-      />
-      {/* {cartProducts.length > 0 && <ViewCart navigation={navigation} />} */}
+      >
+        {categories.map((cat) => {
+          return (
+            <Tab.Screen
+              key={cat.name}
+              name={cat.name}
+              children={(props) => {
+                return (
+                  <AllProducts
+                    category={cat.name}
+                    subCategory={subCategory}
+                    title={title}
+                  />
+                );
+              }}
+            />
+          );
+        })}
+      </Tab.Navigator>
     </View>
   );
 };

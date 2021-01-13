@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import Header from "../../../components/General/Header";
@@ -6,20 +6,25 @@ import { useSelector } from "react-redux";
 import ProductItem from "../../../components/General/ProductItem";
 import Colors from "../../../constants/Colors";
 import useSearchGrocery from "../../../hooks/useSearchGrocery";
+import fonts from "../../../constants/fonts";
 
 const SearchGroceriesScreen = () => {
-  const products = useSelector((state) => state.Products.products);
   const cartProducts = useSelector((state) => state.Cart.cartProducts);
 
   const [getSearchedGrocery, items, setItems] = useSearchGrocery("");
 
   return (
     <View style={styles.container}>
-      <View style={{ margin: 20, marginTop: 35 }}>
+      <View style={{ marginTop: 25 }}>
         <Header text="Search" textSize={30} />
         <Searchbar
-          style={{ marginVertical: 15 }}
-          placeholder="Enter name"
+          style={{
+            marginVertical: 25,
+            marginHorizontal: 15,
+            borderRadius: 20,
+            overflow: "hidden",
+          }}
+          placeholder="I want to buy.."
           onChangeText={(text) => {
             getSearchedGrocery(text);
           }}
@@ -36,12 +41,13 @@ const SearchGroceriesScreen = () => {
               style={styles.imageStyle}
             />
             <Text style={styles.title}>
-              Search for specific items here..Add some quote here
+              We hope you find what you are looking for..
             </Text>
           </View>
         )}
         <FlatList
           data={items}
+          numColumns={2}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
             let i = cartProducts.findIndex(
@@ -73,12 +79,13 @@ const SearchGroceriesScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bkg },
   imageStyle: { height: "80%", width: "100%" },
-  notFoundContainerStyle: { height: "50%", marginTop: 50 },
+  notFoundContainerStyle: { height: 200, marginTop: 50, alignItems: "center" },
   title: {
     textAlign: "center",
     fontSize: 18,
-    fontWeight: "bold",
+    width: "70%",
     marginVertical: 15,
+    fontFamily: fonts.Light,
   },
 });
 

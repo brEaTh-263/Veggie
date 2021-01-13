@@ -4,23 +4,24 @@ import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fonts from "../../constants/fonts";
 
-const SingleCategory = ({ mainCategory, source, parent, subCategory }) => {
+const SingleCategory = ({ mainCategory, source, SubCategories }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.imageContainerStyle}>
         <Pressable
           onPress={async () => {
-            if (parent) {
-              navigation.navigate(`Category`, {
-                title: mainCategory,
-              }); //PARENT TRUE MEANS SELECTED A MAIN CATEGORY
-              return;
-            }
+            // if (parent) {
+            //   navigation.navigate(`Category`, {
+            //     title: mainCategory,
+            //   }); //PARENT TRUE MEANS SELECTED A MAIN CATEGORY
+            //   return;
+            // }
             navigation.navigate(`AllProducts`, {
               // CLICKED SUBCATEGORY
-              title: subCategory,
+              title: mainCategory,
               subCategory: true,
+              categories: SubCategories,
             });
           }}
         >
@@ -43,7 +44,7 @@ const SingleCategory = ({ mainCategory, source, parent, subCategory }) => {
           }}
           numberOfLines={2}
         >
-          {subCategory ? subCategory : mainCategory}
+          {mainCategory}
         </Text>
       </View>
     </View>
