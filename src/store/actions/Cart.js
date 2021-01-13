@@ -3,7 +3,7 @@ import { url } from "../../constants/url";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 
-export const addProduct = (_id, token) => {
+export const addProduct = (_id, token, qty, isKg) => {
   return async (dispatch) => {
     try {
       const response = await fetch(`${url}/user/add-to-cart`, {
@@ -14,6 +14,8 @@ export const addProduct = (_id, token) => {
         },
         body: JSON.stringify({
           productId: _id,
+          qty: qty,
+          isKg: isKg,
         }),
       });
 
@@ -40,6 +42,7 @@ export const addProduct = (_id, token) => {
 export const removeProduct = (_id, token) => {
   return async (dispatch) => {
     try {
+      console.log(_id, token);
       const response = await fetch(`${url}/user/remove-from-cart`, {
         method: "POST",
         headers: {
@@ -52,10 +55,11 @@ export const removeProduct = (_id, token) => {
       });
 
       const responseJson = await response.json();
+      console.log("LOG");
       console.log(responseJson);
 
       if (response.status != 200) {
-        throw new Error();
+        // throw new Error();
       }
       dispatch({
         type: REMOVE_FROM_CART,
@@ -65,12 +69,13 @@ export const removeProduct = (_id, token) => {
         },
       });
     } catch (error) {
+      console.log(error);
       throw new Error();
     }
   };
 };
 
-export const addProductNoAuth = (_id, cartProducts, totalAmount) => {
+export const addProductNoAuth = (_id, cartProducts, totalAmount, qty, isKg) => {
   return async (dispatch) => {
     let total = parseInt(totalAmount);
     try {
@@ -83,6 +88,8 @@ export const addProductNoAuth = (_id, cartProducts, totalAmount) => {
           productId: _id,
           totalAmount: total,
           cartProducts: cartProducts,
+          qty: qty,
+          isKg: isKg,
         }),
       });
 

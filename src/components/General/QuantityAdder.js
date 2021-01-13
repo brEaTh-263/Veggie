@@ -9,9 +9,21 @@ import {
 import Colors from "../../constants/Colors";
 import fonts from "../../constants/fonts";
 import { Button } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import * as cartActions from "../../store/actions/Cart";
+import { MaterialIcons } from "@expo/vector-icons";
+const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
+  const token = useSelector((state) => state.Auth.token);
 
-const QuantityAdder = ({ price, closeSheet, _id }) => {
+  const cart = useSelector((state) => state.Cart);
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState("1");
+
+  React.useEffect(() => {
+    if (!isKg) {
+      setValue(quantity.toString());
+    }
+  }, [isKg, setValue]);
   const data = [
     {
       number: "1",
@@ -89,21 +101,36 @@ const QuantityAdder = ({ price, closeSheet, _id }) => {
           bottom: 30,
           flexDirection: "row",
           alignItems: "center",
-          right: 0,
+          justifyContent: "space-around",
+          left: 0,
         }}
       >
         <Text
           style={{
-            marginHorizontal: 30,
+            marginRight: 30,
+            marginLeft: 25,
             fontSize: 25,
             color: Colors.primary,
             fontWeight: "bold",
           }}
         >
-          ${price * x}
+          ${priceQty * x}
         </Text>
         <Button
           onPress={() => {
+            if (token.length > 0) {
+              dispatch(cartActions.addProduct(_id, token, value * 1, false));
+            } else {
+              dispatch(
+                cartActions.addProductNoAuth(
+                  _id,
+                  cart.cartProducts,
+                  cart.totalAmount,
+                  value * 1,
+                  false
+                )
+              );
+            }
             closeSheet();
           }}
           mode="contained"
@@ -115,12 +142,31 @@ const QuantityAdder = ({ price, closeSheet, _id }) => {
           }}
           style={{
             borderRadius: 20,
-
-            marginHorizontal: 30,
+            marginRight: 20,
+            marginLeft: 20,
           }}
         >
           Add to cart
         </Button>
+        <TouchableOpacity
+          onPress={() => {
+            if (token.length > 0) {
+              dispatch(cartActions.removeProduct(_id, token));
+            } else {
+              dispatch(
+                cartActions.removeProductNoAuth(
+                  _id,
+                  cart.cartProducts,
+                  cart.totalAmount
+                )
+              );
+            }
+            closeSheet();
+          }}
+          style={{ backgroundColor: "#fff", padding: 10, borderRadius: 20 }}
+        >
+          <MaterialIcons name="delete" size={30} color="red" />
+        </TouchableOpacity>
       </View>
     </View>
   );

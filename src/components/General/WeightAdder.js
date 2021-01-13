@@ -1,12 +1,23 @@
 import * as React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../../constants/Colors";
 import fonts from "../../constants/fonts";
 import { Button } from "react-native-paper";
 import InputSpinner from "react-native-input-spinner";
-
-const WeightAdder = ({ price, closeSheet, _id }) => {
+import { useDispatch, useSelector } from "react-redux";
+import * as cartActions from "../../store/actions/Cart";
+import { MaterialIcons } from "@expo/vector-icons";
+const WeightAdder = ({ priceKg, closeSheet, _id, quantity, isKg }) => {
   const [qty, setQty] = React.useState(0);
+  const token = useSelector((state) => state.Auth.token);
+  const cart = useSelector((state) => state.Cart);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (isKg) {
+      setQty(quantity);
+    }
+  }, [setQty, isKg]);
   return (
     <View style={styles.scene}>
       <View
@@ -48,21 +59,35 @@ const WeightAdder = ({ price, closeSheet, _id }) => {
           bottom: 30,
           flexDirection: "row",
           alignItems: "center",
-          right: 0,
+          left: 0,
         }}
       >
         <Text
           style={{
-            marginHorizontal: 30,
+            marginRight: 30,
+            marginLeft: 25,
             fontSize: 25,
             color: Colors.primary,
             fontWeight: "bold",
           }}
         >
-          ${price * qty}
+          ${priceKg * qty}
         </Text>
         <Button
           onPress={() => {
+            if (token.length > 0) {
+              dispatch(cartActions.addProduct(_id, token, qty, true));
+            } else {
+              dispatch(
+                cartActions.addProductNoAuth(
+                  _id,
+                  cart.cartProducts,
+                  cart.totalAmount,
+                  qty,
+                  true
+                )
+              );
+            }
             closeSheet();
           }}
           mode="contained"
@@ -75,11 +100,30 @@ const WeightAdder = ({ price, closeSheet, _id }) => {
           style={{
             borderRadius: 20,
 
-            marginHorizontal: 30,
+            marginHorizontal: 20,
           }}
         >
           Add to cart
         </Button>
+        <TouchableOpacity
+          onPress={() => {
+            if (token.length > 0) {
+              dispatch(cartActions.removeProduct(_id, token));
+            } else {
+              dispatch(
+                cartActions.removeProductNoAuth(
+                  _id,
+                  cart.cartProducts,
+                  cart.totalAmount
+                )
+              );
+            }
+            closeSheet();
+          }}
+          style={{ backgroundColor: "#fff", padding: 10, borderRadius: 20 }}
+        >
+          <MaterialIcons name="delete" size={30} color="red" />
+        </TouchableOpacity>
       </View>
     </View>
   );

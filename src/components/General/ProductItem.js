@@ -22,12 +22,13 @@ const ProductItem = ({
   name,
   indianName,
   imageUrl,
-  price,
+  priceKg,
+  priceQty,
   quantity,
   _id,
+  isKg,
   category,
 }) => {
-  const [qty, setQty] = useState(0);
   const refRBSheet = useRef();
   const bookmarkIds = useSelector((state) =>
     state.Profile.bookmarks.filter((prod) => {
@@ -41,11 +42,6 @@ const ProductItem = ({
   );
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (quantity >= 0) {
-      setQty(quantity);
-    }
-  }, [quantity]);
 
   const closeSheet = () => {
     refRBSheet.current.close();
@@ -87,7 +83,7 @@ const ProductItem = ({
         }}
       />
       <View style={{ marginTop: 15, marginLeft: 10 }}>
-        <Text style={{ color: Colors.primary, fontSize: 24 }}>$0.99</Text>
+        <Text style={{ color: Colors.primary, fontSize: 24 }}>${priceKg}</Text>
         <Text style={{ color: "black", fontSize: 16 }}>{name}</Text>
         <Text style={{ color: "#888", fontSize: 13 }}>
           {indianName ? indianName : name}
@@ -106,9 +102,9 @@ const ProductItem = ({
           justifyContent: "center",
         }}
       >
-        {qty > 0 ? (
+        {quantity > 0 ? (
           <Text style={{ fontFamily: fonts.Regular, color: "#fff" }}>
-            {qty}
+            {isKg ? `${quantity}(in kg)` : `${quantity}(in qty)`}
           </Text>
         ) : (
           <AntDesign name="shoppingcart" size={24} color="#fff" />
@@ -169,7 +165,14 @@ const ProductItem = ({
             </Text>
           </View>
           <View style={{ marginTop: 15 }} />
-          <ProductAdder price={20} closeSheet={closeSheet} _id={_id} />
+          <ProductAdder
+            priceKg={priceKg}
+            priceQty={priceQty}
+            closeSheet={closeSheet}
+            _id={_id}
+            quantity={quantity}
+            isKg={isKg}
+          />
           {token.length > 0 && (
             <TouchableOpacity
               style={{ position: "absolute", right: "10%", top: "1%" }}

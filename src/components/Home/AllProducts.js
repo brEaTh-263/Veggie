@@ -55,12 +55,14 @@ export default AllProducts = ({ category, subCategory, title }) => {
           </>
         }
         renderItem={({ item }) => {
+          let isKg;
           let i = cartProducts.findIndex(
             (product) => product.productId === item._id
           );
           if (i === -1) {
             i = 0;
           } else {
+            isKg = cartProducts[i].isKg;
             i = cartProducts[i].quantity;
           }
           return (
@@ -68,8 +70,10 @@ export default AllProducts = ({ category, subCategory, title }) => {
               name={item.name}
               indianName={item.indianName}
               imageUrl={item.imageUrl}
-              price={item.price}
+              priceKg={item.priceKg}
+              priceQty={item.priceQty}
               quantity={i}
+              isKg={isKg}
               _id={item._id}
               category={title}
             />

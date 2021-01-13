@@ -71,6 +71,7 @@ const CartScreen = ({ navigation }) => {
       <FlatList
         data={vegetableProducts}
         sections={products}
+        numColumns={2}
         keyExtractor={(item) => item._id}
         ListHeaderComponent={
           vegetableProducts.length > 0 && (
@@ -147,12 +148,26 @@ const CartScreen = ({ navigation }) => {
                       </View>
                     }
                     renderItem={({ item }) => {
+                      let isKg;
+                      let i = products.findIndex(
+                        (product) => product.productId === item._id
+                      );
+                      if (i === -1) {
+                        i = 0;
+                      } else {
+                        isKg = products[i].isKg;
+                        i = products[i].quantity;
+                      }
+
                       return (
                         <ProductItem
                           name={item.name}
                           indianName={item.indianName}
                           imageUrl={item.imageUrl}
-                          price={item.price}
+                          priceKg={item.priceKg}
+                          priceQty={item.priceQty}
+                          weightOnly={item.weightOnly}
+                          isKg={isKg}
                           quantity={item.quantity}
                           _id={item._id}
                           category="Fruits"
@@ -162,12 +177,26 @@ const CartScreen = ({ navigation }) => {
                   />
                 }
                 renderItem={({ item }) => {
+                  let isKg;
+                  let i = products.findIndex(
+                    (product) => product.productId === item._id
+                  );
+                  if (i === -1) {
+                    i = 0;
+                  } else {
+                    isKg = products[i].isKg;
+                    i = products[i].quantity;
+                  }
+
                   return (
                     <ProductItem
                       name={item.name}
                       indianName={item.indianName}
                       imageUrl={item.imageUrl}
-                      price={item.price}
+                      priceKg={item.priceKg}
+                      priceQty={item.priceQty}
+                      weightOnly={item.weightOnly}
+                      isKg={isKg}
                       quantity={item.quantity}
                       _id={item._id}
                       category="Non-Veg"
@@ -177,12 +206,26 @@ const CartScreen = ({ navigation }) => {
               />
             }
             renderItem={({ item }) => {
+              let isKg;
+              let i = products.findIndex(
+                (product) => product.productId === item._id
+              );
+              if (i === -1) {
+                i = 0;
+              } else {
+                isKg = products[i].isKg;
+                i = products[i].quantity;
+              }
+
               return (
                 <ProductItem
                   name={item.name}
                   indianName={item.indianName}
                   imageUrl={item.imageUrl}
-                  price={item.price}
+                  priceKg={item.priceKg}
+                  priceQty={item.priceQty}
+                  weightOnly={item.weightOnly}
+                  isKg={isKg}
                   quantity={item.quantity}
                   _id={item._id}
                   category="Fruits"
@@ -192,12 +235,26 @@ const CartScreen = ({ navigation }) => {
           />
         }
         renderItem={({ item }) => {
+          let isKg;
+          let i = products.findIndex(
+            (product) => product.productId === item._id
+          );
+          if (i === -1) {
+            i = 0;
+          } else {
+            isKg = products[i].isKg;
+            i = products[i].quantity;
+          }
+
           return (
             <ProductItem
               name={item.name}
               indianName={item.indianName}
               imageUrl={item.imageUrl}
-              price={item.price}
+              priceKg={item.priceKg}
+              priceQty={item.priceQty}
+              weightOnly={item.weightOnly}
+              isKg={isKg}
               quantity={item.quantity}
               _id={item._id}
               category="Vegetables"

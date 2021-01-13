@@ -6,7 +6,14 @@ import WeightAdder from "./WeightAdder";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function ProductAdder({ price, closeSheet, _id }) {
+export default function ProductAdder({
+  priceKg,
+  priceQty,
+  closeSheet,
+  _id,
+  quantity,
+  isKg,
+}) {
   return (
     <Tab.Navigator
       style={{ borderRadius: 50 }}
@@ -30,13 +37,25 @@ export default function ProductAdder({ price, closeSheet, _id }) {
       <Tab.Screen
         name="Quantity"
         children={(props) => (
-          <QuantityAdder price={price} closeSheet={closeSheet} _id={_id} />
+          <QuantityAdder
+            priceQty={priceQty}
+            closeSheet={closeSheet}
+            _id={_id}
+            isKg={isKg}
+            quantity={quantity}
+          />
         )}
       />
       <Tab.Screen
         name="Weight"
         children={(props) => (
-          <WeightAdder price={price} closeSheet={closeSheet} _id={_id} />
+          <WeightAdder
+            priceKg={priceKg}
+            closeSheet={closeSheet}
+            _id={_id}
+            isKg={isKg}
+            quantity={quantity}
+          />
         )}
       />
     </Tab.Navigator>
