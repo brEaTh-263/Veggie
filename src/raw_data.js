@@ -192,3 +192,47 @@ export default subCategories = [
       "https://images263.s3-us-west-1.amazonaws.com/Categories/Dairy%2CBakery+and+Eggs/Paneer%2CCheese+and+Butter.jpeg",
   },
 ];
+
+export const Categories = [
+  {
+    name: "Breakfast",
+    ImageURL: "https://images.app.goo.gl/GcE6eT77jzatYmqn7",
+  },
+  {
+    name: "Lunch",
+    ImageURL:
+      "https://pngtree.com/freepng/lunch-clipart-cartoon-lunch-hamburger-banana_5831873.html",
+  },
+  {
+    name: "Dinner",
+    ImageURL:
+      "https://pngtree.com/freepng/cartoon-thanksgiving-turkey-dinner_4361837.html",
+  },
+  {
+    name: "Italian",
+    ImageURL:
+      "https://pngtree.com/freepng/pizza-pizza-european-pizza-italian-pizza_3844943.html",
+  },
+  {
+    name: "North Indian",
+    ImageURL: "https://images.app.goo.gl/GcE6eT77jzatYmqn7",
+  },
+  {
+    name: "South Indian",
+    ImageURL: "https://pngtree.com/freepng/biryani-dish_3718233.html",
+  },
+  {
+    name: "Healthy",
+    ImageURL: "https://pngtree.com/freepng/healthy-food_3776802.html",
+  },
+  {
+    name: "Vegan",
+    ImageURL:
+      "https://pngtree.com/freepng/healthy-lettuce-still-life-salad_5830884.html",
+  },
+  {
+    name: "Desert",
+    ImageURL:
+      "https://pngtree.com/freepng/donut-with-chain-gold-cartoon_5835293.html",
+  },
+];
