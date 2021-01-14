@@ -4,13 +4,15 @@ import CartNavigator from "./Flow/CartNavigator";
 import HomeNavigator from "./Flow/HomeNavigator";
 import ProfileNavigator from "./Flow/ProfileNavigator";
 import SearchNavigator from "./Flow/SearchNavigator";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import RecipeNavigator from "./Flow/RecipeNavigator";
 
 const tabOptions = {
   activeTintColor: Colors.tertiary,
+  showLabel: false,
   inactiveTintColor: "gray",
   tabStyle: {
     backgroundColor: "#fff",
@@ -50,6 +52,21 @@ const FlowNavigator = () => {
         options={{
           tabBarIcon: ({ color }) => (
             <AntDesign name="search1" size={24} color={color} />
+          ),
+        }}
+      />
+
+      <FlowTabNavigator.Screen
+        name="Recipe"
+        component={RecipeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="pot-steam"
+              size={30}
+              color={color}
+              style={{}}
+            />
           ),
         }}
       />

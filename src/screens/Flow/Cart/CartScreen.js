@@ -84,6 +84,7 @@ const CartScreen = ({ navigation }) => {
           <FlatList
             data={fruitProducts}
             sections={products}
+            numColumns={2}
             keyExtractor={(item) => item._id}
             ListHeaderComponent={
               fruitProducts.length > 0 && (
@@ -96,6 +97,7 @@ const CartScreen = ({ navigation }) => {
               <FlatList
                 data={nonVegProducts}
                 sections={products}
+                numColumns={2}
                 keyExtractor={(item) => item._id}
                 ListHeaderComponent={
                   nonVegProducts.length > 0 ? (
@@ -108,6 +110,7 @@ const CartScreen = ({ navigation }) => {
                   <FlatList
                     data={grainProducts}
                     sections={products}
+                    numColumns={2}
                     keyExtractor={(item) => item._id}
                     ListHeaderComponent={
                       grainProducts.length > 0 ? (

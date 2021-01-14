@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../screens/Flow/Home/HomeScreen";
 import AllProductsScreen from "../../screens/Flow/Home/AllProductsScreen";
+import WIshlistScreen from "../../screens/Flow/Home/WIshlistScreen";
 const HomeStackNavigator = createStackNavigator();
 
 const HomeNavigator = () => {
@@ -12,6 +13,7 @@ const HomeNavigator = () => {
         name="AllProducts"
         component={AllProductsScreen}
       />
+      <HomeStackNavigator.Screen name="Wishlist" component={WIshlistScreen} />
     </HomeStackNavigator.Navigator>
   );
 };

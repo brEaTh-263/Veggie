@@ -59,6 +59,7 @@ const WeightAdder = ({ priceKg, closeSheet, _id, quantity, isKg }) => {
           bottom: 30,
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "space-around",
           left: 0,
         }}
       >
@@ -100,7 +101,8 @@ const WeightAdder = ({ priceKg, closeSheet, _id, quantity, isKg }) => {
           style={{
             borderRadius: 20,
 
-            marginHorizontal: 20,
+            marginLeft: 20,
+            marginRight: 10,
           }}
         >
           Add to cart

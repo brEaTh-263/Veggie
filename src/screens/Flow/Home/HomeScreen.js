@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import * as profileActions from "../../../store/actions/Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { ActivityIndicator } from "react-native-paper";
@@ -11,8 +18,9 @@ import Carousel from "../../../components/Home/Carousel";
 import ChooseLiveOrOtherLocation from "../../../components/General/ChooseLocationType";
 import Dash from "react-native-dash";
 import fonts from "../../../constants/fonts";
+import { Ionicons } from "@expo/vector-icons";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.Auth.token);
   const address = useSelector(
@@ -101,6 +109,13 @@ const HomeScreen = () => {
             Grocery store
           </Text>
         </View>
+        <TouchableOpacity
+          style={{ position: "absolute", right: 20, top: "2%" }}
+          onPress={() => navigation.navigate("Wishlist")}
+        >
+          <Ionicons name={"leaf-sharp"} size={24} color={Colors.sub} />
+        </TouchableOpacity>
+
         <Dash
           style={{
             width: "100%",

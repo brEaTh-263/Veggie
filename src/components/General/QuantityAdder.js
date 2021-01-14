@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  ToastAndroid,
 } from "react-native";
 import Colors from "../../constants/Colors";
 import fonts from "../../constants/fonts";
@@ -17,7 +18,7 @@ const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
 
   const cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState("0");
 
   React.useEffect(() => {
     if (!isKg) {
@@ -25,6 +26,9 @@ const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
     }
   }, [isKg, setValue]);
   const data = [
+    {
+      number: "0",
+    },
     {
       number: "1",
     },
@@ -118,6 +122,15 @@ const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
         </Text>
         <Button
           onPress={() => {
+            if (value === "0") {
+              return ToastAndroid.showWithGravityAndOffset(
+                "Please select a valid quantity",
+                ToastAndroid.SHORT,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+              );
+            }
             if (token.length > 0) {
               dispatch(cartActions.addProduct(_id, token, value * 1, false));
             } else {
