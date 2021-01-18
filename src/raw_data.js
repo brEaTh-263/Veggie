@@ -196,15 +196,18 @@ export default subCategories = [
 export const Categories = [
   {
     name: "Breakfast",
+    subCategories: ["Main", "Smoothies"],
     ImageURL: "https://images.app.goo.gl/GcE6eT77jzatYmqn7",
   },
   {
     name: "Lunch",
+    subCategories: ["Starter", "Main", "Dessert"],
     ImageURL:
       "https://pngtree.com/freepng/lunch-clipart-cartoon-lunch-hamburger-banana_5831873.html",
   },
   {
     name: "Dinner",
+    subCategories: ["Starter", "Main", "Dessert"],
     ImageURL:
       "https://pngtree.com/freepng/cartoon-thanksgiving-turkey-dinner_4361837.html",
   },
@@ -234,5 +237,60 @@ export const Categories = [
     name: "Desert",
     ImageURL:
       "https://pngtree.com/freepng/donut-with-chain-gold-cartoon_5835293.html",
+  },
+];
+
+export const RecipeItems = [
+  {
+    id: "1",
+    name: "Mexican Potatoes",
+    category: "Breakfast",
+    subCategory: "Main",
+    duration: "15 mins",
+    difficulty: "Medium",
+    price: "10",
+    mode: "Vegetarian",
+    ImageURL:
+      "https://image.freepik.com/free-photo/stir-fry-vegetables-with-mushrooms-paprika-red-onions-broccoli-healthy-food-asian-cuisine-top-view-overhead_2829-20263.jpg",
+  },
+  {
+    id: "2",
+    name: "Fettucine al dante",
+    category: "Breakfast",
+    subCategory: "Smoothies",
+    duration: "10 mins",
+    difficulty: "Easy",
+    price: "15",
+    mode: "Non-Veg",
+    ImageURL:
+      "https://image.freepik.com/free-photo/stir-fry-vegetables-with-mushrooms-paprika-red-onions-broccoli-healthy-food-asian-cuisine-top-view-overhead_2829-20263.jpg",
+  },
+  {
+    id: "3",
+    name: "Mexican Potatoes",
+    category: "Lunch",
+    ImageURL:
+      "https://image.freepik.com/free-photo/stir-fry-vegetables-with-mushrooms-paprika-red-onions-broccoli-healthy-food-asian-cuisine-top-view-overhead_2829-20263.jpg",
+  },
+  {
+    id: "4",
+    name: "Fettucine al dante",
+    category: "Lunch",
+    ImageURL:
+      "https://image.freepik.com/free-photo/stir-fry-vegetables-with-mushrooms-paprika-red-onions-broccoli-healthy-food-asian-cuisine-top-view-overhead_2829-20263.jpg",
+  },
+  {
+    id: "5",
+    name: "Mexican Potatoes",
+    category: "Dinner",
+    ImageURL:
+      "https://image.freepik.com/free-photo/stir-fry-vegetables-with-mushrooms-paprika-red-onions-broccoli-healthy-food-asian-cuisine-top-view-overhead_2829-20263.jpg",
+  },
+  {
+    id: "6",
+    name: "Fettucine al dante",
+    category: "Dinner",
+    ImageURL:
+      "https://image.freepik.com/free-photo/stir-fry-vegetables-with-mushrooms-paprika-red-onions-broccoli-healthy-food-asian-cuisine-top-view-overhead_2829-20263.jpg",
   },
 ];

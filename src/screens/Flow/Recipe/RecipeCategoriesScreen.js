@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import Header from "../../../components/General/Header";
 import Colors from "../../../constants/Colors";
 import { Searchbar } from "react-native-paper";
@@ -18,7 +25,8 @@ let colorCodes = [
   "#b898e1",
 ];
 
-const RecipeScreen = () => {
+const RecipeScreen = ({ navigation }) => {
+  let count = 0;
   return (
     <View style={styles.container}>
       <Header text="Recipe Box" />
@@ -40,17 +48,25 @@ const RecipeScreen = () => {
           />
         }
         renderItem={({ item }) => {
-          var color = colorCodes[Math.floor(Math.random() * colorCodes.length)];
+          count++;
+          if (count >= colorCodes.length) {
+            count = 0;
+          }
+          // console.log(colorCodes[count]);
           return (
-            <View style={[styles.cardContainer, { backgroundColor: color }]}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Single Recipe", {
+                  title: item.name,
+                  subCategories: item.subCategories,
+                })
+              }
+              style={[
+                styles.cardContainer,
+                { backgroundColor: colorCodes[count] },
+              ]}
+            >
               <View style={{ marginVertical: 10 }}>
-                {/* <View
-                  style={{
-                    // borderWidth: 1,
-                    // alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                > */}
                 <Image
                   source={require("../../../../assets/pizza.png")}
                   resizeMode="cover"
@@ -69,7 +85,7 @@ const RecipeScreen = () => {
                   {item.name}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />

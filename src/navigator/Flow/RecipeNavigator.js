@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import RecipeScreen from "../../screens/Flow/Recipe/RecipeScreen";
+import RecipeCategoryScreen from "../../screens/Flow/Recipe/RecipeCategoriesScreen";
+import SingleRecipeScreen from "../../screens/Flow/Recipe/SingleRecipeScreen";
 
 const RecipeStackNavigator = createStackNavigator();
 
@@ -9,8 +10,11 @@ const RecipeNavigator = () => {
     <RecipeStackNavigator.Navigator screenOptions={{ headerShown: false }}>
       <RecipeStackNavigator.Screen
         name="Recipe"
-        component={RecipeScreen}
-        options={{ headerShown: false }}
+        component={RecipeCategoryScreen}
+      />
+      <RecipeStackNavigator.Screen
+        name="Single Recipe"
+        component={SingleRecipeScreen}
       />
     </RecipeStackNavigator.Navigator>
   );

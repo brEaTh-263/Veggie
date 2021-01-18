@@ -31,7 +31,8 @@ export default (title, subCategory, category) => {
     let text = query.replace(/\W/g, ""); //searching only for all alphanumeric characters only
     const searched = products.filter((product) => {
       let name = product.name.toLowerCase();
-      let price = product.price.toString();
+      let priceKg = product.priceKg.toString();
+      let priceQty = product.priceQty.toString();
       let category = product.Category.toLowerCase();
       let indianName;
       if (product.indianName) {
@@ -42,7 +43,8 @@ export default (title, subCategory, category) => {
       }
       if (
         name.includes(text.toLowerCase()) ||
-        price.includes(text) ||
+        priceKg.includes(text) ||
+        priceQty.includes(text) ||
         category.includes(text.toLowerCase()) ||
         indianName.includes(text.toLowerCase())
       ) {

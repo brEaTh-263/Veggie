@@ -21,7 +21,6 @@ const AllProductsScreen = ({ route, navigation }) => {
           scrollEnabled: true,
           allowFontScaling: true,
           tabStyle: { height: 60, width: 80 },
-
           activeTintColor: Colors.primary,
           labelStyle: {
             textTransform: "capitalize",
