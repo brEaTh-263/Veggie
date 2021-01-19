@@ -2,7 +2,6 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../../screens/Flow/Profile/ProfileScreen";
 import SettingsScreen from "../../screens/Flow/Profile/Settings/SettingsScreen";
-import PersonalInfoScreen from "../../screens/Flow/Profile/PersonalInfo/PersonalInfoScreen";
 import EditProfileScreen from "../../screens/Flow/Profile/PersonalInfo/EditProfileScreen";
 import AddressScreen from "../../screens/Flow/Profile/PersonalInfo/AddressScreen";
 import AddAddressScreen from "../../screens/Flow/Profile/PersonalInfo/AddAddressScreen";
@@ -24,10 +23,7 @@ const ProfileNavigator = () => {
         name="EditProfile"
         component={EditProfileScreen}
       />
-      <ProfileStackNavigator.Screen
-        name="PersonalInfo"
-        component={PersonalInfoScreen}
-      />
+
       <ProfileStackNavigator.Screen name="Address" component={AddressScreen} />
       <ProfileStackNavigator.Screen
         name="AddAddress"

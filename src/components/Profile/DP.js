@@ -7,6 +7,7 @@ import Colors from "../../constants/Colors";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as profileActions from "../../store/actions/Profile";
 import { Portal, Dialog, Button, Avatar } from "react-native-paper";
+import fonts from "../../constants/fonts";
 const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
   const token = useSelector((state) => state.Profile.token);
   const [visible, setVisible] = useState(false);
@@ -88,7 +89,7 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
       </Portal>
       <View>
         <Avatar.Image
-          size={100}
+          size={120}
           source={{
             uri: image,
           }}
@@ -112,15 +113,16 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
 
 const styles = StyleSheet.create({
   infoContainer: {
-    marginTop: 40,
+    marginTop: 70,
     alignItems: "center",
     justifyContent: "center",
   },
   name: {
-    fontSize: 30,
-    marginTop: 0,
+    fontSize: 25,
+    textTransform: "uppercase",
+    fontFamily: fonts.Bold,
+    marginTop: 10,
     textAlign: "center",
-    fontWeight: "bold",
   },
   editContainer: {
     position: "relative",

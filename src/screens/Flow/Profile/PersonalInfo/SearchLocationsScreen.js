@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from "react-native";
 import { Searchbar, List, Divider } from "react-native-paper";
-import BackButton from "../../../../components/General/BackButton";
 import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
 import { useDispatch } from "react-redux";
@@ -27,17 +26,16 @@ const SearchLocationsScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.goBack()}
-        >
-          <BackButton />
-        </TouchableOpacity>
         <Header text="Search for a location" textSize={20} />
       </View>
       <Searchbar
-        style={{ margin: 10 }}
-        placeholder="Enter location"
+        style={{
+          marginVertical: 25,
+          marginHorizontal: 15,
+          borderRadius: 20,
+          overflow: "hidden",
+        }}
+        placeholder="I want it delivered.."
         onChangeText={getSearchLocation}
       />
 
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 25,
   },
   title: {
     textAlign: "center",

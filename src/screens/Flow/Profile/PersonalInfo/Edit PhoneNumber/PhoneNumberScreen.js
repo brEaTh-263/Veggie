@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import { Button } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
 import Colors from "../../../../../constants/Colors";
-import { TouchableOpacity } from "react-native";
-import BackButton from "../../../../../components/General/BackButton";
 import { useSelector, useDispatch } from "react-redux";
 import * as profileActions from "../../../../../store/actions/Profile";
 import * as authActions from "../../../../../store/actions/Auth";
@@ -46,19 +44,7 @@ const PhoneNumberScreen = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bkg }}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={{ marginHorizontal: 15 }}
-          onPress={() => {
-            if (checkOut) {
-              navigation.navigate("Cart");
-            } else {
-              navigation.goBack();
-            }
-          }}
-        >
-          <BackButton />
-        </TouchableOpacity>
-        <Header text="Enter phone number" textSize={20} />
+        <Header text="Enter phone number" checkOut={checkOut} />
       </View>
       <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
         <Text style={styles.title}>
@@ -105,6 +91,7 @@ const PhoneNumberScreen = ({ navigation, route }) => {
         mode="contained"
         color={Colors.tertiary}
         loading={isLoading}
+        contentStyle={{ paddingVertical: 7 }}
         onPress={handleSubmit(onSubmit)}
         style={styles.buttonStyle}
       >
@@ -126,13 +113,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "95%",
     borderRadius: 5,
-    paddingVertical: 7,
+
     margin: 10,
   },
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 25,
   },
   title: {
     textAlign: "center",

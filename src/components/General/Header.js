@@ -26,7 +26,13 @@ const Header = (props) => {
             position: "absolute",
             left: "2%",
           }}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            if (props.checkOut) {
+              navigation.navigate("Cart");
+              return;
+            }
+            navigation.goBack();
+          }}
         >
           <BackButton />
         </TouchableOpacity>

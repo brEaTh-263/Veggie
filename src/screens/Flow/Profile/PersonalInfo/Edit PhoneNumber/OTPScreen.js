@@ -85,12 +85,6 @@ const OTPScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.navigate("EditProfile")}
-        >
-          <BackButton />
-        </TouchableOpacity>
         <Header text="Enter the code" textSize={20} />
       </View>
       <View style={{ margin: 20 }}>
@@ -157,7 +151,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 25,
   },
 });
 

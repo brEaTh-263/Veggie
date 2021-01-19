@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginVertical: 10,
     borderRadius: 20,
-    opacity: 20,
+    elevation: 10,
   },
   textStyle: {
     fontSize: 13,

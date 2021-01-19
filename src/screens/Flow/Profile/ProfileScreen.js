@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  FlatList,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Colors from "../../../constants/Colors";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DP from "../../../components/Profile/DP";
-import ProductItem from "../../../components/General/ProductItem";
-import { Entypo } from "@expo/vector-icons";
-import { Button } from "react-native-paper";
 import CardButton from "../../../components/Profile/CardButton";
-import Header from "../../../components/General/Header";
-import * as authActions from "../../../store/actions/Auth";
 import NotAuthenticated from "../../../components/Profile/NotAuthenticated";
 
 const ProfileScreen = ({ navigation }) => {
@@ -30,25 +18,21 @@ const ProfileScreen = ({ navigation }) => {
   if (token.length === 0) {
     return <NotAuthenticated />;
   }
+  0;
 
   return (
     <View style={styles.container} centerContent={true}>
       <DP username={profileData.username} image={image} canEdit={false} />
-
-      <View style={{ marginVertical: 10, marginTop: 80 }}>
-        <Text style={{ fontSize: 18, color: "black", marginLeft: 10 }}>
-          Account Details
-        </Text>
-      </View>
+      <View style={{ height: "15%" }} />
       <View style={styles.cardsContainer}>
         <CardButton
           title="Personal Info"
-          icon="user"
-          navScreen="PersonalInfo"
+          color="#00F071"
+          navScreen="EditProfile"
         />
-        <CardButton title="Payments" icon="credit-card-settings-outline" />
-        <CardButton title="My Orders" icon="pencil-outline" />
-        <CardButton title="Settings" icon="settings" navScreen="Settings" />
+        <CardButton title="Payments" color="#533CF0" />
+        <CardButton title="My Orders" color="#F05C48" />
+        <CardButton title="My Addresses" navScreen="Address" color="#F0745B" />
       </View>
     </View>
   );
@@ -77,7 +61,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     flexDirection: "row",
-    height: 280,
+    height: 320,
     backgroundColor: Colors.bkg,
     flexWrap: "wrap",
     justifyContent: "space-around",

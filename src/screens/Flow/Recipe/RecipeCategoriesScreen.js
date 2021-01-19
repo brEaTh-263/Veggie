@@ -101,6 +101,8 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginHorizontal: 10,
+    elevation: 10,
+
     height: 180,
     width: "45%",
     borderRadius: 25,

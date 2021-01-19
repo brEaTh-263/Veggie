@@ -32,7 +32,7 @@ const EditProfileScreen = ({ navigation }) => {
       await dispatch(
         profileActions.updateUsername(data.userName, profileData.token)
       );
-      navigation.navigate("PersonalInfo");
+      navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -62,12 +62,6 @@ const EditProfileScreen = ({ navigation }) => {
   return (
     <ScrollView centerContent={true} contentContainerStyle={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.navigate("PersonalInfo")}
-        >
-          <BackButton />
-        </TouchableOpacity>
         <Header text="Edit profile" textSize={30} />
       </View>
       <DP
@@ -92,6 +86,7 @@ const EditProfileScreen = ({ navigation }) => {
       <Button
         mode="contained"
         style={styles.buttonStyle}
+        contentStyle={{ paddingVertical: 10 }}
         color={Colors.tertiary}
         onPress={handleSubmit(onSubmit)}
       >
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 25,
   },
   inputContainer: {
     marginHorizontal: 10,
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     position: "absolute",
     width: "95%",
-    paddingVertical: 10,
+
     margin: 10,
     borderRadius: 5,
   },

@@ -9,32 +9,32 @@ import {
 } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
+import fonts from "../../constants/fonts";
 
-const CardButton = ({ title, icon, navScreen }) => {
+const CardButton = ({ title, icon, navScreen, color }) => {
   const navigation = useNavigation();
 
   return (
-    <Card style={styles.cardContainer}>
+    <Card style={[styles.cardContainer, { backgroundColor: color }]}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(navScreen);
+          if (navScreen) {
+            navigation.navigate(navScreen);
+          }
         }}
         style={styles.cardStyle}
       >
         <View>
-          {title === "Personal Info" ? (
-            <Feather name={icon} size={60} color="black" />
-          ) : null}
-          {title === "My Orders" ? (
-            <MaterialCommunityIcons name={icon} size={60} color="black" />
-          ) : null}
-          {title === "Payments" ? (
-            <MaterialIcons name="payment" size={60} color="black" />
-          ) : null}
-          {title === "Settings" ? (
-            <Octicons name="settings" size={60} color="black" />
-          ) : null}
-          <Text style={{ textAlign: "center", alignItems: "center" }}>
+          <Text
+            style={{
+              textAlign: "center",
+              alignItems: "center",
+              fontFamily: fonts.Bold,
+              color: "#fff",
+              fontSize: 23,
+              textTransform: "uppercase",
+            }}
+          >
             {title}
           </Text>
         </View>
@@ -45,11 +45,12 @@ const CardButton = ({ title, icon, navScreen }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: "45%",
-    height: "40%",
+    width: "44%",
+    height: "50%",
     elevation: 5,
-    backgroundColor: Colors.bkg,
+    borderRadius: 15,
     marginVertical: 5,
+    marginHorizontal: 10,
   },
   cardStyle: {
     alignItems: "center",

@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import BackButton from "../../../../components/General/BackButton";
 import Header from "../../../../components/General/Header";
 import SingleAddress from "../../../../components/General/SingleAddress";
 import AddLocation from "../../../../components/Profile/AddLocation";
@@ -18,7 +17,7 @@ import { Button } from "react-native-paper";
 import { useForm } from "react-hook-form";
 import GetExtraLocationDetails from "../../../../components/Profile/GetExtraLocationDetails";
 import * as profileActions from "../../../../store/actions/Profile";
-
+import { FAB } from "react-native-paper";
 const AddressScreen = ({ navigation }) => {
   const addresses = useSelector((state) => state.Profile.locations);
   const token = useSelector((state) => state.Auth.token);
@@ -85,15 +84,8 @@ const AddressScreen = ({ navigation }) => {
   return (
     <View style={[styles.container]}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.goBack()}
-        >
-          <BackButton />
-        </TouchableOpacity>
         <Header text="My Addresses" textSize={25} />
       </View>
-      <AddLocation navigation={navigation} />
       <FlatList
         data={addresses}
         keyExtractor={(Item) => Item._id}
@@ -110,6 +102,17 @@ const AddressScreen = ({ navigation }) => {
           );
         }}
       />
+      <FAB
+        style={styles.fab}
+        small={false}
+        color="#fff"
+        icon="plus"
+        onPress={() => {
+          navigation.navigate("AddAddress", {
+            newAddress: "",
+          });
+        }}
+      />
 
       <RBSheet
         ref={refRBSheet}
@@ -118,12 +121,14 @@ const AddressScreen = ({ navigation }) => {
         height={500}
         customStyles={{
           wrapper: {
-            backgroundColor: "transparent",
-            shadowOpacity: 10,
-            backfaceVisibility: "visible",
+            backgroundColor: "rgba(52, 52, 52, 0.8)",
           },
           draggableIcon: {
-            backgroundColor: Colors.sub,
+            backgroundColor: "#000",
+          },
+          container: {
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
           },
         }}
       >
@@ -154,7 +159,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 25,
   },
   simpleText: {
     fontSize: 24,
@@ -170,6 +175,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "95%",
     borderRadius: 5,
+  },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: Colors.secondary,
   },
 });
 
