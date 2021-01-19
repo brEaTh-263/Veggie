@@ -11,14 +11,7 @@ const SingleCategory = ({ mainCategory, source, SubCategories }) => {
       <View style={styles.imageContainerStyle}>
         <Pressable
           onPress={async () => {
-            // if (parent) {
-            //   navigation.navigate(`Category`, {
-            //     title: mainCategory,
-            //   }); //PARENT TRUE MEANS SELECTED A MAIN CATEGORY
-            //   return;
-            // }
             navigation.navigate(`AllProducts`, {
-              // CLICKED SUBCATEGORY
               title: mainCategory,
               subCategory: true,
               categories: SubCategories,

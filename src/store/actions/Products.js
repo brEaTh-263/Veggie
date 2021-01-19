@@ -14,7 +14,11 @@ export const getAllProducts = () => {
         throw new Error();
       }
       const responseJson = await response.json();
-      dispatch({ type: GET_ALL_PRODUCTS, data: responseJson });
+      dispatch({
+        type: GET_ALL_PRODUCTS,
+        data: responseJson.data,
+        mainCategories: responseJson.mainCategories,
+      });
     } catch (error) {
       console.log(error);
     }

@@ -3,6 +3,7 @@ import { GET_ALL_PRODUCTS } from "../actions/Products";
 
 const initialState = {
   products: [],
+  mainCategories: [],
 };
 
 export default (state = initialState, action) => {
@@ -10,6 +11,7 @@ export default (state = initialState, action) => {
     case GET_ALL_PRODUCTS: {
       return {
         products: action.data,
+        mainCategories: action.mainCategories,
       };
     }
 
