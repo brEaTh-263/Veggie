@@ -1,25 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { Button } from "react-native-paper";
-import BackButton from "../../../../components/General/BackButton";
-import PlainCard from "../../../../components/General/PlainCard";
 import Header from "../../../../components/General/Header";
 import Colors from "../../../../constants/Colors";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../../../store/actions/Auth";
-const SettingsScreen = ({ navigation }) => {
+const SettingsScreen = () => {
   const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={{ marginHorizontal: 15 }}
-          onPress={() => navigation.goBack()}
-        >
-          <BackButton />
-        </TouchableOpacity>
-        <Header text="Settings" textSize={30} />
+        <Header text="Settings" />
       </View>
 
       <Button
@@ -43,7 +35,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 25,
   },
 });
 

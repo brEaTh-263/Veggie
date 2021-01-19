@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import Colors from "../../../constants/Colors";
 import { useSelector } from "react-redux";
 import DP from "../../../components/Profile/DP";
 import CardButton from "../../../components/Profile/CardButton";
 import NotAuthenticated from "../../../components/Profile/NotAuthenticated";
-
+import { Ionicons } from "@expo/vector-icons";
 const ProfileScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
   const [image, setImage] = useState(`${profileData.imageURL}`);
@@ -22,18 +28,22 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container} centerContent={true}>
-      <DP username={profileData.username} image={image} canEdit={false} />
-      <View style={{ height: "15%" }} />
-      <View style={styles.cardsContainer}>
-        <CardButton
-          title="Personal Info"
-          color="#00F071"
-          navScreen="EditProfile"
-        />
-        <CardButton title="Payments" color="#533CF0" />
-        <CardButton title="My Orders" color="#F05C48" />
-        <CardButton title="My Addresses" navScreen="Address" color="#F0745B" />
-      </View>
+      <ScrollView>
+        <TouchableOpacity
+          style={{ position: "absolute", top: "5%", right: "5%" }}
+          onPress={() => navigation.navigate("Settings")}
+        >
+          <Ionicons name="settings-sharp" size={24} color="black" />
+        </TouchableOpacity>
+        <DP username={profileData.username} image={image} canEdit={false} />
+        <View style={{ height: 100 }} />
+        <View style={styles.cardsContainer}>
+          <CardButton title="Account" color="#cd3a45" navScreen="EditProfile" />
+          <CardButton title="Payments" color="#0bb1aa" />
+          <CardButton title="My Orders" color="#006b80" />
+          <CardButton title="Addresses" navScreen="Address" color="#daa099" />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -62,7 +72,6 @@ const styles = StyleSheet.create({
   cardsContainer: {
     flexDirection: "row",
     height: 320,
-    backgroundColor: Colors.bkg,
     flexWrap: "wrap",
     justifyContent: "space-around",
     alignItems: "center",

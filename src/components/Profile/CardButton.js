@@ -1,13 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Card } from "react-native-paper";
-import {
-  MaterialCommunityIcons,
-  Feather,
-  MaterialIcons,
-  Octicons,
-} from "@expo/vector-icons";
-import Colors from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import fonts from "../../constants/fonts";
 
@@ -45,12 +38,13 @@ const CardButton = ({ title, icon, navScreen, color }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: "44%",
-    height: "50%",
+    width: "40%",
+    height: "45%",
     elevation: 5,
     borderRadius: 15,
     marginVertical: 5,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
+    paddingHorizontal: 10,
   },
   cardStyle: {
     alignItems: "center",
