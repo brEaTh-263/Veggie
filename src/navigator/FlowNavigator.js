@@ -77,11 +77,27 @@ const FlowNavigator = () => {
       <FlowTabNavigator.Screen
         name="Cart"
         component={CartNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="cart-outline" size={30} color={color} />
-          ),
-          tabBarBadge: items > 0 ? items : null,
+        options={({ route }) => {
+          let tabBarVisible;
+          const routeName = getFocusedRouteNameFromRoute(route);
+
+          if (
+            routeName === "PhoneNumber" ||
+            routeName === "PaymentMethods" ||
+            routeName === "Confirmation"
+          ) {
+            tabBarVisible = false;
+          } else {
+            tabBarVisible = true;
+          }
+
+          return {
+            tabBarVisible,
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="cart-outline" size={30} color={color} />
+            ),
+            tabBarBadge: items > 0 ? items : null,
+          };
         }}
       />
       <FlowTabNavigator.Screen

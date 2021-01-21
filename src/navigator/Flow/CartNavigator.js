@@ -5,6 +5,7 @@ import PhoneNumberScreen from "../../screens/Flow/Profile/PersonalInfo/Edit Phon
 import OTPScreen from "../../screens/Flow/Profile/PersonalInfo/Edit PhoneNumber/OTPScreen";
 import CheckOutScreen from "../../screens/Flow/Cart/CheckOutScreen";
 import PaymentMethodsScreen from "../../screens/Flow/Cart/PaymentMethodsScreen";
+import ConfirmationScreen from "../../screens/Flow/Cart/ConfirmationScreen";
 
 const CartStackNavigator = createStackNavigator();
 
@@ -24,6 +25,10 @@ const CartNavigator = () => {
       <CartStackNavigator.Screen
         name="PaymentMethods"
         component={PaymentMethodsScreen}
+      />
+      <CartStackNavigator.Screen
+        name="Confirmation"
+        component={ConfirmationScreen}
       />
       <CartStackNavigator.Screen name="OTP" component={OTPScreen} />
     </CartStackNavigator.Navigator>

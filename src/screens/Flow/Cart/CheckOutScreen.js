@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ToastAndroid,
 } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -74,7 +75,18 @@ const CheckOutScreen = ({ navigation }) => {
               contentStyle={{ padding: 5 }}
               labelStyle={{ fontWeight: "bold" }}
               onPress={() => {
-                navigation.navigate("Home");
+                if (!profileData.paymentMethod) {
+                  ToastAndroid.showWithGravityAndOffset(
+                    "Please select a payment method",
+                    ToastAndroid.SHORT,
+                    ToastAndroid.BOTTOM,
+                    25,
+                    50
+                  );
+                  return;
+                }
+
+                navigation.navigate("Confirmation");
               }}
             >
               Confirm Payment
