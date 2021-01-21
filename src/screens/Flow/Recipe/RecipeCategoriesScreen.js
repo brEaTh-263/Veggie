@@ -55,12 +55,14 @@ const RecipeScreen = ({ navigation }) => {
           // console.log(colorCodes[count]);
           return (
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Single Recipe", {
-                  title: item.name,
-                  subCategories: item.subCategories,
-                })
-              }
+              onPress={() => {
+                if (item.subCategories) {
+                  navigation.navigate("Single Recipe", {
+                    title: item.name,
+                    subCategories: item.subCategories,
+                  });
+                }
+              }}
               style={[
                 styles.cardContainer,
                 { backgroundColor: colorCodes[count] },

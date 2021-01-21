@@ -54,13 +54,6 @@ const styles = StyleSheet.create({
   conatiner: {
     marginVertical: 10,
     marginHorizontal: 15,
-    height: 350,
-  },
-  categoriesContainer: {
-    flexWrap: "wrap",
-    width: "100%",
-    height: 100,
-    flexDirection: "row",
   },
   title: {
     fontSize: 22,

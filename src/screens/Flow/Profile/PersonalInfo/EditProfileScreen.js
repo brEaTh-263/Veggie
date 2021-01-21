@@ -26,6 +26,7 @@ const EditProfileScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
   const [image, setImage] = useState(`${profileData.imageURL}`);
   const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
@@ -60,39 +61,41 @@ const EditProfileScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView centerContent={true} contentContainerStyle={styles.container}>
-      <View style={styles.headerContainer}>
-        <Header text="Edit profile" textSize={30} />
-      </View>
-      <DP
-        username={profileData.username}
-        image={image}
-        setIsLoading={setIsLoading}
-        setImage={setImage}
-        canEdit={true}
-      />
-      <Username control={control} errors={errors} />
-      <ChangePhoneNumberButton phoneNumber={profileData.phoneNumber} />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          theme={{ colors: { primary: "green" } }}
-          label="Email"
-          value={profileData.email}
-          disabled={true}
+    <View style={styles.container}>
+      <ScrollView>
+        <View style={styles.headerContainer}>
+          <Header text="Edit profile" textSize={30} />
+        </View>
+        <DP
+          username={profileData.username}
+          image={image}
+          setIsLoading={setIsLoading}
+          setImage={setImage}
+          canEdit={true}
         />
-      </View>
+        <Username control={control} errors={errors} />
+        <ChangePhoneNumberButton phoneNumber={profileData.phoneNumber} />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            theme={{ colors: { primary: "green" } }}
+            label="Email"
+            value={profileData.email}
+            disabled={true}
+          />
+        </View>
 
-      <Button
-        mode="contained"
-        style={styles.buttonStyle}
-        contentStyle={{ paddingVertical: 10 }}
-        color={Colors.tertiary}
-        onPress={handleSubmit(onSubmit)}
-      >
-        Save Changes
-      </Button>
-    </ScrollView>
+        <Button
+          mode="contained"
+          style={styles.buttonStyle}
+          contentStyle={{ paddingVertical: 10 }}
+          color={Colors.tertiary}
+          onPress={handleSubmit(onSubmit)}
+        >
+          Save Changes
+        </Button>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -102,8 +105,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bkg,
   },
   headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
     marginTop: 25,
   },
   inputContainer: {
@@ -112,9 +113,9 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     bottom: 0,
-    position: "absolute",
+    // position: "absolute",
     width: "95%",
-
+    marginTop: 30,
     margin: 10,
     borderRadius: 5,
   },

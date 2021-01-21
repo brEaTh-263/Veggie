@@ -1,15 +1,42 @@
-import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, Dimensions, BackHandler, Alert } from "react-native";
 import Colors from "../../../constants/Colors";
 import Header from "../../../components/General/Header";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import fonts from "../../../constants/fonts";
+import {
+  useFocusEffect,
+  useBackButton,
+  TabActions,
+  StackActions,
+} from "@react-navigation/native";
 import AllProducts from "../../../components/Home/AllProducts";
 
 const AllProductsScreen = ({ route, navigation }) => {
   const { title, subCategory, categories } = route.params;
 
   const Tab = createMaterialTopTabNavigator();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        // if (isSelectionModeEnabled()) {
+        //   disableSelectionMode();
+        //   return true;
+        // } else {
+        //   return false;
+        // }
+        // navigation.navigate("Home");
+        const jumpToAction = StackActions.replace("Home");
+        navigation.dispatch(jumpToAction);
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
 
   return (
     <View style={styles.container}>

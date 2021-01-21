@@ -4,6 +4,8 @@ import { MaterialIcons, EvilIcons } from "@expo/vector-icons";
 import * as profileActions from "../../store/actions/Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Title, Paragraph } from "react-native-paper";
+import fonts from "../../constants/fonts";
+import Colors from "../../constants/Colors";
 const SingleAddress = ({
   address,
   _id,
@@ -64,7 +66,7 @@ const SingleAddress = ({
         </TouchableOpacity>
       </View>
       <Card.Content>
-        <Title style={{ color: "red", fontWeight: "bold" }}>{name}</Title>
+        <Title style={{ color: "black", fontFamily: fonts.Bold }}>{name}</Title>
         <Paragraph style={{ fontSize: 16 }}>{landmark}</Paragraph>
         <Paragraph style={{ fontStyle: "italic" }}>{restAddress}</Paragraph>
       </Card.Content>

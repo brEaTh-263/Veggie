@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import * as profileActions from "../../../store/actions/Profile";
 import { useDispatch, useSelector } from "react-redux";
-import { ActivityIndicator } from "react-native-paper";
+import { ActivityIndicator, Divider } from "react-native-paper";
 import AddressHeader from "../../../components/General/AddressHeader";
 import Colors from "../../../constants/Colors";
 import Categories from "../../../components/Home/Categories";
@@ -135,8 +135,9 @@ const HomeScreen = ({ navigation }) => {
         <AddressHeader setIsVisible={setIsVisible} address={address} />
 
         <Carousel />
-
+        <Divider />
         <Categories />
+        <Divider />
       </ScrollView>
     </View>
   );

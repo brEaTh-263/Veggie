@@ -113,7 +113,7 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
 
 const styles = StyleSheet.create({
   infoContainer: {
-    marginTop: 70,
+    marginTop: 100,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -5,18 +5,30 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Linking,
+  Platform,
 } from "react-native";
 import Colors from "../../../constants/Colors";
 import { useSelector } from "react-redux";
 import DP from "../../../components/Profile/DP";
 import CardButton from "../../../components/Profile/CardButton";
 import NotAuthenticated from "../../../components/Profile/NotAuthenticated";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 const ProfileScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
   const [image, setImage] = useState(`${profileData.imageURL}`);
   const token = useSelector((state) => state.Auth.token);
+  const callCustomerCare = () => {
+    let phoneNumber = "";
 
+    if (Platform.OS === "android") {
+      phoneNumber = `tel:9415512044`;
+    } else {
+      phoneNumber = `telprompt:9415512044`;
+    }
+
+    Linking.openURL(phoneNumber);
+  };
   useEffect(() => {
     setImage(`${profileData.imageURL}`);
   }, [profileData, setImage]);
@@ -30,10 +42,16 @@ const ProfileScreen = ({ navigation }) => {
     <View style={styles.container} centerContent={true}>
       <ScrollView>
         <TouchableOpacity
-          style={{ position: "absolute", top: "5%", right: "5%" }}
+          style={{ position: "absolute", top: "7%", right: "5%" }}
           onPress={() => navigation.navigate("Settings")}
         >
-          <Ionicons name="settings-sharp" size={24} color="black" />
+          <Ionicons name="settings-sharp" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ position: "absolute", top: "7%", left: "5%" }}
+          onPress={() => callCustomerCare()}
+        >
+          <FontAwesome name="phone" size={30} color="black" />
         </TouchableOpacity>
         <DP username={profileData.username} image={image} canEdit={false} />
         <View style={{ height: 100 }} />

@@ -26,7 +26,6 @@ const NotAuthenticated = () => {
       </View>
 
       <View style={styles.headerContainer}>
-        <Header text="Your Profile" textSize={25} />
         <Text style={{ fontSize: 18, color: "black" }}>
           Log in or sign up to view your complete profile
         </Text>
