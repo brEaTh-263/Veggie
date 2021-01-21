@@ -8,7 +8,7 @@ const CardButton = ({ title, icon, navScreen, color }) => {
   const navigation = useNavigation();
 
   return (
-    <Card style={[styles.cardContainer, { backgroundColor: color }]}>
+    <View style={[styles.cardContainer, { backgroundColor: color }]}>
       <TouchableOpacity
         onPress={() => {
           if (navScreen) {
@@ -32,14 +32,14 @@ const CardButton = ({ title, icon, navScreen, color }) => {
           </Text>
         </View>
       </TouchableOpacity>
-    </Card>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: "40%",
-    height: "45%",
+    // width: "40%",
+    // height: "45%",
     elevation: 5,
     borderRadius: 15,
     marginVertical: 5,

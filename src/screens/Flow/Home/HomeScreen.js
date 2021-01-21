@@ -110,7 +110,7 @@ const HomeScreen = ({ navigation }) => {
           </Text>
         </View>
         <TouchableOpacity
-          style={{ position: "absolute", right: 20, top: "2%" }}
+          style={{ position: "absolute", right: 20, top: "3%" }}
           onPress={() => navigation.navigate("Wishlist")}
         >
           <Ionicons name={"leaf-sharp"} size={24} color={Colors.sub} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,8 +7,7 @@ import Colors from "../../constants/Colors";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as profileActions from "../../store/actions/Profile";
 import { Portal, Dialog, Button, Avatar } from "react-native-paper";
-import fonts from "../../constants/fonts";
-const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
+const DP = ({ image, setImage, canEdit, setIsLoading }) => {
   const token = useSelector((state) => state.Profile.token);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
@@ -106,23 +105,14 @@ const DP = ({ username, image, setImage, canEdit, setIsLoading }) => {
           </TouchableOpacity>
         )}
       </View>
-      <Text style={styles.name}>{username}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   infoContainer: {
-    marginTop: 100,
     alignItems: "center",
     justifyContent: "center",
-  },
-  name: {
-    fontSize: 25,
-    textTransform: "uppercase",
-    fontFamily: fonts.Bold,
-    marginTop: 10,
-    textAlign: "center",
   },
   editContainer: {
     position: "relative",

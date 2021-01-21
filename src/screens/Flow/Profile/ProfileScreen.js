@@ -4,17 +4,19 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Linking,
   Platform,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 import Colors from "../../../constants/Colors";
 import { useSelector } from "react-redux";
-import DP from "../../../components/Profile/DP";
-import CardButton from "../../../components/Profile/CardButton";
+import Options from "../../../components/Profile/Options";
 import NotAuthenticated from "../../../components/Profile/NotAuthenticated";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
-const ProfileScreen = ({ navigation }) => {
+import Header from "../../../components/General/Header";
+import fonts from "../../../constants/fonts";
+import { FontAwesome } from "@expo/vector-icons";
+const ProfileScreen = () => {
   const profileData = useSelector((state) => state.Profile);
   const [image, setImage] = useState(`${profileData.imageURL}`);
   const token = useSelector((state) => state.Auth.token);
@@ -36,30 +38,70 @@ const ProfileScreen = ({ navigation }) => {
   if (token.length === 0) {
     return <NotAuthenticated />;
   }
-  0;
 
   return (
     <View style={styles.container} centerContent={true}>
       <ScrollView>
+        <Header text="Profile" />
         <TouchableOpacity
-          style={{ position: "absolute", top: "7%", right: "5%" }}
-          onPress={() => navigation.navigate("Settings")}
-        >
-          <Ionicons name="settings-sharp" size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ position: "absolute", top: "7%", left: "5%" }}
+          style={{ position: "absolute", top: "3%", right: "5%" }}
           onPress={() => callCustomerCare()}
         >
-          <FontAwesome name="phone" size={30} color="black" />
+          <FontAwesome name="phone" size={24} color="black" />
         </TouchableOpacity>
-        <DP username={profileData.username} image={image} canEdit={false} />
-        <View style={{ height: 100 }} />
+        <View
+          style={{
+            margin: 10,
+            marginTop: 20,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            source={{ uri: image }}
+            style={{ width: 80, height: 80, borderRadius: 15 }}
+          />
+          <View style={{ marginLeft: 10 }}>
+            <Text style={styles.nameStyle}>{profileData.username}</Text>
+            <Text>{profileData.email}</Text>
+            <Text>(+91) {profileData.phoneNumber}</Text>
+          </View>
+        </View>
         <View style={styles.cardsContainer}>
-          <CardButton title="Account" color="#cd3a45" navScreen="EditProfile" />
-          <CardButton title="Payments" color="#0bb1aa" />
-          <CardButton title="My Orders" color="#006b80" />
-          <CardButton title="Addresses" navScreen="Address" color="#daa099" />
+          <Options
+            title="Account"
+            color="#cd3a45"
+            iconName="person-outline"
+            navigateTo="EditProfile"
+          />
+          <Options title="Payments" color="#0bb1aa" iconName="wallet-outline" />
+          <Options
+            title="My Orders"
+            color="#006b80"
+            iconName="newspaper-outline"
+          />
+          <Options
+            title="Addresses"
+            color="#daa099"
+            iconName="business-outline"
+            navigateTo="Address"
+          />
+          <Options
+            title="About"
+            color="#daa099"
+            iconName="information-outline"
+          />
+          <Options
+            title="Preferences"
+            color="#006b80"
+            iconName="settings-outline"
+          />
+          <Options
+            title="Logout"
+            color="#cd3a45"
+            iconName="exit-outline"
+            logOut={true}
+          />
         </View>
       </ScrollView>
     </View>
@@ -75,30 +117,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bkg,
+    marginTop: 25,
   },
-  infoContainer: {
-    marginTop: 80,
-    alignItems: "center",
-    justifyContent: "center",
+  nameStyle: {
+    fontSize: 24,
+    fontFamily: fonts.Bold,
   },
-  name: {
-    fontSize: 30,
-    marginTop: 20,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
+
   cardsContainer: {
-    flexDirection: "row",
-    height: 320,
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  bookmarkIconContainer: {
-    height: 100,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    marginTop: 20,
   },
 });
 

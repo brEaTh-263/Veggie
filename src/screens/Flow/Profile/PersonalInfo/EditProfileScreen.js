@@ -62,17 +62,18 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView centerContent={true} contentContainerStyle={{ flex: 1 }}>
         <View style={styles.headerContainer}>
           <Header text="Edit profile" textSize={30} />
         </View>
-        <DP
-          username={profileData.username}
-          image={image}
-          setIsLoading={setIsLoading}
-          setImage={setImage}
-          canEdit={true}
-        />
+        <View style={{ marginTop: 20 }}>
+          <DP
+            image={image}
+            setIsLoading={setIsLoading}
+            setImage={setImage}
+            canEdit={true}
+          />
+        </View>
         <Username control={control} errors={errors} />
         <ChangePhoneNumberButton phoneNumber={profileData.phoneNumber} />
         <View style={styles.inputContainer}>
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     bottom: 0,
-    // position: "absolute",
+    position: "absolute",
     width: "95%",
     marginTop: 30,
     margin: 10,
