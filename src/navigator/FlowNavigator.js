@@ -4,7 +4,11 @@ import CartNavigator from "./Flow/CartNavigator";
 import HomeNavigator from "./Flow/HomeNavigator";
 import ProfileNavigator from "./Flow/ProfileNavigator";
 import SearchNavigator from "./Flow/SearchNavigator";
-import { AntDesign, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { useSelector } from "react-redux";
@@ -41,7 +45,7 @@ const FlowNavigator = () => {
           return {
             tabBarVisible,
             tabBarIcon: ({ color }) => (
-              <AntDesign name="home" size={24} color={color} />
+              <AntDesign name="home" size={30} color={color} />
             ),
           };
         }}
@@ -51,7 +55,7 @@ const FlowNavigator = () => {
         component={SearchNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <AntDesign name="search1" size={24} color={color} />
+            <AntDesign name="search1" size={30} color={color} />
           ),
         }}
       />
@@ -75,7 +79,7 @@ const FlowNavigator = () => {
         component={CartNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <Entypo name="shopping-bag" size={24} color={color} />
+            <Ionicons name="cart-outline" size={30} color={color} />
           ),
           tabBarBadge: items > 0 ? items : null,
         }}
@@ -103,7 +107,7 @@ const FlowNavigator = () => {
           return {
             tabBarVisible,
             tabBarIcon: ({ color }) => (
-              <AntDesign name="user" size={24} color={color} />
+              <AntDesign name="user" size={30} color={color} />
             ),
           };
         }}

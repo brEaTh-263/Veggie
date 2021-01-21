@@ -8,6 +8,7 @@ import {
   EDIT_ADDRESS,
   EDIT_PHONE_NUMBER,
   ADD_TOKEN_AND_CART_PROFILE_DETAILS,
+  GET_PAYMENT_METHOD,
 } from "../actions/Profile";
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
     },
     address: "",
   },
+  paymentMethod: "",
 };
 
 export default (state = initialState, action) => {
@@ -56,6 +58,14 @@ export default (state = initialState, action) => {
         },
       };
     }
+
+    case GET_PAYMENT_METHOD: {
+      return {
+        ...state,
+        paymentMethod: action.profileData.method,
+      };
+    }
+
     case EDIT_BOOKMARK: {
       return {
         ...state,

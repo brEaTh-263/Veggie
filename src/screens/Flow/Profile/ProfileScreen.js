@@ -63,42 +63,44 @@ const ProfileScreen = () => {
           />
           <View style={{ marginLeft: 10 }}>
             <Text style={styles.nameStyle}>{profileData.username}</Text>
-            <Text>{profileData.email}</Text>
-            <Text>(+91) {profileData.phoneNumber}</Text>
+            {profileData.email && <Text>{profileData.email}</Text>}
+            {profileData.phoneNumber && (
+              <Text>(+91) {profileData.phoneNumber}</Text>
+            )}
           </View>
         </View>
         <View style={styles.cardsContainer}>
           <Options
             title="Account"
-            color="#cd3a45"
+            color="#22ae7a"
             iconName="person-outline"
             navigateTo="EditProfile"
           />
-          <Options title="Payments" color="#0bb1aa" iconName="wallet-outline" />
+          <Options title="Payments" color="#83ae21" iconName="wallet-outline" />
           <Options
             title="My Orders"
-            color="#006b80"
+            color="#fd6d24"
             iconName="newspaper-outline"
           />
           <Options
             title="Addresses"
-            color="#daa099"
+            color="#7051eb"
             iconName="business-outline"
             navigateTo="Address"
           />
           <Options
             title="About"
-            color="#daa099"
+            color="#ed3bc5"
             iconName="information-outline"
           />
           <Options
             title="Preferences"
-            color="#006b80"
+            color="#1756a3"
             iconName="settings-outline"
           />
           <Options
             title="Logout"
-            color="#cd3a45"
+            color="#ee3f3e"
             iconName="exit-outline"
             logOut={true}
           />

@@ -85,7 +85,7 @@ const OTPScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Header text="Enter the code" textSize={20} />
+        <Header text="Enter the code" />
       </View>
       <View style={{ margin: 20 }}>
         <Text style={styles.title}>

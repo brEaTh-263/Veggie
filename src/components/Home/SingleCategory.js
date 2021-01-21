@@ -19,7 +19,7 @@ const SingleCategory = ({ mainCategory, source, SubCategories }) => {
           }}
         >
           <Image
-            resizeMode="cover"
+            resizeMode="contain"
             source={{
               uri: source,
             }}
@@ -32,6 +32,7 @@ const SingleCategory = ({ mainCategory, source, SubCategories }) => {
           style={{
             fontFamily: fonts.Light,
             marginHorizontal: 5,
+            fontSize: 20,
             textAlign: "center",
             color: "black",
           }}
@@ -46,20 +47,22 @@ const SingleCategory = ({ mainCategory, source, SubCategories }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 100,
-    height: 140,
-    marginBottom: 5,
-    marginHorizontal: 3,
+    width: 120,
+    elevation: 10,
+    borderRadius: 20,
+    marginHorizontal: 6,
     marginVertical: 5,
+    backgroundColor: "#fff",
   },
   titleContainer: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    justifyContent: "center",
+    alignItems: "center",
   },
   imageContainerStyle: {
-    borderRadius: 10,
-    overflow: "hidden",
     height: 100,
+    // borderWidth: 1,
+    // alignItems: "center",
+    paddingTop: 15,
   },
 });
 

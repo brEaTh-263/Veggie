@@ -59,6 +59,7 @@ const CheckOut = ({ amount, setIsVisible }) => {
                 checkOut: true,
               });
             }
+            navigation.navigate("CheckOut");
           }}
           mode="contained"
           style={{ width: "50%" }}

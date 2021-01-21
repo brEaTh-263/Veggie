@@ -113,7 +113,7 @@ const HomeScreen = ({ navigation }) => {
           style={{ position: "absolute", right: 20, top: "3%" }}
           onPress={() => navigation.navigate("Wishlist")}
         >
-          <Ionicons name={"leaf-sharp"} size={24} color={Colors.sub} />
+          <Ionicons name="leaf-sharp" size={24} color={Colors.sub} />
         </TouchableOpacity>
 
         <Dash

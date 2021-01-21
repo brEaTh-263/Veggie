@@ -34,7 +34,6 @@ const AddressHeader = ({ setIsVisible, address }) => {
         ellipsizeMode="tail"
         style={{
           color: "#888",
-          // width: "70%",
           marginHorizontal: 10,
           fontSize: 12,
         }}

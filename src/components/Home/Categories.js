@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   title: {
-    fontSize: 22,
+    fontSize: 28,
     fontFamily: Fonts.Regular,
     color: Colors.primary,
   },
