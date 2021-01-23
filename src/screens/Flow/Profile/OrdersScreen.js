@@ -39,7 +39,7 @@ const OrdersScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header text="My Order" />
+      <Header text="My Order" navigateTo="Profile" />
       <FlatList
         data={orders}
         keyExtractor={(item) => item._id}

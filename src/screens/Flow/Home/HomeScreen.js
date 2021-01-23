@@ -89,25 +89,8 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            alignItems: "center",
-            backgroundColor: "#fff",
-            width: "100%",
-            height: 60,
-            justifyContent: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 18,
-              textTransform: "uppercase",
-              color: Colors.primary,
-              fontFamily: fonts.Bold,
-            }}
-          >
-            Grocery store
-          </Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTitleStyle}>Grocery store</Text>
         </View>
         <TouchableOpacity
           style={{ position: "absolute", right: 20, top: "3%" }}
@@ -119,8 +102,8 @@ const HomeScreen = ({ navigation }) => {
         <Dash
           style={{
             width: "100%",
-            height: 3,
-            opacity: 10,
+            height: 2,
+            elevation: 10,
           }}
           dashColor="#fff"
           dashThickness={10}
@@ -148,6 +131,19 @@ const styles = StyleSheet.create({
     marginTop: 25,
     flex: 1,
     backgroundColor: Colors.bkg,
+  },
+  headerContainer: {
+    alignItems: "center",
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 60,
+    justifyContent: "center",
+  },
+  headerTitleStyle: {
+    fontSize: 18,
+    textTransform: "uppercase",
+    color: Colors.primary,
+    fontFamily: fonts.Bold,
   },
 });
 

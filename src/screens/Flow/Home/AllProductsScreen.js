@@ -1,21 +1,69 @@
-import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions, BackHandler, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  BackHandler,
+  Alert,
+  Text,
+  InteractionManager,
+  ActivityIndicator,
+} from "react-native";
 import Colors from "../../../constants/Colors";
 import Header from "../../../components/General/Header";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import fonts from "../../../constants/fonts";
-import {
-  useFocusEffect,
-  useBackButton,
-  TabActions,
-  StackActions,
-} from "@react-navigation/native";
+import { useFocusEffect, StackActions } from "@react-navigation/native";
 import AllProducts from "../../../components/Home/AllProducts";
+import { TabView, TabBar } from "react-native-tab-view";
 
 const AllProductsScreen = ({ route, navigation }) => {
   const { title, subCategory, categories } = route.params;
+  console.log(categories);
+  const [screenLoaded, setScreenLoaded] = useState(false);
+  let editedCategories = categories.map((cat) => {
+    return {
+      key: cat.name,
+      title: cat.name,
+    };
+  });
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState(editedCategories);
+  useEffect(() => {
+    InteractionManager.runAfterInteractions(() => {
+      setScreenLoaded(true);
+    });
+  });
 
-  const Tab = createMaterialTopTabNavigator();
+  const initialLayout = { width: Dimensions.get("window").width };
+  const renderTabBar = (props) => (
+    <TabBar
+      {...props}
+      scrollEnabled={true}
+      labelStyle={{
+        textTransform: "capitalize",
+        fontWeight: "bold",
+        fontSize: 10,
+      }}
+      tabStyle={{ width: 85, height: 60 }}
+      style={{ backgroundColor: "#fff" }}
+      inactiveColor={Colors.tertiary}
+      activeColor={Colors.primary}
+      pressColor={Colors.sub}
+      pressOpacity={0.1}
+      indicatorStyle={{ backgroundColor: Colors.tertiary }}
+    />
+  );
+
+  const renderScene = ({ route, jumpTo }) => {
+    return (
+      <AllProducts
+        category={route.title}
+        subCategory={subCategory}
+        title={title}
+      />
+    );
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -31,43 +79,34 @@ const AllProductsScreen = ({ route, navigation }) => {
     }, [])
   );
 
+  if (!screenLoaded) {
+    return (
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+          backgroundColor: Colors.bkg,
+        }}
+      >
+        <ActivityIndicator size="large" color={Colors.tertiary} />
+        <Text style={{ fontSize: 20, marginVertical: 15, fontStyle: "italic" }}>
+          Loading products
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Header text={title} />
-      <Tab.Navigator
-        initialLayout={{ width: Dimensions.get("window").width }}
-        lazy={true}
-        tabBarOptions={{
-          scrollEnabled: true,
-          allowFontScaling: true,
-          tabStyle: { height: 60, width: 80 },
-          activeTintColor: Colors.primary,
-          labelStyle: {
-            textTransform: "capitalize",
-            fontFamily: fonts.Bold,
-            fontSize: 10,
-          },
-          indicatorStyle: { backgroundColor: Colors.tertiary },
-        }}
-      >
-        {categories.map((cat) => {
-          return (
-            <Tab.Screen
-              key={cat.name}
-              name={cat.name}
-              children={(props) => {
-                return (
-                  <AllProducts
-                    category={cat.name}
-                    subCategory={subCategory}
-                    title={title}
-                  />
-                );
-              }}
-            />
-          );
-        })}
-      </Tab.Navigator>
+      <TabView
+        navigationState={{ index, routes }}
+        onIndexChange={setIndex}
+        renderTabBar={renderTabBar}
+        initialLayout={initialLayout}
+        renderScene={renderScene}
+      />
     </View>
   );
 };

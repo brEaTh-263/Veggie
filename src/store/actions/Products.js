@@ -18,6 +18,7 @@ export const getAllProducts = () => {
         type: GET_ALL_PRODUCTS,
         data: responseJson.data,
         mainCategories: responseJson.mainCategories,
+        carouselItems: responseJson.carouselItems,
       });
     } catch (error) {
       console.log(error);

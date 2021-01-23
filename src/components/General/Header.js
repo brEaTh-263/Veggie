@@ -31,6 +31,10 @@ const Header = (props) => {
               navigation.navigate("Cart");
               return;
             }
+            if (props.navigateTo) {
+              navigation.navigate(props.navigateTo);
+              return;
+            }
             navigation.goBack();
           }}
         >

@@ -102,7 +102,7 @@ const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
       <View
         style={{
           position: "absolute",
-          bottom: 30,
+          bottom: 10,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-around",
@@ -188,7 +188,8 @@ const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
 const styles = StyleSheet.create({
   scene: {
     height: "100%",
-    marginTop: 10,
+    paddingTop: 10,
+    backgroundColor: "#f3f5f7",
   },
 });
 

@@ -1,16 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
-import { Button, Divider } from "react-native-paper";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
-import InputSpinner from "react-native-input-spinner";
-import * as cartActions from "../../store/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import * as profileActions from "../../store/actions/Profile";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -35,11 +25,14 @@ const ProductItem = ({
       return prod.productId === _id;
     })
   );
-  const cart = useSelector((state) => state.Cart);
   const token = useSelector((state) => state.Auth.token);
   const [isBookmarked, setIsBookmarked] = useState(
     bookmarkIds.length > 0 ? true : false
   );
+
+  const openSheet = () => {
+    refRBSheet.current.open();
+  };
 
   const dispatch = useDispatch();
 
@@ -90,7 +83,7 @@ const ProductItem = ({
         </Text>
       </View>
       <TouchableOpacity
-        onPress={() => refRBSheet.current.open()}
+        onPress={() => openSheet()}
         style={{
           borderRadius: 20,
           backgroundColor: Colors.primary,

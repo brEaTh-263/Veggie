@@ -1,34 +1,11 @@
 import React, { useState } from "react";
-import { View, Image, Dimensions } from "react-native";
+import { View, Image } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
+import { useSelector } from "react-redux";
 import Colors from "../../constants/Colors";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
-
 const CustomCarousel = () => {
-  const [carouselItems, setCarouselItems] = useState([
-    //TO BE SET FROM BACK-END ACCORDING TO OFFERS ETC
-    {
-      imageUrl:
-        "https://image.freepik.com/free-vector/fruit-juice-ad-template_52683-4015.jpg",
-    },
-    {
-      imageUrl:
-        "https://image.freepik.com/free-vector/corn-flakes-milk-splashes-3d-realistic-set_163454-194.jpg",
-    },
-    {
-      imageUrl:
-        "https://image.freepik.com/free-vector/tortilla-chips-food-product-ad_52683-33928.jpg",
-    },
-    {
-      imageUrl:
-        "https://image.freepik.com/free-photo/luxury-pears-black-bowl_23-2148594973.jpg",
-    },
-    {
-      imageUrl:
-        "https://image.freepik.com/free-photo/scattered-cherries-with-strawberries-green-plums-from-basket_176474-6165.jpg",
-    },
-  ]);
+  const carouselItems = useSelector((state) => state.Products.carouselItems);
   const [activeIndex, setActiveIndex] = useState(0);
   const _renderItem = ({ item, index }) => {
     return (
@@ -60,8 +37,8 @@ const CustomCarousel = () => {
         layoutCardOffset={8}
         ref={(ref) => (carousel = ref)}
         data={carouselItems}
-        sliderWidth={400}
-        itemWidth={300}
+        sliderWidth={450}
+        itemWidth={350}
         autoplay={true}
         loop={true}
         renderItem={_renderItem}

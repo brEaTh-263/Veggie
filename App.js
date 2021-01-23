@@ -13,6 +13,7 @@ import ProductsReducer from "./src/store/reducers/Products";
 import OrderReducer from "./src/store/reducers/Orders";
 import CartReducer from "./src/store/reducers/Cart";
 import AppNavigator from "./src/navigator/AppNavigator";
+import { enableScreens } from "react-native-screens";
 
 const rootReducer = combineReducers({
   Auth: AuthReducer,

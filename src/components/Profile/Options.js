@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import fonts from "../../constants/fonts";
 import { useNavigation } from "@react-navigation/native";
@@ -18,7 +18,17 @@ const Options = ({ title, color, iconName, navigateTo, logOut }) => {
           return;
         }
         if (logOut) {
-          dispatch(authActions.log_out());
+          Alert.alert("Are you sure you want to log out?", "", [
+            {
+              text: "Yes",
+              onPress: () => {
+                dispatch(authActions.log_out());
+              },
+            },
+            {
+              text: "No",
+            },
+          ]);
         }
       }}
       style={{

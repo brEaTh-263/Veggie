@@ -1,10 +1,9 @@
-import * as React from "react";
+import React from "react";
 import Colors from "../../constants/Colors";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import QuantityAdder from "./QuantityAdder";
 import WeightAdder from "./WeightAdder";
-
-const Tab = createMaterialTopTabNavigator();
+import { Dimensions } from "react-native";
+import { TabView, TabBar } from "react-native-tab-view";
 
 export default function ProductAdder({
   priceKg,
@@ -14,29 +13,18 @@ export default function ProductAdder({
   quantity,
   isKg,
 }) {
-  return (
-    <Tab.Navigator
-      style={{ borderRadius: 50 }}
-      tabBarOptions={{
-        labelStyle: {
-          textTransform: "capitalize",
-          fontWeight: "bold",
-          fontSize: 16,
-        },
-        activeTintColor: Colors.tertiary,
-        inactiveTintColor: "gray",
-        tabStyle: {
-          height: 40,
-        },
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: "first", title: "Quantity" },
+    { key: "second", title: "Weight" },
+  ]);
 
-        contentContainerStyle: {
-          backgroundColor: "#f4f5f7",
-        },
-      }}
-    >
-      <Tab.Screen
-        name="Quantity"
-        children={(props) => (
+  const initialLayout = { width: Dimensions.get("window").width };
+
+  const renderScene = ({ route, jumpTo }) => {
+    switch (route.key) {
+      case "first":
+        return (
           <QuantityAdder
             priceQty={priceQty}
             closeSheet={closeSheet}
@@ -44,11 +32,9 @@ export default function ProductAdder({
             isKg={isKg}
             quantity={quantity}
           />
-        )}
-      />
-      <Tab.Screen
-        name="Weight"
-        children={(props) => (
+        );
+      case "second":
+        return (
           <WeightAdder
             priceKg={priceKg}
             closeSheet={closeSheet}
@@ -56,8 +42,33 @@ export default function ProductAdder({
             isKg={isKg}
             quantity={quantity}
           />
-        )}
-      />
-    </Tab.Navigator>
+        );
+    }
+  };
+
+  const renderTabBar = (props) => (
+    <TabBar
+      {...props}
+      indicatorStyle={{ backgroundColor: Colors.tertiary }}
+      labelStyle={{
+        textTransform: "capitalize",
+        fontWeight: "bold",
+        fontSize: 16,
+      }}
+      activeColor={Colors.tertiary}
+      inactiveColor="grey"
+      style={{ backgroundColor: "#f3f5f7" }}
+    />
+  );
+
+  return (
+    <TabView
+      style={{ borderRadius: 40 }}
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      renderTabBar={renderTabBar}
+      onIndexChange={setIndex}
+      initialLayout={initialLayout}
+    />
   );
 }
