@@ -18,6 +18,7 @@ import CheckOut from "../../../components/Cart/CheckOut";
 import ChooseLocationType from "../../../components/General/ChooseLocationType";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as cartActions from "../../../store/actions/Cart";
+import fonts from "../../../constants/fonts";
 
 const CartScreen = ({ navigation }) => {
   const products = useSelector((state) => state.Cart.cartProducts);
@@ -61,14 +62,23 @@ const CartScreen = ({ navigation }) => {
     return (
       <View style={styles.emptyContainerStyle}>
         <Image
-          source={require("../../../../assets/emptyCart.png")}
-          style={{ height: "30%", width: "70%" }}
+          source={{ uri: "https://img.icons8.com/nolan/2x/shopping-bag.png" }}
+          style={{ height: 200, width: 200 }}
         />
-        <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>
-          Add something to continue... Some quote related to farmer ,for ex
-          check swiggy
+        <Text style={{ fontSize: 18, fontFamily: fonts.Bold }}>
+          Items in the cart will be visible here
         </Text>
-        <Button onPress={() => navigation.navigate("Home")}>Browse all</Button>
+        <Button
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+          mode="outlined"
+          color={Colors.tertiary}
+          contentStyle={{ padding: 10 }}
+          style={{ marginTop: 20 }}
+        >
+          Add Now!!
+        </Button>
       </View>
     );
   }

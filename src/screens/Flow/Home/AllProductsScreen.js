@@ -20,13 +20,6 @@ const AllProductsScreen = ({ route, navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        // if (isSelectionModeEnabled()) {
-        //   disableSelectionMode();
-        //   return true;
-        // } else {
-        //   return false;
-        // }
-        // navigation.navigate("Home");
         const jumpToAction = StackActions.replace("Home");
         navigation.dispatch(jumpToAction);
       };

@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
         ...state,
         isAuth: true,
         token: action.authData.token,
+        didTryAutoLogin: true,
       };
     }
     case DID_TRY_AUTO_AL: {

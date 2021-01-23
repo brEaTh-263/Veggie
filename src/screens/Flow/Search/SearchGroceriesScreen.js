@@ -35,8 +35,7 @@ const SearchGroceriesScreen = () => {
             <Image
               resizeMode="contain"
               source={{
-                uri:
-                  "https://images263.s3-us-west-1.amazonaws.com/assets/SearchGroceriesPic.png",
+                uri: "https://img.icons8.com/nolan/2x/google-web-search.png",
               }}
               style={styles.imageStyle}
             />
@@ -78,14 +77,13 @@ const SearchGroceriesScreen = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bkg },
-  imageStyle: { height: "80%", width: "100%" },
+  imageStyle: { height: 200, width: 200 },
   notFoundContainerStyle: { height: 200, marginTop: 50, alignItems: "center" },
   title: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 20,
     width: "70%",
-    marginVertical: 15,
-    fontFamily: fonts.Light,
+    fontFamily: fonts.Bold,
   },
 });
 

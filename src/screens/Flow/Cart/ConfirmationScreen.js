@@ -37,13 +37,20 @@ const ConfirmationScreen = ({ navigation }) => {
         color="#a9d4b8"
         style={{ width: "80%" }}
         contentStyle={{ padding: 5 }}
+        onPress={() => {
+          navigation.dispatch(StackActions.popToTop());
+
+          navigation.navigate("Profile", {
+            screen: "Orders",
+          });
+        }}
       >
         Track My Order
       </Button>
       <Button
         onPress={() => {
-          const jumpToAction = StackActions.replace("Cart");
-          navigation.dispatch(jumpToAction);
+          navigation.dispatch(StackActions.popToTop());
+          navigation.navigate("Home");
         }}
         mode="contained"
         color="#a9d4b8"

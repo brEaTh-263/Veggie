@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
-  TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
 import { Button, TextInput } from "react-native-paper";
@@ -13,7 +12,6 @@ import Header from "../../../../components/General/Header";
 import { useForm } from "react-hook-form";
 import Colors from "../../../../constants/Colors";
 import { useSelector, useDispatch } from "react-redux";
-import BackButton from "../../../../components/General/BackButton";
 import * as profileActions from "../../../../store/actions/Profile";
 import Username from "../../../../components/Profile/Username";
 import ChangePhoneNumberButton from "../../../../components/Profile/ChangePhoneNumberButton";

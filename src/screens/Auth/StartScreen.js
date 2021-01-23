@@ -184,16 +184,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "transparent",
   },
-  imageStyle: {
-    width: "100%",
-    height: SCREEN_HEIGHT / 3.5,
-  },
-  oAuthTitleStyle: {
-    textAlign: "center",
-    fontSize: 20,
-    margin: 20,
-    marginTop: 20,
-  },
   oAuthComponentContainerStyle: {
     marginTop: 10,
     flexDirection: "row",

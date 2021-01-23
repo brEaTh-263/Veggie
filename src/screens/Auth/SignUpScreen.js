@@ -5,19 +5,17 @@ import {
   StyleSheet,
   TouchableOpacity,
   ToastAndroid,
-  Alert,
   ActivityIndicator,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
-import Header from "../../components/General/Header";
 import { useForm, Controller } from "react-hook-form";
 import BackButton from "../../components/General/BackButton";
 import * as authActions from "../../store/actions/Auth";
 import { useDispatch } from "react-redux";
 
 const SignUpScreen = ({ navigation }) => {
-  const { control, handleSubmit, errors, setError } = useForm();
+  const { control, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   console.log(errors);
 
@@ -34,7 +32,7 @@ const SignUpScreen = ({ navigation }) => {
       });
     } catch (error) {
       setIsLoading(false);
-      return Alert.alert("Please try another email");
+      return alert("Please try another email");
     }
   }, []);
 

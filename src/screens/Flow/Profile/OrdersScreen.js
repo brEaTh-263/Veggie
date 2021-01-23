@@ -3,25 +3,39 @@ import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import Header from "../../../components/General/Header";
 import OrderItem from "../../../components/General/OrderItem";
+import PicWithText from "../../../components/General/PicWithText";
 import Colors from "../../../constants/Colors";
+import { Button } from "react-native-paper";
+import fonts from "../../../constants/fonts";
+import { StackActions } from "@react-navigation/native";
 
-const OrdersScreen = () => {
+const OrdersScreen = ({ navigation }) => {
   const orders = useSelector((state) => state.Orders.orders);
-  //   console.log(orders);
-
-  //  const allProducts = useSelector((state) => state.Products.products);
-  //  const products = useSelector((state) => state.Cart.cartProducts);
-
-  //  const cartProducts = orders.map((order) => {
-  //    //GETTING ALL DETAILS OF A PRODUCT THROUGH ITS ID
-  //    const productIndex = allProducts.findIndex(
-  //      (product) => product._id === order.productId
-  //    );
-  //    allProducts[productIndex].totalPrice = prod.price;
-  //    allProducts[productIndex].totalQuantity = prod.quantity;
-  //    allProducts[productIndex].isKg = prod.isKg;
-  //    return allProducts[productIndex];
-  //  });
+  if (orders.length === 0) {
+    return (
+      <PicWithText>
+        <Image
+          source={{ uri: "https://img.icons8.com/nolan/2x/purchase-order.png" }}
+          style={{ width: 200, height: 200 }}
+        />
+        <Text style={{ fontSize: 18, fontFamily: fonts.Bold }}>
+          Your orders will be visible here
+        </Text>
+        <Button
+          onPress={() => {
+            navigation.dispatch(StackActions.popToTop());
+            navigation.navigate("Cart");
+          }}
+          mode="outlined"
+          color={Colors.tertiary}
+          contentStyle={{ padding: 10 }}
+          style={{ marginTop: 20 }}
+        >
+          Order Now!
+        </Button>
+      </PicWithText>
+    );
+  }
 
   return (
     <View style={styles.container}>

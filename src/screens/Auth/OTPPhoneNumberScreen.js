@@ -3,10 +3,9 @@ import { View, Text, StyleSheet, Alert, TouchableOpacity } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import BackButton from "../../components/General/BackButton";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/Auth";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
-import Header from "../../components/General/Header";
 const OTPScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
@@ -67,8 +66,7 @@ const OTPScreen = ({ navigation, route }) => {
       </View>
       <View style={{ margin: 40 }}>
         <Text style={styles.title}>
-          We've sent a verification code to {"                              "}
-          +91 | {phoneNumber}
+          We've sent a verification code to +91 | {phoneNumber}
         </Text>
       </View>
 
@@ -114,6 +112,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     fontSize: 16,
     marginTop: 30,
+    marginHorizontal: 40,
   },
   inputFieldStyle: {
     color: "black",

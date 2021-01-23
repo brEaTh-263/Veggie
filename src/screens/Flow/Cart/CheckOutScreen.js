@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator,
   ToastAndroid,
 } from "react-native";
 import React, { useState } from "react";
@@ -15,6 +14,7 @@ import AddressBar from "../../../components/Cart/AddressBar";
 import PaymentBar from "../../../components/Cart/PaymentBar";
 import Bill from "../../../components/Cart/Bill";
 import { Button } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import * as orderActions from "../../../store/actions/Orders";
 
 const CheckOutScreen = ({ navigation }) => {
@@ -48,7 +48,7 @@ const CheckOutScreen = ({ navigation }) => {
       >
         <ActivityIndicator size="large" color={Colors.tertiary} />
         <Text style={{ fontSize: 20, marginVertical: 15, fontStyle: "italic" }}>
-          Ordering..
+          Processing..
         </Text>
       </View>
     );

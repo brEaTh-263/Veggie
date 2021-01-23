@@ -11,7 +11,6 @@ import {
 import { TextInput, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import { useForm, Controller } from "react-hook-form";
-import Header from "../../components/General/Header";
 import BackButton from "../../components/General/BackButton";
 import * as authActions from "../../store/actions/Auth";
 import { useDispatch } from "react-redux";

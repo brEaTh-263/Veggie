@@ -4,20 +4,20 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "../../../../components/General/Header";
 import SingleAddress from "../../../../components/General/SingleAddress";
-import AddLocation from "../../../../components/Profile/AddLocation";
 import Colors from "../../../../constants/Colors";
 import RBSheet from "react-native-raw-bottom-sheet";
-import { Button } from "react-native-paper";
+import { Button, FAB } from "react-native-paper";
 import { useForm } from "react-hook-form";
 import GetExtraLocationDetails from "../../../../components/Profile/GetExtraLocationDetails";
 import * as profileActions from "../../../../store/actions/Profile";
-import { FAB } from "react-native-paper";
+import PicWithText from "../../../../components/General/PicWithText";
+import fonts from "../../../../constants/fonts";
 const AddressScreen = ({ navigation }) => {
   const addresses = useSelector((state) => state.Profile.locations);
   const token = useSelector((state) => state.Auth.token);
@@ -62,6 +62,31 @@ const AddressScreen = ({ navigation }) => {
       console.log(error);
     }
   };
+
+  if (addresses.length === 0) {
+    return (
+      <PicWithText>
+        <Image
+          source={{ uri: "https://img.icons8.com/nolan/2x/address.png" }}
+          style={{ width: 200, height: 200 }}
+        />
+        <Text style={{ fontSize: 18, fontFamily: fonts.Bold }}>
+          Your saved addresses will be visible here
+        </Text>
+        <Button
+          onPress={() => {
+            navigation.navigate("AddAddress");
+          }}
+          mode="outlined"
+          color={Colors.tertiary}
+          contentStyle={{ padding: 10 }}
+          style={{ marginTop: 20 }}
+        >
+          Add one now!!
+        </Button>
+      </PicWithText>
+    );
+  }
 
   if (isLoading) {
     return (

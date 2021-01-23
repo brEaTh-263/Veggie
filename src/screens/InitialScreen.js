@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useDispatch } from "react-redux";
 import Colors from "../constants/Colors";
 import * as authActions from "../store/actions/Auth";
 
-const InitialScreen = ({ navigation }) => {
+const InitialScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,7 +14,6 @@ const InitialScreen = ({ navigation }) => {
       if (token) {
         try {
           await dispatch(authActions.autoLogIn(token));
-          dispatch(authActions.setDidTryAutoLogin());
         } catch (error) {
           dispatch(authActions.setDidTryAutoLogin());
         }
@@ -26,15 +25,20 @@ const InitialScreen = ({ navigation }) => {
   }, [dispatch]);
 
   return (
-    <View style={styles.centered}>
-      <ActivityIndicator size="large" color={Colors.primary} />
-      <Text>Trying to log in..</Text>
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
+        backgroundColor: Colors.bkg,
+      }}
+    >
+      <ActivityIndicator size="large" color={Colors.tertiary} />
+      <Text style={{ fontSize: 20, marginVertical: 15, fontStyle: "italic" }}>
+        Getting credentials...
+      </Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
-});
 
 export default InitialScreen;

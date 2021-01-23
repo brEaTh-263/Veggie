@@ -84,7 +84,8 @@ const FlowNavigator = () => {
           if (
             routeName === "PhoneNumber" ||
             routeName === "PaymentMethods" ||
-            routeName === "Confirmation"
+            routeName === "Confirmation" ||
+            routeName === "CheckOut"
           ) {
             tabBarVisible = false;
           } else {

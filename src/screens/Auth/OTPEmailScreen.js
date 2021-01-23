@@ -13,7 +13,6 @@ import BackButton from "../../components/General/BackButton";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/Auth";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
-import Header from "../../components/General/Header";
 const OTPScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
