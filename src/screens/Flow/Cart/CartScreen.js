@@ -1,12 +1,23 @@
 import React, { useRef, useEffect, useState } from "react";
-import { FlatList, Image, View, Text, StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
+import {
+  FlatList,
+  Image,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../../../components/General/Header";
 import ProductItem from "../../../components/General/ProductItem";
 import Colors from "../../../constants/Colors";
 import { Button } from "react-native-paper";
 import CheckOut from "../../../components/Cart/CheckOut";
 import ChooseLocationType from "../../../components/General/ChooseLocationType";
+import { MaterialIcons } from "@expo/vector-icons";
+import * as cartActions from "../../../store/actions/Cart";
 
 const CartScreen = ({ navigation }) => {
   const products = useSelector((state) => state.Cart.cartProducts);
@@ -14,7 +25,8 @@ const CartScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
   const amount = useSelector((state) => state.Cart.totalAmount);
   const [isVisible, setIsVisible] = useState(false);
-
+  const token = useSelector((state) => state.Auth.token);
+  const [isLoading, setIsLoading] = useState(false);
   const cartProducts = products.map((prod) => {
     //GETTING ALL DETAILS OF A PRODUCT THROUGH ITS ID
     const productIndex = allProducts.findIndex(
@@ -23,7 +35,8 @@ const CartScreen = ({ navigation }) => {
     allProducts[productIndex].quantity = prod.quantity;
     return allProducts[productIndex];
   });
-  console.log(cartProducts);
+  const dispatch = useDispatch();
+  // console.log(cartProducts);
 
   const vegetableProducts = cartProducts.filter(
     (product) => product.Category === "Vegetables"
@@ -60,9 +73,51 @@ const CartScreen = ({ navigation }) => {
     );
   }
 
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+          backgroundColor: Colors.bkg,
+        }}
+      >
+        <ActivityIndicator size="large" color={Colors.tertiary} />
+        <Text style={{ fontSize: 20, marginVertical: 15, fontStyle: "italic" }}>
+          Clearing Cart..
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={{ backgroundColor: Colors.bkg, flex: 1, marginTop: 25 }}>
       <Header text="Cart" />
+      <TouchableOpacity
+        onPress={async () => {
+          Alert.alert(
+            "Are you sure you want to continue?",
+            "Items in the cart will be removed",
+            [
+              {
+                text: "Yes",
+                onPress: async () => {
+                  setIsLoading(true);
+                  await dispatch(cartActions.emptyCart(token));
+                  setIsLoading(false);
+                },
+              },
+              {
+                text: "No",
+              },
+            ]
+          );
+        }}
+        style={{ position: "absolute", right: "3%", top: "3%" }}
+      >
+        <MaterialIcons name="delete" size={24} color="red" />
+      </TouchableOpacity>
       <ChooseLocationType
         isVisible={isVisible}
         setIsVisible={setIsVisible}

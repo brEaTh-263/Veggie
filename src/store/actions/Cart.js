@@ -2,6 +2,7 @@ import { url } from "../../constants/url";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const EMPTY_CART = "EMPTY_CART";
 
 export const addProduct = (_id, token, qty, isKg) => {
   return async (dispatch) => {
@@ -146,5 +147,22 @@ export const removeProductNoAuth = (_id, cartProducts, totalAmount) => {
     } catch (error) {
       throw new Error();
     }
+  };
+};
+
+export const emptyCart = (token) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${url}/user/empty-cart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+      });
+      const responseJson = await response.json();
+      console.log(responseJson);
+      dispatch({ type: EMPTY_CART });
+    } catch (error) {}
   };
 };

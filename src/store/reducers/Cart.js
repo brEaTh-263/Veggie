@@ -1,5 +1,6 @@
 import { LOG_OUT } from "../actions/Auth";
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/Cart";
+import { ADD_TO_CART, EMPTY_CART, REMOVE_FROM_CART } from "../actions/Cart";
+import { ORDER_NOW } from "../actions/Orders";
 import {
   ADD_TOKEN_AND_CART_PROFILE_DETAILS,
   PROFILE_DATA,
@@ -35,11 +36,17 @@ export default (state = initialState, action) => {
         totalAmount: action.profileData.totalAmount,
       };
     }
+    case EMPTY_CART: {
+      return initialState;
+    }
     case ADD_TOKEN_AND_CART_PROFILE_DETAILS: {
       return {
         cartProducts: action.profileData.cartProducts,
         totalAmount: action.profileData.totalAmount,
       };
+    }
+    case ORDER_NOW: {
+      return initialState;
     }
     case LOG_OUT: {
       return initialState;

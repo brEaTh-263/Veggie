@@ -113,7 +113,8 @@ const FlowNavigator = () => {
             routeName === "SearchLocations" ||
             routeName === "Address" ||
             routeName === "PhoneNumber" ||
-            routeName === "OTP"
+            routeName === "OTP" ||
+            routeName === "Orders"
           ) {
             tabBarVisible = false;
           } else {

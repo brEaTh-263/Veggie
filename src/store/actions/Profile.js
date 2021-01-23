@@ -37,6 +37,7 @@ export const getProfileData = (token) => {
           bookmarks: responseJson.details.bookmarks,
           totalAmount: responseJson.details.totalAmount,
           cartProducts: responseJson.details.cartProducts,
+          orders: responseJson.details.orders,
         },
       });
     } catch (err) {

@@ -10,6 +10,7 @@ import ReduxThunk from "redux-thunk";
 import AuthReducer from "./src/store/reducers/Auth";
 import ProfileReducer from "./src/store/reducers/Profile";
 import ProductsReducer from "./src/store/reducers/Products";
+import OrderReducer from "./src/store/reducers/Orders";
 import CartReducer from "./src/store/reducers/Cart";
 import AppNavigator from "./src/navigator/AppNavigator";
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   Profile: ProfileReducer,
   Products: ProductsReducer,
   Cart: CartReducer,
+  Orders: OrderReducer,
 });
 
 const fetchFonts = () => {

@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const AddressBar = ({ profileData }) => {
+const AddressBar = ({ username, phoneNumber, deliveryAddress }) => {
   let date = new Date();
-  let address = profileData.selectedLocation.address.split(",");
+  let address = deliveryAddress.split(",");
   let country = address[address.length - 1].trim("");
   let state = address[address.length - 2].trim("");
-  let otherDetails = profileData.selectedLocation.address.replace(state, "");
+  let otherDetails = deliveryAddress.replace(state, "");
   let xotherDetails = otherDetails.replace(`,${country},`, "");
 
   return (
@@ -41,15 +41,13 @@ const AddressBar = ({ profileData }) => {
       <View style={{ borderWidth: 1, padding: 10, borderWidth: 1.5 }}>
         <Text style={{ fontWeight: "bold", fontSize: 18 }}>Day</Text>
         <Text style={{ fontSize: 16 }}>{date.toDateString()}</Text>
-        <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-          {profileData.username}
-        </Text>
+        <Text style={{ fontWeight: "bold", fontSize: 16 }}>{username}</Text>
 
         <Text style={{ fontSize: 16 }}>{xotherDetails}</Text>
         <Text style={{ fontSize: 16 }}>{state}</Text>
 
         <Text style={{ fontSize: 16 }}>{country}</Text>
-        <Text style={{ fontSize: 16 }}>{profileData.phoneNumber}</Text>
+        <Text style={{ fontSize: 16 }}>{phoneNumber}</Text>
       </View>
     </View>
   );

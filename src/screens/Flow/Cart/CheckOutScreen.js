@@ -1,28 +1,30 @@
 import {
-  Alert,
   FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   View,
+  ActivityIndicator,
   ToastAndroid,
 } from "react-native";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Colors from "../../../constants/Colors";
 import Header from "../../../components/General/Header";
 import AddressBar from "../../../components/Cart/AddressBar";
 import PaymentBar from "../../../components/Cart/PaymentBar";
 import Bill from "../../../components/Cart/Bill";
 import { Button } from "react-native-paper";
+import * as orderActions from "../../../store/actions/Orders";
 
 const CheckOutScreen = ({ navigation }) => {
   const profileData = useSelector((state) => state.Profile);
   const products = useSelector((state) => state.Cart.cartProducts);
   const price = useSelector((state) => state.Cart.totalAmount);
-  console.log(products);
+  const token = useSelector((state) => state.Auth.token);
+  const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.Products.products);
+  const [isLoading, setIsLoading] = useState(false);
   const cartProducts = products.map((prod) => {
     //GETTING ALL DETAILS OF A PRODUCT THROUGH ITS ID
     const productIndex = allProducts.findIndex(
@@ -33,6 +35,25 @@ const CheckOutScreen = ({ navigation }) => {
     allProducts[productIndex].isKg = prod.isKg;
     return allProducts[productIndex];
   });
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+          backgroundColor: Colors.bkg,
+        }}
+      >
+        <ActivityIndicator size="large" color={Colors.tertiary} />
+        <Text style={{ fontSize: 20, marginVertical: 15, fontStyle: "italic" }}>
+          Ordering..
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -42,7 +63,11 @@ const CheckOutScreen = ({ navigation }) => {
           <>
             <Header text="Check Out" />
 
-            <AddressBar profileData={profileData} />
+            <AddressBar
+              deliveryAddress={profileData.selectedLocation.address}
+              phoneNumber={profileData.phoneNumber}
+              username={profileData.username}
+            />
             <PaymentBar />
             <View
               style={{
@@ -74,7 +99,7 @@ const CheckOutScreen = ({ navigation }) => {
               style={{ margin: 15 }}
               contentStyle={{ padding: 5 }}
               labelStyle={{ fontWeight: "bold" }}
-              onPress={() => {
+              onPress={async () => {
                 if (!profileData.paymentMethod) {
                   ToastAndroid.showWithGravityAndOffset(
                     "Please select a payment method",
@@ -85,7 +110,17 @@ const CheckOutScreen = ({ navigation }) => {
                   );
                   return;
                 }
-
+                setIsLoading(true);
+                await dispatch(
+                  orderActions.orderNow(
+                    token,
+                    profileData.paymentMethod,
+                    profileData.selectedLocation.coords.lat,
+                    profileData.selectedLocation.coords.lng,
+                    profileData.selectedLocation.address
+                  )
+                );
+                setIsLoading(false);
                 navigation.navigate("Confirmation");
               }}
             >

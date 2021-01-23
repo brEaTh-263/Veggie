@@ -1,4 +1,5 @@
 import { LOG_OUT } from "../actions/Auth";
+import { ORDER_NOW } from "../actions/Orders";
 import {
   CHANGE_IMAGE,
   EDIT_BOOKMARK,
@@ -112,6 +113,13 @@ export default (state = initialState, action) => {
         locations: profileData.addresses,
         imageURL: profileData.imageURL,
         bookmarks: profileData.bookmarks,
+      };
+    }
+
+    case ORDER_NOW: {
+      return {
+        ...state,
+        paymentMethod: "",
       };
     }
     default: {

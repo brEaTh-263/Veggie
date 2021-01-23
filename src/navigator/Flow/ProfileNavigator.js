@@ -7,6 +7,8 @@ import AddAddressScreen from "../../screens/Flow/Profile/PersonalInfo/AddAddress
 import SearchLocationsScreen from "../../screens/Flow/Profile/PersonalInfo/SearchLocationsScreen";
 import PhoneNumberScreen from "../../screens/Flow/Profile/PersonalInfo/Edit PhoneNumber/PhoneNumberScreen";
 import OTPScreen from "../../screens/Flow/Profile/PersonalInfo/Edit PhoneNumber/OTPScreen";
+import OrdersScreen from "../../screens/Flow/Profile/OrdersScreen";
+import OrderDetailScreen from "../../screens/Flow/Profile/OrderDetailScreen";
 const ProfileStackNavigator = createStackNavigator();
 
 const ProfileNavigator = () => {
@@ -24,7 +26,11 @@ const ProfileNavigator = () => {
         name="AddAddress"
         component={AddAddressScreen}
       />
-
+      <ProfileStackNavigator.Screen name="Orders" component={OrdersScreen} />
+      <ProfileStackNavigator.Screen
+        name="OrderDetail"
+        component={OrderDetailScreen}
+      />
       <ProfileStackNavigator.Screen
         name="SearchLocations"
         component={SearchLocationsScreen}

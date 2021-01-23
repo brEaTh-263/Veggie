@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import LottieView from "lottie-react-native";
 import Colors from "../../../constants/Colors";
 import { Button } from "react-native-paper";
+import { StackActions } from "@react-navigation/native";
 
 const ConfirmationScreen = ({ navigation }) => {
   return (
@@ -10,6 +11,7 @@ const ConfirmationScreen = ({ navigation }) => {
       <LottieView
         source={require("../../../../assets/confirmation.json")}
         autoPlay
+        loop={false}
         style={{ width: "100%", height: 200 }}
       />
       <Text
@@ -20,16 +22,14 @@ const ConfirmationScreen = ({ navigation }) => {
           fontWeight: "bold",
         }}
       >
-        Your Order has been Placed Successfully{" "}
+        Your Order has been Placed Successfully
       </Text>
       <Text style={{ marginTop: 20, fontSize: 16 }}>
-        Just Sit back & Relax.{" "}
+        Just Sit back & Relax.
       </Text>
-      <Text style={{ fontSize: 16 }}>
-        You will Get your Order within 2hrs.{" "}
-      </Text>
+      <Text style={{ fontSize: 16 }}>You will Get your Order within 2hrs.</Text>
       <Text style={{ fontSize: 16, marginBottom: 30 }}>
-        Thanks for Using Our Services{" "}
+        Thanks for Using Our Services
       </Text>
       <Button
         mode="contained"
@@ -42,7 +42,8 @@ const ConfirmationScreen = ({ navigation }) => {
       </Button>
       <Button
         onPress={() => {
-          navigation.navigate("Home");
+          const jumpToAction = StackActions.replace("Cart");
+          navigation.dispatch(jumpToAction);
         }}
         mode="contained"
         color="#a9d4b8"

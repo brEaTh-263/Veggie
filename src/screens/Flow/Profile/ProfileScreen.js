@@ -65,7 +65,7 @@ const ProfileScreen = () => {
             <Text style={styles.nameStyle}>{profileData.username}</Text>
             {profileData.email && <Text>{profileData.email}</Text>}
             {profileData.phoneNumber && (
-              <Text>(+91) {profileData.phoneNumber}</Text>
+              <Text> +91 {profileData.phoneNumber}</Text>
             )}
           </View>
         </View>
@@ -81,6 +81,7 @@ const ProfileScreen = () => {
             title="My Orders"
             color="#fd6d24"
             iconName="newspaper-outline"
+            navigateTo="Orders"
           />
           <Options
             title="Addresses"
