@@ -64,7 +64,7 @@ const ProfileScreen = () => {
           <View style={{ marginLeft: 10 }}>
             <Text style={styles.nameStyle}>{profileData.username}</Text>
             {profileData.email && <Text>{profileData.email}</Text>}
-            {profileData.phoneNumber && (
+            {profileData.phoneNumber.length === 10 && (
               <Text> +91 {profileData.phoneNumber}</Text>
             )}
           </View>

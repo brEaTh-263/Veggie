@@ -7,7 +7,7 @@ export default () => {
   const getCurrentLocation = async () => {
     try {
       let { status } = await Location.requestPermissionsAsync();
-      console.log(status);
+      // console.log(status);
       if (status !== "granted") {
         throw new Error();
       }

@@ -19,6 +19,7 @@ import ChooseLiveOrOtherLocation from "../../../components/General/ChooseLocatio
 import Dash from "react-native-dash";
 import fonts from "../../../constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
+import ServerDown from "../../../components/General/ServerDown";
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -27,46 +28,35 @@ const HomeScreen = ({ navigation }) => {
     (state) => state.Profile.selectedLocation.address
   );
   const [isLoading, setIsLoading] = useState(false);
-
+  const [error, setError] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      if (token.length > 0) {
+        await dispatch(profileActions.getProfileData(token));
+      }
+      await dispatch(productActions.getAllProducts());
+      setError(false);
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      setError(true);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        if (token.length > 0) {
-          await dispatch(profileActions.getProfileData(token));
-        }
-        await dispatch(productActions.getAllProducts());
-
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        return Alert.alert(
-          "Something Went Wrong!",
-          "Please check your internet connection",
-          [
-            {
-              text: "Try Again",
-              onPress: async () => {
-                fetchData();
-              },
-            },
-          ]
-        );
-      }
-    };
     fetchData();
   }, []);
 
   useEffect(() => {
     //POP UP LOCATION TYPE DIALOG IF NO ADDRESS IS SELECTED
-    if (address.length === 0) {
+    if (address.length === 0 && !error) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
     }
-  }, [setIsVisible, address]);
+  }, [setIsVisible, address, error]);
 
   if (isLoading) {
     return (
@@ -84,6 +74,10 @@ const HomeScreen = ({ navigation }) => {
         </Text>
       </View>
     );
+  }
+
+  if (error) {
+    return <ServerDown fetchData={fetchData} />;
   }
 
   return (

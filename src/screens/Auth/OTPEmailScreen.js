@@ -18,7 +18,8 @@ const OTPScreen = ({ navigation, route }) => {
   const [otp, setOtp] = useState("");
   const { email, username, login } = route.params;
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log("Inside OTPScreen");
+  console.log(username);
   const getOtp = useCallback(async () => {
     try {
       setIsLoading(true);

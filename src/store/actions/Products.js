@@ -21,7 +21,7 @@ export const getAllProducts = () => {
         carouselItems: responseJson.carouselItems,
       });
     } catch (error) {
-      console.log(error);
+      throw new Error();
     }
   };
 };

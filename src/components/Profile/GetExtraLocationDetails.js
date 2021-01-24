@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput, ToastAndroid } from "react-native";
 import { Controller } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 
@@ -15,10 +14,27 @@ const GetExtraLocationDetails = ({ errors, control, editAddress }) => {
       editAddress.address.indexOf(restAddress)
     );
   }
+  const showInvalidInputToast = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+  };
+
+  useEffect(() => {
+    errors.building
+      ? showInvalidInputToast("Please enter the required details")
+      : errors.landmark
+      ? showInvalidInputToast("Please enter the required details")
+      : null;
+  }, [errors]);
 
   return (
     <View style={{ flex: 1 }}>
-      <Text style={styles.title}>Flat/House No/Building</Text>
+      <Text style={styles.title}>Flat/House No/Building*</Text>
       <Controller
         control={control}
         render={({ onChange, onBlur, value }) => (
@@ -38,14 +54,8 @@ const GetExtraLocationDetails = ({ errors, control, editAddress }) => {
         }}
         defaultValue={editAddress ? name : ""}
       />
-      {errors.building && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            This is required!
-          </Text>
-        </View>
-      )}
-      <Text style={styles.title}>Nearest landmark</Text>
+
+      <Text style={styles.title}>Nearest landmark*</Text>
       <Controller
         control={control}
         render={({ onChange, onBlur, value }) => (
@@ -65,11 +75,7 @@ const GetExtraLocationDetails = ({ errors, control, editAddress }) => {
         }}
         defaultValue={editAddress ? landmark : ""}
       />
-      {errors.landmark && (
-        <View style={styles.errorMessage}>
-          <Text style={{ color: "red", fontWeight: "bold" }}>required*</Text>
-        </View>
-      )}
+
       {editAddress && (
         <>
           <View style={styles.inputContainer}>

@@ -75,7 +75,9 @@ const AddressScreen = ({ navigation }) => {
         </Text>
         <Button
           onPress={() => {
-            navigation.navigate("AddAddress");
+            navigation.navigate("AddAddress", {
+              newAddress: "",
+            });
           }}
           mode="outlined"
           color={Colors.tertiary}

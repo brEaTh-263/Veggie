@@ -154,6 +154,7 @@ export const signUpEmail = (email, name) => {
 
 export const authenticateSignUpEmail = (email, code, name) => {
   return async (dispatch) => {
+    console.log(name);
     try {
       const response = await fetch(`${url}/auth/authenticate-signUp-email`, {
         method: "POST",
