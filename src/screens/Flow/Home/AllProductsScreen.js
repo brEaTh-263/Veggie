@@ -4,14 +4,12 @@ import {
   StyleSheet,
   Dimensions,
   BackHandler,
-  Alert,
   Text,
   InteractionManager,
   ActivityIndicator,
 } from "react-native";
 import Colors from "../../../constants/Colors";
 import Header from "../../../components/General/Header";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import fonts from "../../../constants/fonts";
 import { useFocusEffect, StackActions } from "@react-navigation/native";
 import AllProducts from "../../../components/Home/AllProducts";
@@ -19,7 +17,6 @@ import { TabView, TabBar } from "react-native-tab-view";
 
 const AllProductsScreen = ({ route, navigation }) => {
   const { title, subCategory, categories } = route.params;
-  console.log(categories);
   const [screenLoaded, setScreenLoaded] = useState(false);
   let editedCategories = categories.map((cat) => {
     return {
@@ -42,7 +39,7 @@ const AllProductsScreen = ({ route, navigation }) => {
       scrollEnabled={true}
       labelStyle={{
         textTransform: "capitalize",
-        fontWeight: "bold",
+        fontFamily: fonts.Bold,
         fontSize: 10,
       }}
       tabStyle={{ width: 85, height: 60 }}

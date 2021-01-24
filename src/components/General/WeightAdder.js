@@ -1,23 +1,68 @@
-import * as React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, ToastAndroid } from "react-native";
 import Colors from "../../constants/Colors";
 import fonts from "../../constants/fonts";
-import { Button } from "react-native-paper";
 import InputSpinner from "react-native-input-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import * as cartActions from "../../store/actions/Cart";
-import { MaterialIcons } from "@expo/vector-icons";
+import AddInCartButton from "./AddInCartButton";
 const WeightAdder = ({ priceKg, closeSheet, _id, quantity, isKg }) => {
-  const [qty, setQty] = React.useState(0);
+  const [qty, setQty] = useState(0);
   const token = useSelector((state) => state.Auth.token);
   const cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isKg) {
       setQty(quantity);
     }
   }, [setQty, isKg]);
+
+  const addToCart = () => {
+    if (qty === 0) {
+      return ToastAndroid.showWithGravityAndOffset(
+        "Please select a valid weight",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        50
+      );
+    }
+    if (token.length > 0) {
+      dispatch(cartActions.addProduct(_id, token, qty, true));
+    } else {
+      dispatch(
+        cartActions.addProductNoAuth(
+          _id,
+          cart.cartProducts,
+          cart.totalAmount,
+          qty,
+          true
+        )
+      );
+    }
+    closeSheet();
+  };
+
+  const removeFromCart = () => {
+    if (token.length > 0) {
+      dispatch(cartActions.removeProduct(_id, token));
+    } else {
+      dispatch(
+        cartActions.removeProductNoAuth(
+          _id,
+          cart.cartProducts,
+          cart.totalAmount
+        )
+      );
+    }
+    closeSheet();
+  };
+
+  const showValue = () => {
+    return `$ ${priceKg * qty}`;
+  };
+
   return (
     <View style={styles.scene}>
       <View
@@ -53,80 +98,11 @@ const WeightAdder = ({ priceKg, closeSheet, _id, quantity, isKg }) => {
           buttonStyle={{ width: 60, height: 60, backgroundColor: "#fff" }}
         />
       </View>
-      <View
-        style={{
-          position: "absolute",
-          bottom: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-around",
-          left: 0,
-        }}
-      >
-        <Text
-          style={{
-            marginRight: 30,
-            marginLeft: 25,
-            fontSize: 25,
-            color: Colors.primary,
-            fontWeight: "bold",
-          }}
-        >
-          ${priceKg * qty}
-        </Text>
-        <Button
-          onPress={() => {
-            if (token.length > 0) {
-              dispatch(cartActions.addProduct(_id, token, qty, true));
-            } else {
-              dispatch(
-                cartActions.addProductNoAuth(
-                  _id,
-                  cart.cartProducts,
-                  cart.totalAmount,
-                  qty,
-                  true
-                )
-              );
-            }
-            closeSheet();
-          }}
-          mode="contained"
-          icon="cart-outline"
-          color={Colors.primary}
-          contentStyle={{
-            paddingHorizontal: 20,
-            paddingVertical: 5,
-          }}
-          style={{
-            borderRadius: 20,
-
-            marginLeft: 20,
-            marginRight: 10,
-          }}
-        >
-          Add to cart
-        </Button>
-        <TouchableOpacity
-          onPress={() => {
-            if (token.length > 0) {
-              dispatch(cartActions.removeProduct(_id, token));
-            } else {
-              dispatch(
-                cartActions.removeProductNoAuth(
-                  _id,
-                  cart.cartProducts,
-                  cart.totalAmount
-                )
-              );
-            }
-            closeSheet();
-          }}
-          style={{ backgroundColor: "#fff", padding: 10, borderRadius: 20 }}
-        >
-          <MaterialIcons name="delete" size={30} color="red" />
-        </TouchableOpacity>
-      </View>
+      <AddInCartButton
+        showValue={showValue}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+      />
     </View>
   );
 };

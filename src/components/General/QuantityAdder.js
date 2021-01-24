@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   FlatList,
@@ -9,58 +9,69 @@ import {
 } from "react-native";
 import Colors from "../../constants/Colors";
 import fonts from "../../constants/fonts";
-import { Button } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import * as cartActions from "../../store/actions/Cart";
-import { MaterialIcons } from "@expo/vector-icons";
+import AddInCartButton from "./AddInCartButton";
+import { data } from "../../raw_data";
 const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
   const token = useSelector((state) => state.Auth.token);
 
   const cart = useSelector((state) => state.Cart);
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState("0");
+  const [value, setValue] = useState("0");
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isKg) {
       setValue(quantity.toString());
     }
   }, [isKg, setValue]);
-  const data = [
-    {
-      number: "0",
-    },
-    {
-      number: "1",
-    },
-    {
-      number: "2",
-    },
-    {
-      number: "3",
-    },
-    {
-      number: "4",
-    },
-    {
-      number: "5",
-    },
-    {
-      number: "6",
-    },
-    {
-      number: "7",
-    },
-    {
-      number: "8",
-    },
-    {
-      number: "9",
-    },
-    {
-      number: "10",
-    },
-  ];
+
   const x = value * 1;
+
+  const showValue = () => {
+    return `$ ${priceQty * x}`;
+  };
+
+  const addToCart = () => {
+    if (value === "0") {
+      return ToastAndroid.showWithGravityAndOffset(
+        "Please select a valid quantity",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        50
+      );
+    }
+    if (token.length > 0) {
+      dispatch(cartActions.addProduct(_id, token, value * 1, false));
+    } else {
+      dispatch(
+        cartActions.addProductNoAuth(
+          _id,
+          cart.cartProducts,
+          cart.totalAmount,
+          value * 1,
+          false
+        )
+      );
+    }
+    closeSheet();
+  };
+
+  const removeFromCart = () => {
+    if (token.length > 0) {
+      dispatch(cartActions.removeProduct(_id, token));
+    } else {
+      dispatch(
+        cartActions.removeProductNoAuth(
+          _id,
+          cart.cartProducts,
+          cart.totalAmount
+        )
+      );
+    }
+    closeSheet();
+  };
   return (
     <View style={[styles.scene]}>
       <FlatList
@@ -73,114 +84,23 @@ const QuantityAdder = ({ priceQty, closeSheet, _id, quantity, isKg }) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                console.log("Pressed");
                 setValue(item.number);
               }}
-              style={{
-                backgroundColor: item.number === value ? "#c0c0c0" : "#fff",
-                marginHorizontal: 10,
-                height: 60,
-                width: 60,
-                borderRadius: 25,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              style={[
+                styles.buttonContainer,
+                { backgroundColor: item.number === value ? "#c0c0c0" : "#fff" },
+              ]}
             >
-              <Text
-                style={{
-                  color: Colors.primary,
-                  fontFamily: fonts.Bold,
-                  zIndex: 1111111,
-                }}
-              >
-                {item.number}
-              </Text>
+              <Text style={styles.numberStyle}>{item.number}</Text>
             </TouchableOpacity>
           );
         }}
       />
-      <View
-        style={{
-          position: "absolute",
-          bottom: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-around",
-          left: 0,
-        }}
-      >
-        <Text
-          style={{
-            marginRight: 30,
-            marginLeft: 25,
-            fontSize: 25,
-            color: Colors.primary,
-            fontWeight: "bold",
-          }}
-        >
-          ${priceQty * x}
-        </Text>
-        <Button
-          onPress={() => {
-            if (value === "0") {
-              return ToastAndroid.showWithGravityAndOffset(
-                "Please select a valid quantity",
-                ToastAndroid.SHORT,
-                ToastAndroid.BOTTOM,
-                25,
-                50
-              );
-            }
-            if (token.length > 0) {
-              dispatch(cartActions.addProduct(_id, token, value * 1, false));
-            } else {
-              dispatch(
-                cartActions.addProductNoAuth(
-                  _id,
-                  cart.cartProducts,
-                  cart.totalAmount,
-                  value * 1,
-                  false
-                )
-              );
-            }
-            closeSheet();
-          }}
-          mode="contained"
-          icon="cart-outline"
-          color={Colors.primary}
-          contentStyle={{
-            paddingHorizontal: 20,
-            paddingVertical: 5,
-          }}
-          style={{
-            borderRadius: 20,
-            marginRight: 20,
-            marginLeft: 20,
-          }}
-        >
-          Add to cart
-        </Button>
-        <TouchableOpacity
-          onPress={() => {
-            if (token.length > 0) {
-              dispatch(cartActions.removeProduct(_id, token));
-            } else {
-              dispatch(
-                cartActions.removeProductNoAuth(
-                  _id,
-                  cart.cartProducts,
-                  cart.totalAmount
-                )
-              );
-            }
-            closeSheet();
-          }}
-          style={{ backgroundColor: "#fff", padding: 10, borderRadius: 20 }}
-        >
-          <MaterialIcons name="delete" size={30} color="red" />
-        </TouchableOpacity>
-      </View>
+      <AddInCartButton
+        showValue={showValue}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+      />
     </View>
   );
 };
@@ -190,6 +110,27 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingTop: 10,
     backgroundColor: "#f3f5f7",
+  },
+  buttonContainer: {
+    marginHorizontal: 10,
+    height: 60,
+    width: 60,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  numberStyle: {
+    color: Colors.primary,
+    fontFamily: fonts.Bold,
+    zIndex: 1111111,
+  },
+  bottomContainer: {
+    position: "absolute",
+    bottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    left: 0,
   },
 });
 

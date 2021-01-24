@@ -294,3 +294,39 @@ export const RecipeItems = [
       "https://image.freepik.com/free-photo/stir-fry-vegetables-with-mushrooms-paprika-red-onions-broccoli-healthy-food-asian-cuisine-top-view-overhead_2829-20263.jpg",
   },
 ];
+
+export const data = [
+  {
+    number: "0",
+  },
+  {
+    number: "1",
+  },
+  {
+    number: "2",
+  },
+  {
+    number: "3",
+  },
+  {
+    number: "4",
+  },
+  {
+    number: "5",
+  },
+  {
+    number: "6",
+  },
+  {
+    number: "7",
+  },
+  {
+    number: "8",
+  },
+  {
+    number: "9",
+  },
+  {
+    number: "10",
+  },
+];

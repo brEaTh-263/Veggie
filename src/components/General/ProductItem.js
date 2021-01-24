@@ -7,6 +7,8 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import RBSheet from "react-native-raw-bottom-sheet";
 import fonts from "../../constants/fonts";
 import ProductAdder from "./ProductAdder";
+import ProductItemSheet from "./ProductItemSheet";
+import { set } from "react-native-reanimated";
 
 const ProductItem = ({
   name,
@@ -63,12 +65,7 @@ const ProductItem = ({
       )}
       <Image
         resizeMode="center"
-        style={{
-          width: "80%",
-          height: 100,
-          marginTop: 20,
-          alignSelf: "center",
-        }}
+        style={styles.imageStyle}
         source={{
           uri: imageUrl
             ? imageUrl
@@ -84,16 +81,7 @@ const ProductItem = ({
       </View>
       <TouchableOpacity
         onPress={() => openSheet()}
-        style={{
-          borderRadius: 20,
-          backgroundColor: Colors.primary,
-          paddingHorizontal: 10,
-          marginHorizontal: 20,
-          marginTop: 10,
-          alignItems: "center",
-          paddingVertical: 7,
-          justifyContent: "center",
-        }}
+        style={styles.cartButtonContainerStyle}
       >
         {quantity > 0 ? (
           <Text style={{ fontFamily: fonts.Regular, color: "#fff" }}>
@@ -123,69 +111,20 @@ const ProductItem = ({
           },
         }}
       >
-        <View style={{ justifyContent: "flex-start", flex: 1 }}>
-          <Image
-            resizeMode="contain"
-            style={{
-              width: "90%",
-              height: 200,
-              alignSelf: "center",
-            }}
-            source={{
-              uri: imageUrl
-                ? imageUrl
-                : "https://bsmedia.business-standard.com/_media/bs/theme/faq_view_all/images/no-result-found.png",
-            }}
-          />
-          <View
-            style={{
-              marginLeft: 10,
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
-            <Text
-              style={{
-                color: Colors.primary,
-                fontSize: 28,
-                fontFamily: fonts.Regular,
-              }}
-            >
-              {name}
-            </Text>
-            <Text style={{ color: "#888", fontSize: 20, fontStyle: "italic" }}>
-              {indianName ? indianName : name}
-            </Text>
-          </View>
-          <View style={{ marginTop: 15 }} />
-          <ProductAdder
-            priceKg={priceKg}
-            priceQty={priceQty}
-            closeSheet={closeSheet}
-            _id={_id}
-            quantity={quantity}
-            isKg={isKg}
-          />
-          {token.length > 0 && (
-            <TouchableOpacity
-              style={{ position: "absolute", right: "10%", top: "1%" }}
-              onPress={async () => {
-                setIsBookmarked(!isBookmarked);
-                if (isBookmarked) {
-                  dispatch(profileActions.removeBookmark(_id, token));
-                } else {
-                  dispatch(profileActions.addBookmark(_id, token));
-                }
-              }}
-            >
-              <Ionicons
-                name={isBookmarked ? "leaf-sharp" : "leaf-outline"}
-                size={24}
-                color={Colors.sub}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
+        <ProductItemSheet
+          _id={_id}
+          closeSheet={closeSheet}
+          imageUrl={imageUrl}
+          indianName={indianName}
+          isBookmarked={isBookmarked}
+          isKg={isKg}
+          name={name}
+          priceKg={priceKg}
+          priceQty={priceQty}
+          quantity={quantity}
+          setIsBookmarked={setIsBookmarked}
+          token={token}
+        />
       </RBSheet>
     </View>
   );
@@ -203,6 +142,23 @@ const styles = StyleSheet.create({
   bookmarkIconStyle: { position: "absolute", right: "5%", top: "3%" },
   scene: {
     height: 100,
+  },
+  imageStyle: {
+    width: "80%",
+    height: 100,
+    marginTop: 20,
+    alignSelf: "center",
+  },
+
+  cartButtonContainerStyle: {
+    borderRadius: 20,
+    backgroundColor: Colors.primary,
+    paddingHorizontal: 10,
+    marginHorizontal: 20,
+    marginTop: 10,
+    alignItems: "center",
+    paddingVertical: 7,
+    justifyContent: "center",
   },
 });
 
