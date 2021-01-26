@@ -3,20 +3,64 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Header from "../../../components/General/Header";
 import Colors from "../../../constants/Colors";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
-import * as profileActions from "../../../store/actions/Profile";
-import { useDispatch } from "react-redux";
+import * as paymentActions from "../../../store/actions/Payments";
+import { useDispatch, useSelector } from "react-redux";
 
-const PaymentMethodsScreen = ({ navigation }) => {
+const PaymentMethodsScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
+  const { headerTitle } = route.params;
+  const cards = useSelector((state) => state.Payments.cardDetails);
+
+  const renderCardComponents = () => {
+    return cards.map((details) => {
+      return (
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 15,
+          }}
+          key={details._id}
+        >
+          <View>
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require("../../../../assets/visa.png")}
+            />
+          </View>
+          <View style={{ marginLeft: 20 }}>
+            <Text style={{ fontSize: 18 }}>{details.nickname}</Text>
+            <Text style={{ fontSize: 14, color: "black" }}>
+              {details.number}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={{
+              position: "absolute",
+              right: 0,
+            }}
+            onPress={() => {}}
+          >
+            <Entypo name="dots-three-vertical" size={22} color="#888" />
+          </TouchableOpacity>
+        </View>
+      );
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Header text="Select Payment Method" />
+      <Header text={headerTitle} />
       <View style={{ margin: 10 }}>
         <Text style={{ fontSize: 20 }}>Online Payments</Text>
         <Text style={{ fontSize: 12 }}>
           After your first payment, we will save your details for future use.
         </Text>
-        <View
+        {renderCardComponents()}
+        <TouchableOpacity
+          onPress={() => {
+            // navigation.navigate("AddCard");
+          }}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -36,7 +80,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
               right: 0,
             }}
           />
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: "row",
@@ -117,7 +161,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
         <Text style={{ fontSize: 20 }}>Other Options</Text>
         <TouchableOpacity
           onPress={() => {
-            dispatch(profileActions.getPaymentMethod("Cash on Delivery"));
+            dispatch(paymentActions.getPaymentMethod("Cash on Delivery"));
             navigation.navigate("CheckOut");
           }}
           style={{

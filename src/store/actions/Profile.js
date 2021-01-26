@@ -8,7 +8,6 @@ export const EDIT_ADDRESS = "EDIT_ADDRESS";
 export const EDIT_PHONE_NUMBER = "EDIT_PHONE_NUMBER";
 export const ADD_TOKEN_AND_CART_PROFILE_DETAILS =
   "ADD_TOKEN_AND_CART_PROFILE_DETAILS";
-export const GET_PAYMENT_METHOD = "GE_PAYMENT_METHOD";
 export const getProfileData = (token) => {
   return async (dispatch) => {
     try {
@@ -38,6 +37,7 @@ export const getProfileData = (token) => {
           totalAmount: responseJson.details.totalAmount,
           cartProducts: responseJson.details.cartProducts,
           orders: responseJson.details.orders,
+          cards: responseJson.paymentOptions,
         },
       });
     } catch (err) {
@@ -384,16 +384,5 @@ export const addTokenAndOverwriteCartProducts = (
     } catch (error) {
       throw new Error();
     }
-  };
-};
-
-export const getPaymentMethod = (method) => {
-  return async (dispatch) => {
-    dispatch({
-      type: GET_PAYMENT_METHOD,
-      profileData: {
-        method,
-      },
-    });
   };
 };

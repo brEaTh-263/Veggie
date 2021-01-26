@@ -28,7 +28,6 @@ const initialState = {
     },
     address: "",
   },
-  paymentMethod: "",
 };
 
 export default (state = initialState, action) => {
@@ -57,13 +56,6 @@ export default (state = initialState, action) => {
           },
           address: action.profileData.address,
         },
-      };
-    }
-
-    case GET_PAYMENT_METHOD: {
-      return {
-        ...state,
-        paymentMethod: action.profileData.method,
       };
     }
 
@@ -116,12 +108,6 @@ export default (state = initialState, action) => {
       };
     }
 
-    case ORDER_NOW: {
-      return {
-        ...state,
-        paymentMethod: "",
-      };
-    }
     default: {
       return state;
     }

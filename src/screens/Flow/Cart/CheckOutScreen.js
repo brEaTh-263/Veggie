@@ -22,6 +22,7 @@ const CheckOutScreen = ({ navigation }) => {
   const products = useSelector((state) => state.Cart.cartProducts);
   const price = useSelector((state) => state.Cart.totalAmount);
   const token = useSelector((state) => state.Auth.token);
+  const paymentMethod = useSelector((state) => state.Payments.paymentMethod);
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.Products.products);
   const [isLoading, setIsLoading] = useState(false);
@@ -100,7 +101,7 @@ const CheckOutScreen = ({ navigation }) => {
               contentStyle={{ padding: 5 }}
               labelStyle={{ fontWeight: "bold" }}
               onPress={async () => {
-                if (!profileData.paymentMethod) {
+                if (!paymentMethod) {
                   ToastAndroid.showWithGravityAndOffset(
                     "Please select a payment method",
                     ToastAndroid.SHORT,
@@ -114,7 +115,7 @@ const CheckOutScreen = ({ navigation }) => {
                 await dispatch(
                   orderActions.orderNow(
                     token,
-                    profileData.paymentMethod,
+                    paymentMethod,
                     profileData.selectedLocation.coords.lat,
                     profileData.selectedLocation.coords.lng,
                     profileData.selectedLocation.address

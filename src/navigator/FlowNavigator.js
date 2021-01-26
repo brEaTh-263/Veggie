@@ -115,7 +115,9 @@ const FlowNavigator = () => {
             routeName === "Address" ||
             routeName === "PhoneNumber" ||
             routeName === "OTP" ||
-            routeName === "Orders"
+            routeName === "Orders" ||
+            routeName === "PaymentMethods" ||
+            routeName === "AddCard"
           ) {
             tabBarVisible = false;
           } else {

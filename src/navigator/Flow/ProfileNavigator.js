@@ -9,6 +9,8 @@ import PhoneNumberScreen from "../../screens/Flow/Profile/PersonalInfo/Edit Phon
 import OTPScreen from "../../screens/Flow/Profile/PersonalInfo/Edit PhoneNumber/OTPScreen";
 import OrdersScreen from "../../screens/Flow/Profile/OrdersScreen";
 import OrderDetailScreen from "../../screens/Flow/Profile/OrderDetailScreen";
+import PaymentMethodsScreen from "../../screens/Flow/Profile/Payments/PaymentMethodsScreen";
+import AddCardScreen from "../../screens/Flow/Profile/Payments/AddCardScreen";
 const ProfileStackNavigator = createStackNavigator();
 
 const ProfileNavigator = () => {
@@ -40,6 +42,11 @@ const ProfileNavigator = () => {
         name="PhoneNumber"
         component={PhoneNumberScreen}
       />
+      <ProfileStackNavigator.Screen
+        name="PaymentMethods"
+        component={PaymentMethodsScreen}
+      />
+      <ProfileStackNavigator.Screen name="AddCard" component={AddCardScreen} />
       <ProfileStackNavigator.Screen name="OTP" component={OTPScreen} />
     </ProfileStackNavigator.Navigator>
   );

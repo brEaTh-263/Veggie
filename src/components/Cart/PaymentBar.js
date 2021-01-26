@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const PaymentBar = () => {
   const navigation = useNavigation();
-  const paymentMethod = useSelector((state) => state.Profile.paymentMethod);
+  const paymentMethod = useSelector((state) => state.Payments.paymentMethod);
 
   return (
     <View style={{ margin: 15 }}>
@@ -20,7 +20,11 @@ const PaymentBar = () => {
         Payment
       </Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate("PaymentMethods")}
+        onPress={() =>
+          navigation.navigate("PaymentMethods", {
+            headerTitle: "Select a payment method",
+          })
+        }
         style={{ borderWidth: 1.5, padding: 13, alignItems: "center" }}
       >
         {paymentMethod ? (

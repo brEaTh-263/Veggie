@@ -6,7 +6,14 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/Auth";
 
-const Options = ({ title, color, iconName, navigateTo, logOut }) => {
+const Options = ({
+  title,
+  color,
+  iconName,
+  navigateTo,
+  logOut,
+  headerTitle,
+}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -14,7 +21,9 @@ const Options = ({ title, color, iconName, navigateTo, logOut }) => {
     <TouchableOpacity
       onPress={() => {
         if (navigateTo) {
-          navigation.navigate(navigateTo);
+          navigation.navigate(navigateTo, {
+            headerTitle: headerTitle,
+          });
           return;
         }
         if (logOut) {

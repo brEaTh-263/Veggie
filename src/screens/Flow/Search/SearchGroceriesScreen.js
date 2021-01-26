@@ -49,12 +49,14 @@ const SearchGroceriesScreen = () => {
           numColumns={2}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
+            let isKg;
             let i = cartProducts.findIndex(
               (product) => product._id === item._id
             );
             if (i === -1) {
               i = 0;
             } else {
+              isKg = cartProducts[i].isKg;
               i = cartProducts[i].qty;
             }
             return (
@@ -62,7 +64,9 @@ const SearchGroceriesScreen = () => {
                 name={item.name}
                 indianName={item.indianName}
                 imageUrl={item.imageUrl}
-                price={item.price}
+                priceKg={item.priceKg}
+                priceQty={item.priceQty}
+                isKg={isKg}
                 quantity={i}
                 category={item.Category}
                 _id={item._id}

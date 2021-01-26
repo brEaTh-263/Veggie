@@ -76,7 +76,13 @@ const ProfileScreen = () => {
             iconName="person-outline"
             navigateTo="EditProfile"
           />
-          <Options title="Payments" color="#83ae21" iconName="wallet-outline" />
+          <Options
+            title="Payments"
+            color="#83ae21"
+            iconName="wallet-outline"
+            navigateTo="PaymentMethods"
+            headerTitle="Manage payment methods"
+          />
           <Options
             title="My Orders"
             color="#fd6d24"
