@@ -30,7 +30,7 @@ const Bill = ({ price }) => {
         >
           Total
         </Text>
-        <Text style={{ fontSize: 18 }}>$ {(price + 29.99).toFixed(2)}</Text>
+        <Text style={{ fontSize: 18 }}>$ {(price * 1 + 29.99).toFixed(2)}</Text>
       </View>
       <Text style={{ alignSelf: "flex-end", color: "black" }}>
         * GST included

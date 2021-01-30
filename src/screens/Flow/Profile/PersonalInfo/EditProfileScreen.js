@@ -22,7 +22,11 @@ const EditProfileScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const profileData = useSelector((state) => state.Profile);
-  const [image, setImage] = useState(`${profileData.imageURL}`);
+  const [image, setImage] = useState(
+    profileData.imageURL
+      ? `${profileData.imageURL}`
+      : "https://image.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {

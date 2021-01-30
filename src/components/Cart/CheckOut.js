@@ -58,6 +58,7 @@ const CheckOut = ({ amount, setIsVisible }) => {
               navigation.navigate("PhoneNumber", {
                 checkOut: true,
               });
+              return;
             }
             navigation.navigate("CheckOut");
           }}

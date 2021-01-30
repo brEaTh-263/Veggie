@@ -18,7 +18,11 @@ import fonts from "../../../constants/fonts";
 import { FontAwesome } from "@expo/vector-icons";
 const ProfileScreen = () => {
   const profileData = useSelector((state) => state.Profile);
-  const [image, setImage] = useState(`${profileData.imageURL}`);
+  const [image, setImage] = useState(
+    profileData.imageURL
+      ? `${profileData.imageURL}`
+      : "https://image.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
+  );
   const token = useSelector((state) => state.Auth.token);
   const callCustomerCare = () => {
     let phoneNumber = "";
@@ -32,7 +36,11 @@ const ProfileScreen = () => {
     Linking.openURL(phoneNumber);
   };
   useEffect(() => {
-    setImage(`${profileData.imageURL}`);
+    setImage(
+      profileData.imageURL
+        ? `${profileData.imageURL}`
+        : "https://image.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg"
+    );
   }, [profileData, setImage]);
 
   if (token.length === 0) {

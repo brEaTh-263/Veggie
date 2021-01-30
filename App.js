@@ -10,10 +10,10 @@ import ReduxThunk from "redux-thunk";
 import AuthReducer from "./src/store/reducers/Auth";
 import ProfileReducer from "./src/store/reducers/Profile";
 import ProductsReducer from "./src/store/reducers/Products";
+import PaymentsReducer from "./src/store/reducers/Payments";
 import OrderReducer from "./src/store/reducers/Orders";
 import CartReducer from "./src/store/reducers/Cart";
 import AppNavigator from "./src/navigator/AppNavigator";
-import { enableScreens } from "react-native-screens";
 
 const rootReducer = combineReducers({
   Auth: AuthReducer,
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
   Products: ProductsReducer,
   Cart: CartReducer,
   Orders: OrderReducer,
+  Payments: PaymentsReducer,
 });
 
 const fetchFonts = () => {
