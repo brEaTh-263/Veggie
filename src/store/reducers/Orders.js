@@ -1,4 +1,4 @@
-import { ORDER_NOW } from "../actions/Orders";
+import { GET_ORDERS, ORDER_NOW } from "../actions/Orders";
 import { PROFILE_DATA } from "../actions/Profile";
 
 const initialState = {
@@ -15,6 +15,11 @@ export default (state = initialState, action) => {
     case PROFILE_DATA: {
       return {
         orders: action.profileData.orders,
+      };
+    }
+    case GET_ORDERS: {
+      return {
+        orders: action.orders,
       };
     }
     default: {

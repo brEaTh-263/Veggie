@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../../../components/General/Header";
 import OrderItem from "../../../components/General/OrderItem";
 import PicWithText from "../../../components/General/PicWithText";
@@ -8,9 +8,13 @@ import Colors from "../../../constants/Colors";
 import { Button } from "react-native-paper";
 import fonts from "../../../constants/fonts";
 import { StackActions } from "@react-navigation/native";
+import * as orderActions from "../../../store/actions/Orders";
 
 const OrdersScreen = ({ navigation }) => {
   const orders = useSelector((state) => state.Orders.orders);
+  const token = useSelector((state) => state.Auth.token);
+  const dispatch = useDispatch();
+
   if (orders.length === 0) {
     return (
       <PicWithText>

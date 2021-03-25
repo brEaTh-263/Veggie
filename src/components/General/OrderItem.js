@@ -32,7 +32,6 @@ const OrderItem = ({ item }) => {
     months[current_datetime.getMonth()] +
     "," +
     current_datetime.getFullYear();
-  console.log(formatted_date);
 
   const allProducts = useSelector((state) => state.Products.products);
 
@@ -45,7 +44,6 @@ const OrderItem = ({ item }) => {
     allProducts[productIndex].isKg = prod.isKg;
     return allProducts[productIndex];
   });
-  console.log(Dimensions.get("window").width);
   return (
     <TouchableOpacity
       onPress={() => {

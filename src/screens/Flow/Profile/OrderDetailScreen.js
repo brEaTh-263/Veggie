@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
   ScrollView,
@@ -6,20 +6,52 @@ import {
   Text,
   View,
   Image,
+  RefreshControl,
 } from "react-native";
 import Header from "../../../components/General/Header";
 import Colors from "../../../constants/Colors";
 import StepIndicator from "react-native-step-indicator";
 import fonts from "../../../constants/fonts";
 import AddressBar from "../../../components/Cart/AddressBar";
-const OrderDetailScreen = ({ route }) => {
-  const { order, date } = route.params;
-  const labels = ["Confirmed", "Processing", "On the Way", "Delivered"];
+import * as orderActions from "../../../store/actions/Orders";
+import { useSelector, useDispatch } from "react-redux";
 
-  const [currentPosition, setCurrentPosition] = useState(2);
+const OrderDetailScreen = ({ route }) => {
+  const token = useSelector((state) => state.Auth.token);
+  const { order, date } = route.params;
+  const dispatch = useDispatch();
+  const labels = ["Confirmed", "Processing", "On the Way", "Delivered"];
+  const [refreshing, setRefreshing] = useState(false);
+  const getOrders = async () => {
+    console.log("Called");
+    setRefreshing(true);
+    await dispatch(orderActions.getAllOrders(token));
+    let x = order.status.length - 1;
+    let index = labels.findIndex(
+      (label) => label === order.status[x].condition
+    );
+    setCurrentPosition(index);
+    console.log(currentPosition);
+    setRefreshing(false);
+  };
+  const [currentPosition, setCurrentPosition] = useState(0);
+
+  useEffect(() => {
+    console.log("Inside");
+    console.log(order.status);
+    let x = order.status.length - 1;
+    let index = labels.findIndex(
+      (label) => label === order.status[x].condition
+    );
+    setCurrentPosition(index);
+  });
+
   return (
     <View style={styles.container}>
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={getOrders} />
+        }
         data={order.products}
         keyExtractor={(item) => item._id}
         ListHeaderComponent={
