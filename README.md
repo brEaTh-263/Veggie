@@ -76,6 +76,34 @@ Using React Native and Node.js with MongoDB
   &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
 
+### Profile Tab
+#### Here, users can edit profile,i.e, their profile picture and phone number. Email cannot be edited.
+#### They can also manage their payment methods- add, edit or delete card details.
+#### User's history will also be visible here. One can view status or details of the orders made.
+#### They can add,edit or delete addresses. They can search for a specific location then locate on map for precise details.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/53737668/121209787-c6c02f00-c898-11eb-8aef-3db2955dc892.png" width="25%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/53737668/121209796-c7f15c00-c898-11eb-955f-7009181cbdaa.png" width="25%">
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/53737668/121209803-c9bb1f80-c898-11eb-833a-a025c6903b65.png" width="25%">
+</p>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/53737668/121209814-cb84e300-c898-11eb-9244-d3d24850cb12.png" width="25%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/53737668/121209826-cf186a00-c898-11eb-9e96-ac9ae65c682a.png" width="25%">
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/53737668/121209830-d0499700-c898-11eb-9e77-c8ad65a017c0.png" width="25%">
+</p>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/53737668/121209838-d17ac400-c898-11eb-8789-1486dee52446.png" width="25%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/53737668/121209850-d3dd1e00-c898-11eb-92f6-f80e7a3352c4.png" width="25%">
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="https://user-images.githubusercontent.com/53737668/121209860-d5a6e180-c898-11eb-9373-d50b88d0f80c.png" width="25%">
+</p>
+
 
 
 
