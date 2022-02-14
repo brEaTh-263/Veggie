@@ -1,13 +1,8 @@
 # Veggie
-An ecommerce store where users can buy organic products.
+An ecommerce store where users can buy organic products.It supports Android and IOS.
+Used React Native and Node.js with MongoDB.
 
-Supports Android and IOS.
-
-Used React Native and Node.js with MongoDB
-
-
-
-https://user-images.githubusercontent.com/53737668/123408599-caf38880-d5ca-11eb-82f0-1a5e6c9cac30.mp4
+Please find the demo of the project at https://www.keshavchhaparia.in/projects
 
 
 
